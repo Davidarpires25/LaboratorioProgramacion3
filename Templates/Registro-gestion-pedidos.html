@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion pedidos</title>
+</head>
+<body>
+    <h1>Gestion de Pedidos</h1>
+    <nav>
+        <a href="Home.html">Home</a>  
+    </nav>
+    <br><br>
+    <fieldset>
+        <section>
+            <h2>Registro de pedido</h2>
+            <form>
+                <label for="producto">Tipo de pedido</label>
+                <select name="producto" id="producto" required>
+                    <option value="" hidden>Seleccione</option>
+                    <option value="" >Producto</option>
+                    <option value="" >Insumo</option>
+    
+                </select>
+                <br><br>
+                <label for="cantidad">Cantidad</label>
+                <input type="number" name="cantidad" id="cantidad" required>
+                <br><br>
+                <label for="fechaSolicitud">Fecha de solicitud</label>
+                <input type="date" name="fechaSolicitud" id="fechaSolicitud" required>
+                <br><br>
+                <label for="numeroPedido">Numero de pedido</label>
+                <input type="number" name="numeroPedido" id="numeroPedido" required>
+                <br><br>
+                <label for="observaciones">Observaciones</label>
+                <br>
+                <textarea name="observaciones" id="observaciones" required></textarea>
+                <br><br>
+                <button>Enviar</button>
+            </form>
+        </section>
+
+    </fieldset>
+    
+    <br>
+    <footer>
+        Sitio Oficial de Panadería el Maná
+    </footer>
+    
+    
+</body>
+</html>
