@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de venta</title>
+</head>
+<body>
+    <h1>Gestion de ventas</h1>
+    <nav>
+        <a href="Home.html">Home</a>    
+    </nav>
+    <br>
+    <fieldset>
+        <h2>Registro de venta</h2> 
+        <form action="Home.html">
+            <label for="fecha_venta">Fecha de venta: </label>
+            <input type="date" id="fecha_venta" required><br><br>
+            <label for="tipo_venta">Tipo de venta:</label>
+            <select id="tipo_venta" required>
+                <option value="" hidden>Seleccione</option>
+                <option value="factura">Factura</option>
+                <option value="ticket">Ticket</option>
+            </select><br><br>
+            <label for="forma_pago">Forma de pago:</label>
+            <select id="forma_pago" required>
+                <option value="" hidden>Seleccione</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="tarjeta">Tarjeta</option>
+            </select><br><br>
+            <label for="tipo_comprobante">Tipo de comprobante:</label>
+            <select id="tipo_comprobante" required>
+                <option value="" hidden>Seleccione</option>
+                <option value="factura">Factura</option>
+                <option value="recibo">Recibo</option>
+            </select><br><br>
+            <label for="num_comprobante">Numero de comprobante:</label>
+            <input type="number" id="num_comprobante" required>
+            <p>Observaciones:</p>
+            <textarea id="observaciones"></textarea><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </fieldset>
+    <br>
+    <footer>
+        Sitio Oficial de Panadería el Maná
+    </footer>
+</body>
+</html>
