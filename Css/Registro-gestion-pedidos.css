@@ -1,0 +1,51 @@
+
+
+body{
+    background-color: #1c1c1d;
+    
+}
+
+section div .card-header{
+    background-color: #d88d22;
+    color: white;
+  
+}
+
+
+button:hover[type="submit"]{
+    background-color: #b3741d;
+    border-color: #d88c2255;
+
+}
+
+
+button[type="submit"]{
+    
+
+    border-color: #d88c2255;
+    background-color: #d88d22;
+}
+
+
+button:active{
+    background-color: #925f18;
+    border-color: #d88c2255;
+    color: black;
+}
+
+.navbar{
+    background-color: #d88d22;
+    position: relative;
+    
+}
+.navbar a{
+    color: white;
+}
+
+footer{
+    background-color: #d88d22;
+    color: white;
+}
+footer p{
+    color: white;
+}
