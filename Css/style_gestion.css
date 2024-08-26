@@ -6,6 +6,10 @@ section div .card-header{
   
 }
 
+.card{
+    background-color: rgba(255, 255, 255, 0.64);
+}
+
 
 button:hover[type="submit"]{
     background-color: #b3741d;
