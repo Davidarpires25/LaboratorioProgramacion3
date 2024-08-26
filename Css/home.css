@@ -23,7 +23,7 @@ section h2{
 
 /*#212529*/
 .navbar{
-    background-color: #b3741d;
+    background-color: #d88d22;
     position: relative;
     z-index: 3;
 }
@@ -32,11 +32,11 @@ section h2{
 }
 
 .navbar li{
-    background-color: #b3741d;
+    background-color: #d88d22;
     display: block;
 }
 .navbar ul{
-    background-color: #b3741d;
+    background-color: #d88d22;
  
 }
 main{
@@ -102,7 +102,7 @@ button:active{
 }
 
 footer{
-    background-color: #b3741d;
+    background-color: #d88d22;
     position: absolute;
     bottom: 0;
     width: 100%;
