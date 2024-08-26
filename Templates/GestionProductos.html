@@ -2,43 +2,115 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../Css/style_gestion.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <title>Gestión de Productos</title>
     </head>
     
     <body>
 
-        <h1>Gestión de Productos</h1>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
 
-        <form action="" method="post">
+                <a class="navbar-brand" href="#"><h3>Panadería El Maná</h3></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">Registro de Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">Registro de Pedidos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-            <label for="id_producto">ID de producto:</label>
-            <input required type="number" id="id_producto" name="ID de producto">
-            <br><br>
+        <section class="container mt-5">
+            <div class="card shadow-sm ">
 
-            <label>Categoria de producto:</label><br>
-            <input required type="radio" name="categoria_producto" value="Panificación">
-            <label>Panificación</label><br>
-            <input required type="radio" name="categoria_producto" value="Pastelería">
-            <label>Pastelería</label>
-            <br><br>
+                <div class="card-header navbar-dark ">
+                    <h1 class="h3 mb-0">Gestión de Productos</h1>
+                </div>
+                <div class="card-body">
+                    <form id="pedidoForm" class="needs-validation" novalidate>
 
-            <label for="desc_producto">Descripción del producto:</label>
-            <input type="text" id="desc_producto" name="Descripción de producto">
-            <br><br>
+                        <div class="row g-3">
 
-            <label for="costo_producto">Precio del producto:</label>
-            <input type="number" id="costo_producto" name="Costo de producto">
-            <br><br>
+                            <div class="col-md-6">
+                                <label for="id_producto">ID de producto:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">#</span>
+                                    <input type="number" class="form-control" id="id_producto" name="id_producto" required>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-6">
 
-            <label for="cant_producto">Cantidad disponible:</label>
-            <input type="number" id="cant_producto" name="Cantidad disponible de producto">
-            <br><br>
+                                <label>Categoria de producto:</label><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="categoria_producto" id="categoria_panificacion">
+                                    <label class="form-check-label" for="categoria_panificacion">
+                                        Panificación
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="categoria_producto" id="categoria_pasteleria">
+                                    <label class="form-check-label" for="categoria_pasteleria">
+                                        Pastelería
+                                    </label>
+                                </div>
 
-            <input type="submit" value="Agregar">
-            <input type="submit" value="Editar">
-            <input type="submit" value="Eliminar">
-            <br><br>
+                            </div>
 
-        </form>
+                            <div class="col-md-6">
+                                <label for="desc_producto">Descripción del producto:</label>
+                                <input type="text" class="form-control" id="desc_producto" name="Descripción de producto" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="costo_producto">Precio del producto:</label>
+                                <input type="number" class="form-control" id="costo_producto" name="Costo de producto" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="cant_producto">Cantidad disponible:</label>
+                                <input type="number" class="form-control" id="cant_producto" name="Cantidad disponible de producto" required>
+                            </div>
+    
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="bi bi-send me-2"></i>Agregar
+                            </button>
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="bi bi bi-pen me-2"></i>Editar
+                            </button>
+                            <button type="submit" class="btn btn-primary ">
+                                <i class="bi bi-trash me-2"></i>Eliminar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-3 mt-4 fixed-bottom" >
+            <div class="card-footer container text-center">
+                <p class=" mb-0">&copy; 2023 Panadería El Mana. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
     </body>
 </html>
