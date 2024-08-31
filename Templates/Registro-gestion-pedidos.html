@@ -35,7 +35,8 @@
                 <h1 class="h3 mb-0">Gestión de Pedidos</h1>
             </div>
             <div class="card-body">
-                <form id="pedidoForm" class="needs-validation" novalidate>
+                
+                <form id="pedidosForm"  >
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="producto" class="form-label">Tipo de pedido</label>
@@ -49,8 +50,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+
                             <label for="cantidad" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" required  >
                             <div class="invalid-feedback">
                                 Por favor, ingrese la cantidad.
                             </div>
@@ -69,7 +71,7 @@
                             <label for="numeroPedido" class="form-label">Número de pedido</label>
                             <div class="input-group">
                                 <span class="input-group-text">#</span>
-                                <input type="number" class="form-control" id="numeroPedido" name="numeroPedido" required>
+                                <input type="number" class="form-control " id="numeroPedido" name="numeroPedido" required>
                                 <div class="invalid-feedback">
                                     Por favor, ingrese el número de pedido.
                                 </div>
@@ -99,7 +101,6 @@
         </div>
     </footer>
 
-
-   
+    <script src="../Scripts/Registro-gestion-pedidos.js"></script>
 </body>
 </html>
