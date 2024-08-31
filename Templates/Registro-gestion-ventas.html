@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#"><h3>Panadería El Maná</h3></a>
+            <a class="navbar-brand" href="Home.html"><h3>Panadería El Maná</h3></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -96,12 +96,14 @@
                             <label for="numeroComprobante" class="form-label">Número de Comprobante</label>
                             <div class="input-group">
                                 <span class="input-group-text">#</span>
-                                <input type="text" class="form-control" id="numeroComprobante" required>
+                                <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
                                 <div class="invalid-feedback">
                                     Por favor, ingrese el número de comprobante.
                                 </div>
+                                <span id="spanError" class="desactivado"></span>
                             </div>
                         </div>
+                        
                         <div class="col-12">
                             <label for="observaciones" class="form-label">Observaciones</label>
                             <textarea class="form-control" id="observaciones" rows="3" placeholder="Ingrese cualquier observación adicional aquí..."></textarea>
@@ -125,5 +127,6 @@
             <p class=" mb-0">&copy; 2023 Panadería El Mana. Todos los derechos reservados.</p>
         </div>
     </footer>
+    <script src="../Scripts/script_ventas.js"></script>
 </body>
 </html>
