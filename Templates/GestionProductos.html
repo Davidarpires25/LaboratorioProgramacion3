@@ -43,7 +43,7 @@
                     <h1 class="h3 mb-0">Gestión de Productos</h1>
                 </div>
                 <div class="card-body">
-                    <form id="pedidoForm" class="needs-validation" novalidate>
+                    <form id="productoForm" class="needs-validation">
 
                         <div class="row g-3">
 
@@ -51,7 +51,7 @@
                                 <label for="id_producto">ID de producto:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">#</span>
-                                    <input type="number" class="form-control" id="id_producto" name="id_producto" required>
+                                    <input type="number" class="form-control" id="id_producto" name="id_producto" min="1" required>
                                 </div>
                             </div>
     
@@ -75,29 +75,29 @@
 
                             <div class="col-md-6">
                                 <label for="desc_producto">Descripción del producto:</label>
-                                <input type="text" class="form-control" id="desc_producto" name="Descripción de producto" required>
+                                <input type="text" class="form-control" id="desc_producto" name="Descripción de producto">
                             </div>
 
                             <div class="col-md-6">
                                 <label for="costo_producto">Precio del producto:</label>
-                                <input type="number" class="form-control" id="costo_producto" name="Costo de producto" required>
+                                <input type="number" class="form-control" id="costo_producto" name="Costo de producto" min="1" max="99999">
                             </div>
 
                             <div class="col-md-6">
                                 <label for="cant_producto">Cantidad disponible:</label>
-                                <input type="number" class="form-control" id="cant_producto" name="Cantidad disponible de producto" required>
+                                <input type="number" class="form-control" id="cant_producto" name="Cantidad de producto" min="1">
                             </div>
     
                         </div>
 
                         <div class="mt-4">
-                            <button type="submit" class="btn btn-primary ">
+                            <button type="submit" name="Agregar" class="btn btn-primary" id="boton_agregar">
                                 <i class="bi bi-send me-2"></i>Agregar
                             </button>
-                            <button type="submit" class="btn btn-primary ">
+                            <button type="submit" name="Editar" class="btn btn-primary" id="boton_editar">
                                 <i class="bi bi bi-pen me-2"></i>Editar
                             </button>
-                            <button type="submit" class="btn btn-primary ">
+                            <button type="submit" name="Eliminar" class="btn btn-primary" id="boton_eliminar">
                                 <i class="bi bi-trash me-2"></i>Eliminar
                             </button>
                         </div>
@@ -112,5 +112,6 @@
             </div>
         </footer>
 
+        <script src="../Scripts/Validacion-GestionProductos.js"></script>
     </body>
 </html>
