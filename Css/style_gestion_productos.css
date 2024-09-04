@@ -1,0 +1,10 @@
+html,body{
+    height: 100%;
+}
+
+
+body{
+    background-image: url("../Img/productos.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

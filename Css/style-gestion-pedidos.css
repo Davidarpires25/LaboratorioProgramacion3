@@ -1,8 +1,12 @@
+html,body{
+    height: 100%;
+}
 
 
 body{
-    background-color: #1c1c1d;
-    
+    background-image: url("../Img/tpmkd3k3zkahwv2evybf.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 section div .card-header{
