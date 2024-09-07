@@ -46,6 +46,17 @@
                 <form id="ventaForm" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-md-6">
+                            <label for="tipoVenta" class="form-label">Categoria de Venta</label>
+                            <select class="form-select" id="tipoVenta" required>
+                                <option value="" hidden>Seleccione...</option>
+                                <option value="minorista">Minorista</option>
+                                <option value="mayorista">Mayorista</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, seleccione el tipo de venta.
+                            </div>
+                        </div>  
+                        <div class="col-md-6">
                             <label for="fechaVenta" class="form-label">Fecha de Venta</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar"></i></span>
@@ -60,6 +71,7 @@
                             <select class="form-select" id="tipoVenta" required>
                                 <option value="" hidden>Seleccione...</option>
                                 <option value="contado">Contado</option>
+                                <option value="transferencia">Transferencia</option>
                                 <option value="credito">Crédito</option>
                                 <option value="otro">Otro</option>
                             </select>
@@ -97,13 +109,9 @@
                             <div class="input-group">
                                 <span class="input-group-text">#</span>
                                 <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
-                                <div class="invalid-feedback">
-                                    Por favor, ingrese el número de comprobante.
-                                </div>
                                 <span id="spanError" class="desactivado"></span>
                             </div>
-                        </div>
-                        
+                        </div>                     
                         <div class="col-12">
                             <label for="observaciones" class="form-label">Observaciones</label>
                             <textarea class="form-control" id="observaciones" rows="3" placeholder="Ingrese cualquier observación adicional aquí..."></textarea>

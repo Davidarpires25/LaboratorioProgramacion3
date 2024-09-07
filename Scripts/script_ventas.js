@@ -1,6 +1,6 @@
 const d = document;
 const $formulario = d.getElementById("ventaForm");
-
+let valido = false;
 
 function controlFecha(){
     const $fechaSolicitud= document.getElementById("fechaVenta");
@@ -29,12 +29,18 @@ function validacionNroComprobante(nroComprobante){
 }
 
 function validarTeclas(key){
-    return !(key >= 48 && key <= 59 || key === 8 || key === 13);
+    return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
 }
+
+d.addEventListener("change", function(e){
+    valido = validacionNroComprobante($formulario.nroComprobante);
+});
 
 d.addEventListener("submit", function(e){
     e.preventDefault();
-    validacionNroComprobante($formulario.nroComprobante);
+    if(valido){
+        console.log("bien")
+    }
 });
 
 $formulario.nroComprobante.addEventListener("keydown", function(keyEvent){
