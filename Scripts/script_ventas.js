@@ -2,6 +2,17 @@ const d = document;
 const $formulario = d.getElementById("ventaForm");
 let valido = false;
 
+function inputMayorista(){
+    const $divMayorista = d.querySelector("div .mayorista");
+    $divMayorista.innerHTML = $formulario.catgVenta.value === "mayorista" ? `<label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
+    <div class="input-group">
+        <span class="input-group-text">M</span>
+        <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
+        <span id="spanError" class="desactivado"></span>
+    </div>` : "";
+}
+
+
 function controlFecha(){
     const $fechaSolicitud= document.getElementById("fechaVenta");
     const fechaActual = new Date().toISOString().split('T')[0];
@@ -33,7 +44,12 @@ function validarTeclas(key){
 }
 
 d.addEventListener("change", function(e){
-    valido = validacionNroComprobante($formulario.nroComprobante);
+    if(e.target === $formulario.nroComprobante){
+        valido = validacionNroComprobante($formulario.nroComprobante);
+    }
+    if(e.target === $formulario.catgVenta){
+        inputMayorista();
+    }
 });
 
 d.addEventListener("submit", function(e){

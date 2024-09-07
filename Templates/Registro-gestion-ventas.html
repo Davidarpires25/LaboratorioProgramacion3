@@ -47,14 +47,11 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="tipoVenta" class="form-label">Categoria de Venta</label>
-                            <select class="form-select" id="tipoVenta" required>
+                            <select class="form-select" id="CategoriaVenta" name="catgVenta" required>
                                 <option value="" hidden>Seleccione...</option>
                                 <option value="minorista">Minorista</option>
                                 <option value="mayorista">Mayorista</option>
                             </select>
-                            <div class="invalid-feedback">
-                                Por favor, seleccione el tipo de venta.
-                            </div>
                         </div>  
                         <div class="col-md-6">
                             <label for="fechaVenta" class="form-label">Fecha de Venta</label>
@@ -111,7 +108,15 @@
                                 <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
                                 <span id="spanError" class="desactivado"></span>
                             </div>
-                        </div>                     
+                        </div>
+                        <div class="col-md-6 mayorista">
+                            <!-- <label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
+                            <div class="input-group">
+                                <span class="input-group-text">M</span>
+                                <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
+                                <span id="spanError" class="desactivado"></span>
+                            </div> -->
+                        </div>                    
                         <div class="col-12">
                             <label for="observaciones" class="form-label">Observaciones</label>
                             <textarea class="form-control" id="observaciones" rows="3" placeholder="Ingrese cualquier observación adicional aquí..."></textarea>
