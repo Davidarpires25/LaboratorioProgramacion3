@@ -7,7 +7,10 @@ function inputMayorista(){
     $divMayorista.innerHTML = $formulario.catgVenta.value === "mayorista" ? `<label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
     <div class="input-group">
         <span class="input-group-text">M</span>
-        <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
+        <select class="form-select" id="nombreMayorista" name="mayorista" required>
+        <option value="" hidden>Seleccione...</option>
+        </select>
+
         <span id="spanError" class="desactivado"></span>
     </div>` : "";
 }
