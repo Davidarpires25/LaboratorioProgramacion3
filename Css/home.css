@@ -124,3 +124,6 @@ footer p{
 }
 
 
+.dropdown-item{
+    --bs-dropdown-link-active-bg: #925f18;
+}

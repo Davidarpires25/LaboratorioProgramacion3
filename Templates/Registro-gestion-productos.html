@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
 
-                <a class="navbar-brand" href="#"><h3>Panadería El Maná</h3></a>
+                <a class="navbar-brand" href="Home.html"><h3>Panadería El Maná</h3></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -24,13 +24,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Inicio</a>
+                            <a class="nav-link" href="Home.html">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#">Registro de Ventas</a>
+                            <a class="nav-link " href="Registro-gestion-ventas.html">Registro de Ventas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#">Registro de Pedidos</a>
+                            <a class="nav-link " href="Registro-gestion-pedidos.html">Registro de Pedidos</a>
                         </li>
                     </ul>
                 </div>
@@ -45,17 +45,15 @@
                 </div>
                 <div class="card-body">
                     <form id="productoForm" class="needs-validation">
-
                         <div class="row g-3">
-
                             <div class="col-md-6">
-                                <label for="desc_producto">Descripción del producto:</label>
+                                <label for="desc_producto" class="form-label">Descripción del producto:</label>
                                 <input type="text" class="form-control" id="desc_producto" name="Descripción de producto">
                             </div>
     
                             <div class="col-md-6">
 
-                                <label>Categoria de producto:</label><br>
+                                <label for="categoria_panificacion" class="form-label">Categoria de producto:</label><br>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="categoria_producto" id="categoria_panificacion">
                                     <label class="form-check-label" for="categoria_panificacion">
@@ -72,25 +70,25 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="costo_producto">Precio del producto:</label>
+                                <label for="costo_producto" class="form-label">Precio del producto:</label>
                                 <input type="number" class="form-control" id="costo_producto" name="Costo de producto" min="1" max="99999">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="cant_producto">Cantidad disponible:</label>
+                                <label for="cant_producto" class="form-label">Cantidad disponible:</label>
                                 <input type="number" class="form-control" id="cant_producto" name="Cantidad de producto" min="1">
                             </div>
     
                         </div>
 
                         <div class="mt-4">
-                            <button type="submit" name="Agregar" class="btn btn-primary" id="boton_agregar">
+                            <button type="submit" name="Agregar"  id="boton_agregar">
                                 <i class="bi bi-send me-2"></i>Agregar
                             </button>
-                            <button type="submit" name="Editar" class="btn btn-primary" id="boton_editar">
+                            <button type="submit" name="Editar" id="boton_editar">
                                 <i class="bi bi bi-pen me-2"></i>Editar
                             </button>
-                            <button type="submit" name="Eliminar" class="btn btn-primary" id="boton_eliminar">
+                            <button type="submit" name="Eliminar" id="boton_eliminar">
                                 <i class="bi bi-trash me-2"></i>Eliminar
                             </button>
                         </div>
