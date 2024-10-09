@@ -4,7 +4,7 @@ html,body{
 
 
 body{
-    background-image: url("../Img/gestion_ventas/xb183nah8klkmj8nsinr.jpg");
+    background-image: url("{% static 'img/gestion_ventas/ventas1.jpg' %}");
     background-size: cover;
     background-repeat: no-repeat;
 }

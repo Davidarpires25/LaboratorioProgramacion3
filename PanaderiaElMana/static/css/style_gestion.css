@@ -7,7 +7,9 @@ section div .card-header{
 }
 
 .card{
-    background-color: rgba(255, 255, 255, 0.64);
+    background-color: rgba(61, 47, 47, 0.4);;
+    color: white;
+    
 }
 
 
@@ -29,25 +31,16 @@ button[type="submit"]{
 }
 
 
-button:active:hover{
+button:active:hover[type=""]{
     background-color: #925f18;
     border-color: #d88c2255;
     color: rgb(255, 255, 255);
 }
 
-.navbar{
-    background-color: #d88d22;
-    position: relative;
-    
-}
-.navbar a{
-    color: white;
-}
 
-footer{
-    background-color: #d88d22;
-    color: white;
-}
 footer p{
     color: white;
+}
+a {
+    text-decoration: none;
 }

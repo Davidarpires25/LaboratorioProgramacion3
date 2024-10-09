@@ -4,9 +4,10 @@ html,body{
 
 
 body{
-    background-image: url("../Img/tpmkd3k3zkahwv2evybf.jpg");
+    background-image: url("../img/pedidos.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+  
 }
 
 section div .card-header{
@@ -37,19 +38,6 @@ button:active{
     color: black;
 }
 
-.navbar{
-    background-color: #d88d22;
-    position: relative;
-    
-}
-.navbar a{
-    color: white;
-}
-
-footer{
-    background-color: #d88d22;
-    color: white;
-}
-footer p{
-    color: white;
+a {
+    text-decoration: none;
 }

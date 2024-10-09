@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); 
 
 ::after,
 ::before {
@@ -33,7 +33,6 @@ body {
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    background-color: #fafbfe;
 }
 
 #sidebar {
@@ -47,7 +46,7 @@ body {
 }
 
 #sidebar.expand {
-    width: 260px;
+    width: 300px;
     min-width: 260px;
 }
 
@@ -65,6 +64,10 @@ body {
 
 .sidebar-logo {
     margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .sidebar-logo a {
@@ -139,4 +142,6 @@ a.sidebar-link:hover {
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
     transition: all .2s ease-out;
+    
+
 }
