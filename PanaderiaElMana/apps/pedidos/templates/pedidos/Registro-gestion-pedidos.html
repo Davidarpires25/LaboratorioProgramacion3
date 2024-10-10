@@ -6,117 +6,126 @@
     <title>Gestión de Pedidos - Panadería El Maná</title>
     {% extends 'base.html' %}
     {% load static %}
+    {% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style-gestion-pedidos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_gestion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+
     
 
 
     
 </head>
 <body>
-    {% block content %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'css/style-gestion-pedidos.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style_gestion.css' %}">
-    <section class="container mt-5">
-        <form id="pedidosForm"  ></form>
+    <main>
+		<form action="" class="formulario" id="formulario">
+            <div class="card-header navbar-dark ">
 
-            <div class="card ">
-                <div class="card-header navbar-dark ">
-                    <h1 class="h3 mb-0">Gestión de Pedidos</h1>
-                </div>
-                <div class="card-body ">
-                    <div class="row g-3 ">
-                        <div class="col-md-3">
-                            <label for="numeroPedido" class="form-label ">Número de pedido</label>
-                            <div class="input-group">
-                                <span class="input-group-text">#</span>
-                                <input type="number" class="form-control " id="numeroPedido" name="numeroPedido" required>
-                                <div class="invalid-feedback">
-                                    Por favor, ingrese el número de pedido.
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-3">
-                            <label for="observaciones" class="form-label">insumo</label>
-                            <select class="form-select" id="insumo" name="insumo" required>
-                                <option value="" selected disabled hidden>Seleccione</option>
-                                
-                            </select>
-                            <div class="invalid-feedback">
-                                Por favor, ingrese el proveedor.
-                            </div>
-                        </div>
-                        
-                    
-                    
+                <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Pedido</h1>
+            </div>
+            <div class="form-background">
+                <!-- Grupo: numeroPedido -->
+                <div class="formulario__grupo" id="grupo__numeroPedido">
+                    <label for="numeroPedido" class="formulario__label">Nro de pedido</label>
+                    <div class="formulario__grupo-input">
+                        <input type="number" class="formulario__input" name="numeroPedido" id="numeroPedido" placeholder="#2123" disabled>
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label for="fechaSolicitud" class="form-label">Fecha de solicitud</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                                <input type="date" class="form-control" id="fechaSolicitud" name="fechaSolicitud" required>
-                                <div class="invalid-feedback">
-                                    Por favor, seleccione la fecha de solicitud.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-
-                            <label for="cantidad" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control" id="cantidad" name="cantidad" required  >
-                            <div class="invalid-feedback">
-                                Por favor, ingrese la cantidad.
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="row g-3">
-                        <div class=" col-3">
-                            <label for="observaciones" class="form-label">Proveedor</label>
-                            <select class="form-select" id="proveedor" name="proveedor" required>
-                                <option value="" selected disabled hidden>Seleccione</option>
-                                
-                            </select>
-                            <div class="invalid-feedback">
-                                Por favor, ingrese el proveedor.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-3">
-                            <label for="observaciones" class="form-label">Observaciones</label>
-                            <textarea class="form-control" id="observaciones" name="observaciones" rows="3" required></textarea>
-                            <div class="invalid-feedback">
-                                Por favor, ingrese las observaciones.
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
-                    
-                
-            </div>
-            <div class="mt-4">
-                <button type="submit">
-                    <i class="bi bi-send me-2"></i>Enviar Pedido
-                </button>
-            </div>
-    </form>
+                <!-- Grupo: insumo -->
+                <div class="formulario__grupo" id="grupo__insumo">
+                    <label for="insumo" class="formulario__label">Insumo</label>
+                    <div class="formulario__grupo-input">
+                        <select class="formulario__input" id="insumo" name="insumo" required>
+                            <option value="Seleccione" selected disabled hidden>Seleccione</option>            
+                        </select>
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">seleccione un insumo.</p>
+                </div>
 
+                <!-- Grupo: Fecha -->
+                <div class="formulario__grupo" id="grupo__fechaSolicitud">
+                    <label for="fechaSolicitud" class="formulario__label">Fecha</label>
+                    <div class="formulario__grupo-input">
+                        <input type="date" class="formulario__input" name="fechaSolicitud" id="fechaSolicitud">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Fecha incorrecta.</p>
+                </div>
+
+                <!-- Grupo: cantidad -->
+                <div class="formulario__grupo" id="grupo__cantidad">
+                    <label for="cantidad" class="formulario__label">Cantidad</label>
+                    <div class="formulario__grupo-input">
+                        <input type="number" class="formulario__input" name="cantidad" id="cantidad" placeholder="#1,2,3...">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Ingrese solamente numeros.</p>
+                </div>
+
+                <!-- Grupo: Proveedor -->
+                <div class="formulario__grupo" id="grupo__proveedor">
+                    <label for="proveedor" class="formulario__label">Proveedor</label>
+                    <div class="formulario__grupo-input">
+                        <select class="formulario__input" name="proveedor" id="proveedor" required>
+                            <option value="Seleccione" selected disabled hidden>Seleccione</option>
+                        </select>
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Ingrese un proveedor.</p>
+                </div>
+                       
+                <div class="formulario__grupo" >
+                    <p>Agregar insumo                               <a href=""><i class="fa-solid fa-square-plus fa-2xl" style="color: #63E6BE;"></i></a></p>
+                    <p>Lista de insumos Agregados                  <a href=""><i class="fa-solid fa-rectangle-list fa-2xl" style="color: #ffffff;"></a></i></p>
+
+                </div>
+                <div class="formulario__grupo" id="grupo__observaciones">
+                    <label for="observaciones" class="formulario__label">Observaciones</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input" name="observaciones" id="observaciones" placeholder="ta bueno">
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
+                </div>
+           
+
+                <div class="formulario__mensaje" id="formulario__mensaje">
+                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                </div>
+                <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+                    <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
+                </div>
+            </div>
+			
+
+			<div class="formulario__grupo formulario__grupo-btn-enviar">
+				<button type="submit" class="formulario__btn"> <i class="bi bi-send me-2"></i>Guardar Pedido</button>
+                <button type="button" class="formulario__btn"> <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>Modificar Pedido</button>
+			</div>
+		</form>
         
-    </section>
+	</main>
 
-    <footer class="py-3 mt-4 fixed-bottom" >
+
+
+
+
+
+    
+    <footer class="py-1 mt-8 fixed-bottom">
         <div class="card-footer container text-center">
-            <p class=" mb-0">&copy; 2023 Panadería El Mana. Todos los derechos reservados.</p>
+            <p class=" mb-0">&copy; 2024 Panadería El Mana. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script src="../Scripts/Registro-gestion-pedidos.js"></script>
+    <script src="{% static 'scripts/Registro-gestion-pedidos.js'%}"></script>
     {% endblock%}
 
 </html>

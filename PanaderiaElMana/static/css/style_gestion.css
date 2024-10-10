@@ -7,8 +7,10 @@ section div .card-header{
 }
 
 .card{
-    background-color: rgba(61, 47, 47, 0.4);;
+    background-color: rgba(61, 47, 47, 0.4);
     color: white;
+
+ 
     
 }
 
@@ -31,15 +33,22 @@ button[type="submit"]{
 }
 
 
-button:active:hover[type=""]{
+button:active:hover[type="submit"]{
     background-color: #925f18;
     border-color: #d88c2255;
     color: rgb(255, 255, 255);
 }
 
 
+footer{
+
+   
+    margin: 0px 100px 0px 100px;
+    align-content: center;
+}
 footer p{
     color: white;
+    
 }
 a {
     text-decoration: none;

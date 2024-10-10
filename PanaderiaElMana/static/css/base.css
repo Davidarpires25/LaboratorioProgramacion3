@@ -46,9 +46,10 @@ body {
 }
 
 #sidebar.expand {
-    width: 300px;
+    width: 270px;
     min-width: 260px;
 }
+
 
 .toggle-btn {
     background-color: transparent;
