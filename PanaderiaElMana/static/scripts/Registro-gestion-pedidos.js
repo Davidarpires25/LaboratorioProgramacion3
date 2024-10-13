@@ -12,9 +12,39 @@ const camposPedidos = {
 
 
 document.addEventListener("DOMContentLoaded", (e)=>{
+    const $main= document.querySelector('#main')
+    const $tabla= document.querySelector('#tabla')
     const $formulario= document.querySelector('#formulario')
-   
+    const $tablaTitulo= document.querySelector('.table-title')
     controlFecha();
+    
+
+    $formulario.addEventListener("click", (e) => {
+      
+        
+        if(e.target.matches("#listarInsumos")){
+            console.log("boie")
+        
+            $formulario.setAttribute('hidden','');
+            $tabla.removeAttribute('hidden');
+            $tablaTitulo.removeAttribute('hidden');
+                
+        }
+       
+    });
+
+    $main.addEventListener("click", (e) => {
+        console.log("diste clicks")
+        if(e.target.matches("#btn-tabla")){
+            console.log("Entro")
+            $formulario.removeAttribute('hidden');
+            $tabla.setAttribute('hidden','');
+            $tablaTitulo.setAttribute("hidden",'');
+            
+        }
+   
+    });
+    
     $formulario.addEventListener("keyup", (e) => { 
             if(e.target.matches("#observaciones")){
                 
