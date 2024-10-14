@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ventas - Panadería El Sabor</title>
+    {% extends 'base.html' %}
+    {% load static %}
+    {%block css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style_gestion_venta.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_gestion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {%endblock%}
+</head>
+{% block content %}
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="Home.html"><h3>Panadería El Maná</h3></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Home.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="Registro-gestion-pedidos.html">Pedidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro-gestion-productos.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Informes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h1 class="h3 mb-0">Registro de Ventas</h1>
+            </div>
+            <div class="card-body">
+                <form id="ventaForm" class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="tipoVenta" class="form-label">Categoria de Venta</label>
+                            <select class="form-select" id="CategoriaVenta" name="catgVenta" required>
+                                <option value="" hidden>Seleccione...</option>
+                                <option value="minorista">Minorista</option>
+                                <option value="mayorista">Mayorista</option>
+                            </select>
+                        </div>  
+                        <div class="col-md-6">
+                            <label for="fechaVenta" class="form-label">Fecha de Venta</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input type="date" class="form-control" id="fechaVenta" required>
+                                <div class="invalid-feedback">
+                                    Por favor, seleccione la fecha de venta.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tipoVenta" class="form-label">Tipo de Venta</label>
+                            <select class="form-select" id="tipoVenta" required>
+                                <option value="" hidden>Seleccione...</option>
+                                <option value="contado">Contado</option>
+                                <option value="transferencia">Transferencia</option>
+                                <option value="credito">Crédito</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, seleccione el tipo de venta.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="formaPago" class="form-label">Forma de Pago</label>
+                            <select class="form-select" id="formaPago" required>
+                                <option value="" hidden>Seleccione...</option>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="tarjeta">Tarjeta</option>
+                                <option value="transferencia">Transferencia</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, seleccione la forma de pago.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tipoComprobante" class="form-label">Tipo de Comprobante</label>
+                            <select class="form-select" id="tipoComprobante" required>
+                                <option value="" hidden>Seleccione...</option>
+                                <option value="factura">Factura</option>
+                                <option value="ticket">Ticket</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, seleccione el tipo de comprobante.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="numeroComprobante" class="form-label">Número de Comprobante</label>
+                            <div class="input-group">
+                                <span class="input-group-text">#</span>
+                                <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
+                                <span id="spanError" class="desactivado"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mayorista">
+                            <!-- <label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
+                            <div class="input-group">
+                                <span class="input-group-text">M</span>
+                                <input type="text" class="form-control" id="numeroComprobante" name="nroComprobante" required>
+                                <span id="spanError" class="desactivado"></span>
+                            </div> -->
+                        </div>                    
+                        <div class="col-12">
+                            <label for="observaciones" class="form-label">Observaciones</label>
+                            <textarea class="form-control" id="observaciones" rows="3" placeholder="Ingrese cualquier observación adicional aquí..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button type="submit">
+                            <i class="bi bi-save me-2"></i>Registrar Venta
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="generarComprobante" data-bs-toggle="tooltip" data-bs-placement="top" title="Genera el comprobante oficial para AFIP">
+                            <i class="bi bi-file-earmark-text me-2"></i>Generar Comprobante AFIP
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<!--     
+    <div class="table-title">Lista de insumos agregados</div>
+    <div class="table-container"> -->
+        <!-- <table >
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Insumo</th>
+                    <th>Cantidad</th>
+                    <th>Total unitario</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Id">1</td>
+                    <td data-label="Insumo">Harina</td>
+                    <td data-label="Cantidad">4</td>
+                    <td data-label="Total unitario">$100</td>
+                    <td data-label="Accion">
+                        <div class="action-buttons">
+                            <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
+                            <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Id">2</td>
+                    <td data-label="Insumo">Trigo</td>
+                    <td data-label="Cantidad">3</td>
+                    <td data-label="Total unitario">$200</td>
+                    <td data-label="Accion">
+                        <div class="action-buttons">
+                            <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
+                            <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Id">3</td>
+                    <td data-label="Insumo">Sal</td>
+                    <td data-label="Cantidad">4</td>
+                    <td data-label="Total unitario">$50</td>
+                    <td data-label="Accion">
+                        <div class="action-buttons">
+                            <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
+                            <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Id">4</td>
+                    <td data-label="Insumo">Azucar</td>
+                    <td data-label="Cantidad">5</td>
+                    <td data-label="Total unitario">$50</td>
+                    <td data-label="Accion" class="action-buttons">
+                        <div class="action-buttons">
+                            <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
+                            <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                
+                <tr class="total-row" id="foot-tr">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td >TOTAL: $400</td>
+                </tr>
+            </tfoot>
+        </table> -->
+        <button type="button" class="table-buttons">Volver</button>
+    </div>
+
+    <footer class="py-3 mt-4 fixed-bottom" >
+        <div class="card-footer container text-center">
+            <p class=" mb-0">&copy; 2023 Panadería El Mana. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    {% endblock%}
+    <!-- {% block js %}<script src="{% static 'scripts/script_ventas.js' %}"></script> {% endblock %} -->
+</body>
+</html>
