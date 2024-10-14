@@ -1,5 +1,4 @@
 
-
 const expresionesPedidos = {
 	observaciones: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	cantidad: /^.{1,90}$/, // 1 a 90 digitos.

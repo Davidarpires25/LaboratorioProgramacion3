@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Ventas - Panadería El Sabor</title>
+    {% extends 'base.html' %}
+    {% load static %}
+    {%block css %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../Css/style_gestion.css">
-    <link rel="stylesheet" href="../Css/style_gestion_venta.css">
-    <link rel="stylesheet" href="../Css/style_gestion_venta.css">
-
-
+    <link rel="stylesheet" href="{% static 'css/style_gestion_venta.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_gestion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {%endblock%}
 </head>
+{% block content %}
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -135,10 +138,10 @@
         </div>
     </section>
 
-    
+<!--     
     <div class="table-title">Lista de insumos agregados</div>
-    <div class="table-container">
-        <table >
+    <div class="table-container"> -->
+        <!-- <table >
             <thead>
                 <tr>
                     <th>Id</th>
@@ -208,7 +211,7 @@
                     <td >TOTAL: $400</td>
                 </tr>
             </tfoot>
-        </table>
+        </table> -->
         <button type="button" class="table-buttons">Volver</button>
     </div>
 
@@ -217,6 +220,7 @@
             <p class=" mb-0">&copy; 2023 Panadería El Mana. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script src="../Scripts/script_ventas.js"></script>
+    {% endblock%}
+    <!-- {% block js %}<script src="{% static 'scripts/script_ventas.js' %}"></script> {% endblock %} -->
 </body>
 </html>

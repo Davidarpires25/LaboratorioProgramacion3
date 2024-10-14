@@ -1,7 +1,6 @@
 const d = document;
-const $formulario = d.getElementById("ventaForm");
+const $formulario = d.getElementById("formulario");
 let valido = false;
-
 function inputMayorista(){
     const $divMayorista = d.querySelector("div .mayorista");
     $divMayorista.innerHTML = $formulario.catgVenta.value === "mayorista" ? `<label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
@@ -62,9 +61,9 @@ d.addEventListener("submit", function(e){
     }
 });
 
-$formulario.nroComprobante.addEventListener("keydown", function(keyEvent){
-    if(validarTeclas(keyEvent.keyCode)) keyEvent.preventDefault();
-})
+// $formulario.nroComprobante.addEventListener("keydown", function(keyEvent){
+//     if(validarTeclas(keyEvent.keyCode)) keyEvent.preventDefault();
+// })
 
 d.addEventListener("DOMContentLoaded", function(e){
     controlFecha();

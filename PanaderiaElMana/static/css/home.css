@@ -95,10 +95,10 @@ button[type="submit"]{
 }
 
 
-button:active{
+button:active:hover{
     background-color: #925f18;
     border-color: #d88c2255;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 footer{

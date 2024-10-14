@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('base/', TemplateView.as_view(template_name='base.html'), name='base'),
-    path('pedidos/', include('apps.pedidos.urls', namespace='pedidos'))
+    path('pedidos/', include('apps.pedidos.urls', namespace='pedidos')),
+    path('ventas/', include('apps.ventas.urls', namespace='ventas'))
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
