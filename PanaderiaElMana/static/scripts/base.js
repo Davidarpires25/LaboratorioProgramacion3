@@ -1,5 +1,5 @@
 const hamBurger = document.querySelector(".toggle-btn");
-
+const $sidebar = document.getElementById("sidebar");
 hamBurger.addEventListener("click", function () {
   document.querySelector("#sidebar").classList.toggle("expand");
 });
@@ -19,6 +19,17 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+document.addEventListener("mouseover", function(e){
+  if(e.target.matches(".sidebar-link") && !($sidebar.classList.contains("expand"))){
+    console.log("asa")
+    const parteAbajo = e.target.nextElementSibling;
+    e.target.classList.toggle("collapsed")
+    parteAbajo.classList.toggle("show")
+    e.target.dataset.collapsed = false;
+  }
+});
+
 
 // document.addEventListener("click", function(e) {
 //   if (e.target.matches(".sidebar-link")) {
