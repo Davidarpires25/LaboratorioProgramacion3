@@ -1,9 +1,9 @@
-const botones = document.querySelectorAll('#productoForm button')
+const botones = document.querySelectorAll('#formulario button')
 botones.forEach(boton => {
     boton.addEventListener('click',validar)
 });
 
-const formulario = document.getElementById('productoForm');
+const formulario = document.getElementById('formulario');
 
 function validar(e){
     e.preventDefault();

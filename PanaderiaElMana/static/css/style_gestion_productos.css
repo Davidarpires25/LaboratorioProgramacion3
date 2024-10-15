@@ -4,7 +4,21 @@ html,body{
 
 
 body{
-    background-image: url("../img/productos.jpg'");
+    background-image: url("../img/productos.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+button[type="submit"] {
+    text-align: center;
+    border-color: #d88c2255;
+    background-color: #fc8213;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: inline;
+}
+
+.form-background{
+    border-style: groove;
+    border-color: #fc8213;
 }
