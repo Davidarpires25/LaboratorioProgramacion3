@@ -62,6 +62,9 @@
                         <p class="formulario__input-error">Ingrese un proveedor.</p>
                     </div>
                            
+                    <div class="formulario__grupo mayorista">
+
+                    </div> 
                     <div class="formulario__mensaje" id="formulario__mensaje">
                         <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
                     </div>
@@ -74,7 +77,7 @@
                     <div class="formulario__grupo" id="grupo__numeroPedido">
                         <label for="numeroPedido" class="formulario__label">Nro De Comprobante</label>
                         <div class="formulario__grupo-input">
-                            <input type="number" class="formulario__input" name="nroComprobante" id="numeroComprobante" placeholder="#">
+                            <input type="number" class="formulario__input" name="nroComprobante" id="numeroComprobante" placeholder="#" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -151,7 +154,7 @@
                         <p>Agregar Producto <i id="agregarProducto" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
                         <p>Lista de Productos Agregados <i id="listarProductos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
                     </div>                
-    
+
                     <div class="formulario__mensaje" id="formulario__mensaje">
                         <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
                     </div>
@@ -164,25 +167,26 @@
 			<div class="formulario__grupo formulario__grupo-btn-enviar">
 				<button type="submit" class="formulario__btn"><i class="bi bi-cart4  me-2"></i>Registrar Venta</button>
 			</div>
+    
 		</form>
 
 
-        <div class="table-title"  hidden>Lista de insumos agregados</div>
+        <div class="table-title" hidden>Lista de insumos agregados</div>
         <div class="table-container" id="tabla" hidden>
             <table >
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Insumo</th>
+                        <th>Producto</th>
                         <th>Cantidad</th>
-                        <th>Total unitario</th>
+                        <th>Precio unitario</th>
                         <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td data-label="Id">1</td>
-                        <td data-label="Insumo">Harina</td>
+                        <td data-label="Producto">Harina</td>
                         <td data-label="Cantidad">4</td>
                         <td data-label="Total unitario">$100</td>
                         <td data-label="Accion">
@@ -194,7 +198,7 @@
                     </tr>
                     <tr>
                         <td data-label="Id">2</td>
-                        <td data-label="Insumo">Trigo</td>
+                        <td data-label="Producto">Trigo</td>
                         <td data-label="Cantidad">3</td>
                         <td data-label="Total unitario">$200</td>
                         <td data-label="Accion">
@@ -206,7 +210,7 @@
                     </tr>
                     <tr>
                         <td data-label="Id">3</td>
-                        <td data-label="Insumo">Sal</td>
+                        <td data-label="Producto">Sal</td>
                         <td data-label="Cantidad">4</td>
                         <td data-label="Total unitario">$50</td>
                         <td data-label="Accion">
@@ -218,7 +222,7 @@
                     </tr>
                     <tr>
                         <td data-label="Id">4</td>
-                        <td data-label="Insumo">Azucar</td>
+                        <td data-label="Producto">Azucar</td>
                         <td data-label="Cantidad">5</td>
                         <td data-label="Total unitario">$50</td>
                         <td data-label="Accion" class="action-buttons">
@@ -235,8 +239,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td>TOTAL: $400</td>
                         <td></td>
-                        <td >TOTAL: $400</td>
                     </tr>
                 </tfoot>
     

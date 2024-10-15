@@ -1,12 +1,13 @@
 const d = document;
+const $main= document.querySelector('#main')
 const $formulario = d.getElementById("formulario");
 let valido = false;
 function inputMayorista(){
     const $divMayorista = d.querySelector("div .mayorista");
-    $divMayorista.innerHTML = $formulario.catgVenta.value === "mayorista" ? `<label for="numeroComprobante" class="form-label">Nombre del mayorista</label>
-    <div class="input-group">
-        <span class="input-group-text">M</span>
-        <select class="form-select" id="nombreMayorista" name="mayorista" required>
+    $divMayorista.innerHTML = $formulario.catgVenta.value === "mayorista" ?
+    `<label for="numeroComprobante" class="formulario__label" style="color:white;">Nombre del mayorista</label>
+    <div class="formulario__grupo-input">
+        <select class="formulario__input" id="nombreMayorista" name="mayorista" required>
         <option value="" hidden>Seleccione...</option>
         </select>
 
@@ -29,9 +30,10 @@ function controlFecha(){
 };
 
 function validacionNroComprobante(nroComprobante){
-    const $span = d.getElementById("spanError");
+    const $span = $formulario.nroComprobante.nextElementSibling;
     let soloNumeros = /^\d+$/;
     if(!soloNumeros.test(nroComprobante.value)){
+        console.error("sadas")
         $span.classList.remove("desactivado");
         $span.innerText = "Formato invalido!"
         return false;
@@ -67,4 +69,26 @@ d.addEventListener("submit", function(e){
 
 d.addEventListener("DOMContentLoaded", function(e){
     controlFecha();
+
 })
+
+
+$main.addEventListener("click", (e) => {
+    const $tabla= document.querySelector('#tabla')
+    const $tablaTitulo= document.querySelector('.table-title')
+    if(e.target.matches("#listarProductos")){
+        console.log("Entro")
+        $formulario.setAttribute('hidden','');
+        $tabla.removeAttribute('hidden');
+        $tablaTitulo.removeAttribute("hidden");
+        
+    }
+    if(e.target.matches("#btn-tabla")){
+        const $tabla= document.querySelector('#tabla')
+        const $tablaTitulo= document.querySelector('.table-title')
+        console.log("Entro")
+        $formulario.removeAttribute('hidden');
+        $tabla.setAttribute('hidden','');
+        $tablaTitulo.setAttribute("hidden",'');        
+    }
+});
