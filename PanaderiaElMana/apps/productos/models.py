@@ -12,7 +12,7 @@ class Producto(models.Model):
     CATEGORIA_CHOICES = [
         ('PAN', 'Panificación'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('PAS', 'Pastelería'),
-        ('INS', 'Insumo'),
+
     ]
     
 
