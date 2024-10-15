@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% extends 'base.html' %}
+        {% load static %}
+        {% block css %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style_gestion.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'css/style_gestion_productos.css' %}">
+        <link rel="stylesheet" href="{% static 'css/form.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <title>Gestión de Productos</title>
+    </head>
+    {% block content %}
+    <body>
+        <main id="main">
+            <form id="formulario" class="needs-validation formulario">
+                <div class="card-header navbar-dark ">
+                    <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Producto</h1>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-background">
+
+                        <div class="formulario__grupo" id="grupo__descripcion">
+                            <label for="desc_producto" class="formulario__label">Descripción del producto</label>
+                            <div class="formulario__grupo-input">
+                                <input type="text" class="formulario__input" name="desc_producto" id="desc_producto">
+                            </div>
+                        </div>
+                        
+                        <div class="formulario__grupo" id="grupo__categoria">
+                            <label for="categoria_panificacion" class="formulario__label">Categoria de producto</label>
+                            <div class="formulario__grupo-input">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="categoria_producto" id="categoria_panificacion">
+                                    <label class="form-check-label" for="categoria_panificacion" style="color: #ffffff">
+                                        Panificación
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="categoria_producto" id="categoria_pasteleria">
+                                    <label class="form-check-label" for="categoria_pasteleria" style="color: #ffffff">
+                                        Pastelería
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="costo_producto" class="formulario__label">Precio del producto</label>
+                            <div class="formulario__grupo-input">
+                                <input type="number" class="formulario__input" name="Costo de producto" id="costo_producto">
+                            </div>
+                        </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
+                            <div class="formulario__grupo-input">
+                                <input type="number" class="formulario__input" name="Cantidad de producto" id="cant_producto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formulario__grupo formulario__grupo-btn-enviar">
+                    <button type="submit" name="Agregar" id="boton_agregar" class="formulario__btn"><i class="bi bi-send me-2"></i>Agregar</button>
+                    <button type="submit" name="Editar" id="boton_editar" class="formulario__btn"><i class="fa-solid fa-pen-to-square fa-sm me-2"></i>Editar</button>
+                    <button type="submit" name="Eliminar" id="boton_eliminar" class="formulario__btn"><i class="bi bi-trash me-2"></i>Eliminar</button>
+                </div>
+                
+            </form>
+        </main>
+
+
+        <footer class="py-3 mt-4 fixed-bottom" >
+            <div class="card-footer container text-center">
+                <p class=" mb-0">&copy; 2024 Panadería El Mana. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+        {% endblock %}
+
+        {% block js %}
+        <script src="{% static 'scripts/Validacion-GestionProductos.js'%}"></script>
+        {% endblock %}
+    </body>
+</html>
