@@ -16,12 +16,6 @@ section div .card-header{
   
 }
 
-/* 
-.formulario__grupo-btn-enviar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-} */
 
 button[type="submit"] {
     text-align: center;
@@ -48,38 +42,7 @@ button:active[type="submit"]{
 
 }
 
-/* button[class="btn-modificar"][type="button"]{
-    
-    padding: 0.375rem 0.75rem ;
-    border-color: #84898e;
-    background-color: #84898e;
-} */
 
-
-
-/* button:hover[class="btn-modificar"][type="button"]{
-    background-color: rgb(92, 92, 92);
-    border-color: #d88c2255;
-
-} */
-
-
-
-/* button[class="btn-modificar"][type="button"]:active{
-    background-color: #474747;
-    border-color: #d88c2255;
-
-} */
-/* .btn-modificar{
-    height: 50px;
-	line-height: 20px;
-	width: 30%;
-	color: #fff;
-	border: none;
-	border-radius: 8px;
-	transition: .1s ease all;
-	margin-right: 30px;
-} */
 h1{
     transform: translate(-35%, 0px);    
 }
@@ -107,4 +70,92 @@ h1{
 
 .desactivado{
     display: none;
+}
+
+/* Media query para resoluciones más pequeñas */
+@media (max-width: 1306px) {
+    h1{
+        transform: translate(35%, 0px);    
+    }
+    .form-container {
+        grid-template-columns: 1fr; /* Cambia a una sola columna */
+        transform: none; /* Elimina la traslación en resoluciones pequeñas */
+    }
+
+    .form-container .form-background:nth-child(3) {
+        grid-column: span 1; /* Hace que ocupe solo una columna */
+        justify-self: stretch; /* Alinea el div al ancho completo */
+    }
+    .formulario__btn{
+        transform: translateX(-50px);
+    }
+}
+
+@media (max-width: 800px){
+    .formulario__btn{
+        transform: translateX(10px);
+    }    
+}
+
+@media (max-width: 755px) {
+
+    .form-container {
+        gap: 10px; /* Reduce el espacio entre los div */
+    }
+
+    .form-background {
+        padding: 10px;
+        width: 100%; /* Ocupa el 100% del ancho */
+    }
+
+    .form-background .formulario__input,
+    .form-background select,
+    .form-background input,
+    .form-background button {
+        font-size: 14px; 
+        padding: 8px;
+    }
+
+    /*tamaño de los íconos*/
+    .form-background .formulario__validacion-estado {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 490px){
+    .form-background input[type="date"]{
+        transform: translateY(24px);        
+    }
+}
+
+@media (max-width: 435px) {
+    .form-container {
+        gap: 5px; 
+    }
+
+    .form-background {
+        padding: 5px;
+        width: 100%; 
+    }
+
+
+    .form-background .formulario__input,
+    .form-background select,
+    .form-background input,
+    .form-background button {
+        font-size: 12px; 
+        padding: 2px; 
+    }
+
+   
+    .form-background .formulario__validacion-estado {
+        font-size: 6px;
+    }
+
+    label,p{
+        font-size: small;
+    }
+    .form-background input[type="date"]{
+        transform: translateY(-2px);        
+    }
 }

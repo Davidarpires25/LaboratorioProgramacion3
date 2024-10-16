@@ -17,15 +17,16 @@ function inputMayorista(){
 
 
 function controlFecha(){
-    const $fechaSolicitud= document.getElementById("fechaVenta");
+    const $fechaVenta= document.getElementById("fechaVenta");
+    console.log($fechaVenta.getBoundingClientRect())
     const fechaActual = new Date().toISOString().split('T')[0];
     let fechaLimite = new Date();
-    $fechaSolicitud.value = fechaActual;
+    $fechaVenta.value = fechaActual;
     fechaLimite.setMonth(fechaLimite.getMonth() - 1)
     fechaLimite = fechaLimite.toISOString().split('T')[0];
 
-    $fechaSolicitud.setAttribute("min",fechaLimite);
-    $fechaSolicitud.setAttribute("max",fechaActual);
+    $fechaVenta.setAttribute("min",fechaLimite);
+    $fechaVenta.setAttribute("max",fechaActual);
 
 };
 
@@ -63,13 +64,10 @@ d.addEventListener("submit", function(e){
     }
 });
 
-// $formulario.nroComprobante.addEventListener("keydown", function(keyEvent){
-//     if(validarTeclas(keyEvent.keyCode)) keyEvent.preventDefault();
-// })
 
 d.addEventListener("DOMContentLoaded", function(e){
     controlFecha();
-
+    console.log($formulario.catgVenta.getBoundingClientRect())
 })
 
 
