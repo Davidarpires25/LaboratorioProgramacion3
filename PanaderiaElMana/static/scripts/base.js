@@ -1,5 +1,6 @@
 const hamBurger = document.querySelector(".toggle-btn");
 const $sidebar = document.getElementById("sidebar");
+
 hamBurger.addEventListener("click", function () {
   document.querySelector("#sidebar").classList.toggle("expand");
 });
@@ -18,17 +19,29 @@ document.addEventListener("click", function (e) {
       }
     }
   }
+  if(e.target === document.getElementById("btnExpand") || e.target === document.getElementById("iconoExpand")){
+    const $sidebarLinks = document.querySelectorAll("a.sidebar-link.collapsed.has-dropdown")
+    for(let sbLink of $sidebarLinks){
+      if(sbLink.nextElementSibling.classList.contains("show")){
+        sbLink.nextElementSibling.classList.remove("show");
+        sbLink.dataset.collapsed = true;
+        sbLink.nextElementSibling.style.height = "0px"
+      }
+    }
+  }
 });
 
 document.addEventListener("mouseover", function(e){
-  if(e.target.matches(".sidebar-link") && !($sidebar.classList.contains("expand"))){
-    console.log("asa")
+  
+  if(e.target.matches("a.sidebar-link.collapsed.has-dropdown") && !($sidebar.classList.contains("expand"))){
     const parteAbajo = e.target.nextElementSibling;
-    e.target.classList.toggle("collapsed")
-    parteAbajo.classList.toggle("show")
+    parteAbajo.classList.add("show")
     e.target.dataset.collapsed = false;
+    parteAbajo.style.height = parteAbajo.scrollHeight + "px"
   }
 });
+
+
 
 
 // document.addEventListener("click", function(e) {
