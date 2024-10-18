@@ -115,14 +115,15 @@
                         <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
                     </div>
                 </div>
-                <div class="form-background">
+                <div class="form-background grupoProducto">
                     <!-- Grupo: Producto -->
-                    <div class="formulario__grupo" id="grupo__numeroPedido">
+                    <div class="formulario__grupo" id="grupo__producto">
                         <label for="numeroPedido" class="formulario__label">Producto</label>
                         <div class="formulario__grupo-input">
                             <div class="formulario__grupo-input">
                                 <select class="formulario__input" id="producto" name="producto" required>
-                                    <option value="Seleccione" selected disabled hidden>Seleccione</option>            
+                                    <option value="" hidden>Seleccione</option>
+                                    <option value="manzana">Manzana</option>            
                                 </select>
                                 <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
@@ -131,10 +132,10 @@
                     </div>
     
                     <!-- Grupo: Precio -->
-                    <div class="formulario__grupo" id="grupo__cantidad">
+                    <div class="formulario__grupo" id="grupo__precio">
                         <label for="cantidad" class="formulario__label">Precio</label>
                         <div class="formulario__grupo-input">
-                            <input type="number" class="formulario__input" name="precio" id="precio">
+                            <input type="text" class="formulario__input" name="precio" id="precio">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese solamente numeros.</p>
@@ -144,15 +145,15 @@
                     <div class="formulario__grupo" id="grupo__cantidad">
                         <label for="cantidad" class="formulario__label">Cantidad (Kg)</label>
                         <div class="formulario__grupo-input">
-                            <input type="number" class="formulario__input" name="cantidad" id="cantidad" placeholder="#1,2,3...">
+                            <input type="text" class="formulario__input" name="cantidad" id="cantidad" placeholder="#1,2,3...">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese solamente numeros.</p>
                     </div>
     
                     <div class="formulario__grupo" >
-                        <p>Agregar Producto <i id="agregarProducto" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
-                        <p>Lista de Productos Agregados <i id="listarProductos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
+                        <p>Agregar Producto <i id="agregarProducto" class="fa-solid fa-square-plus fa-2xl btn-insumo"></i></p>
+                        <p>Lista de Productos Agregados <i id="listarProductos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo"></i></p>
                     </div>                
 
                     <div class="formulario__mensaje" id="formulario__mensaje">
@@ -184,62 +185,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td data-label="Id">1</td>
-                        <td data-label="Producto">Harina</td>
-                        <td data-label="Cantidad">4</td>
-                        <td data-label="Total unitario">$100</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">2</td>
-                        <td data-label="Producto">Trigo</td>
-                        <td data-label="Cantidad">3</td>
-                        <td data-label="Total unitario">$200</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">3</td>
-                        <td data-label="Producto">Sal</td>
-                        <td data-label="Cantidad">4</td>
-                        <td data-label="Total unitario">$50</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">4</td>
-                        <td data-label="Producto">Azucar</td>
-                        <td data-label="Cantidad">5</td>
-                        <td data-label="Total unitario">$50</td>
-                        <td data-label="Accion" class="action-buttons">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
                 <tfoot>
-                    
                     <tr class="total-row" id="foot-tr">
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>TOTAL: $400</td>
+                        <td id="totalRow"></td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -266,6 +218,9 @@
         </div>
     </footer>
     {% endblock%}
-    {% block js %}<script src="{% static 'scripts/script_ventas.js' %}"></script>{% endblock %}   
+    {% block js %}
+    <script src="{% static 'scripts/gestion_ventas/script_ventas.js' %}"></script>
+    <script src="{% static 'scripts/gestion_ventas/script_ventas_productos.js' %}"></script>
+    {% endblock %}   
 </body>
 </html>

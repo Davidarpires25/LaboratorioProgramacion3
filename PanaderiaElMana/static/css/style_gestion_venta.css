@@ -72,6 +72,30 @@ h1{
     display: none;
 }
 
+#agregarProducto{
+    color: #63E6BE;
+}
+
+#agregarProducto:hover{
+    color: #45be99;
+}
+
+#agregarProducto:hover:active{
+    color: #2b9473;
+}
+
+#listarProductos{
+    color: #ffffff;
+}
+
+#listarProductos:hover{
+    color: #dddddd;
+}
+
+#listarProductos:hover:active{
+    color: #bdbdbd;
+}
+
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     h1{

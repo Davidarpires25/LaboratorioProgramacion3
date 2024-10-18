@@ -18,7 +18,6 @@ function inputMayorista(){
 
 function controlFecha(){
     const $fechaVenta= document.getElementById("fechaVenta");
-    console.log($fechaVenta.getBoundingClientRect())
     const fechaActual = new Date().toISOString().split('T')[0];
     let fechaLimite = new Date();
     $fechaVenta.value = fechaActual;
@@ -34,7 +33,6 @@ function validacionNroComprobante(nroComprobante){
     const $span = $formulario.nroComprobante.nextElementSibling;
     let soloNumeros = /^\d+$/;
     if(!soloNumeros.test(nroComprobante.value)){
-        console.error("sadas")
         $span.classList.remove("desactivado");
         $span.innerText = "Formato invalido!"
         return false;
@@ -67,7 +65,6 @@ d.addEventListener("submit", function(e){
 
 d.addEventListener("DOMContentLoaded", function(e){
     controlFecha();
-    console.log($formulario.catgVenta.getBoundingClientRect())
 })
 
 
