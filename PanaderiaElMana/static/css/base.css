@@ -159,9 +159,18 @@ a.sidebar-link:hover {
     height: 0;
     overflow: hidden;
     transition: height 0.7s ease, opacity 0.7s ease;
-    opacity: 0; /* Comienza con opacidad 0 */
+    opacity: 0;
 }
 
 .sidebar-dropdown.show {
-    opacity: 1; /* Cambia la opacidad al mostrar */
+    opacity: 1;
+}
+
+
+a.sidebar-link.collapsed.has-dropdown.oculto::after{
+    visibility: hidden;
+}
+
+#logoMana{
+    cursor: pointer;
 }

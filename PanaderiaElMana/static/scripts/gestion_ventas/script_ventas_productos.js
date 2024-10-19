@@ -59,22 +59,24 @@ function validarCantidad(c){
 }
 
 function obtenerProducto(){
+    const $id = document.querySelector("input[type='hidden']#idProducto").value;
     const $producto = document.querySelector(`${$grupoProducto} #producto`).value
     const $precio = document.querySelector(`${$grupoProducto} #precio`).value
     const $cantidad = document.querySelector(`${$grupoProducto} #cantidad`).value
     if(validarProducto($producto), validarPrecio($precio), validarCantidad($cantidad)){
-        return {nombre:$producto, precio: $precio, cantidad: $cantidad}
+        return {id:$id, nombre:$producto, precio: $precio, cantidad: $cantidad}
     }
+    return false;
 }
 
 function cargarProducto(){
     let productoNuevo = obtenerProducto()
     if(productoNuevo){
         listaProductos.push(productoNuevo);
+        document.querySelector(`${$grupoProducto} #producto`).value = "";
+        document.querySelector(`${$grupoProducto} #precio`).value = "";
+        document.querySelector(`${$grupoProducto} #cantidad`).value = "";   
     }
-    document.querySelector(`${$grupoProducto} #producto`).value = "";
-    document.querySelector(`${$grupoProducto} #precio`).value = "";
-    document.querySelector(`${$grupoProducto} #cantidad`).value = "";    
 }
 
 
@@ -86,7 +88,7 @@ function cargarListaProductos(){
     for(let producto of listaProductos){
         formato +=
         `<tr>
-            <td data-label = "Id">555</td>
+            <td data-label = "Id">${producto.id}</td>
             <td data-label = "Producto">${producto.nombre}</td>
             <td data-label = "Cantidad">${producto.cantidad}</td>
             <td data-label = "Precio">${producto.precio}</td>
@@ -98,7 +100,7 @@ function cargarListaProductos(){
             </td>
         </tr>
         `
-        total += (parseFloat(producto.precio));
+        total += (parseFloat(producto.precio)) * parseInt(producto.cantidad);
     }
     $tbody.innerHTML = formato;
     $totalRow.innerHTML = `TOTAL: ${total.toFixed(2)}`;
