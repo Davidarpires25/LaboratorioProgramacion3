@@ -1,3 +1,6 @@
+const $botonAgregarInsumo = document.getElementById("agregarInsumo");
+const $botonVerInsumos = document.getElementById("listarInsumos")
+const listaInsumos = [];
 
 const expresionesPedidos = {
 	observaciones: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -9,9 +12,51 @@ const camposPedidos = {
 	
 }
 
+function obtenerInsumo(){
+    const $insumo = document.querySelector('.formulario__input#insumo').value
+    const $cantidad = document.querySelector('.formulario__input#cantidad').value
+    //los campos id y precio se deben leer de un input hidden, este input hidden obtendrá los datos de la base de datos de insumo 😎
+    const $id = document.querySelector("input[type='hidden']#idInsumo").value
+    const $precio = document.querySelector("input[type='hidden']#precioInsumo").value;
+    return {id:$id, nombre:$insumo, cantidad: $cantidad, precio:$precio}
+}
+
+function cargarInsumo(){
+    let productoNuevo = obtenerInsumo()
+    if(productoNuevo){
+        listaInsumos.push(productoNuevo);
+        document.querySelector('.formulario__input#insumo').value = "";
+        document.querySelector('.formulario__input#cantidad').value = "";   
+    }
+}
+
+function cargarListaInsumos(){
+    const $tbody = document.querySelector("table tbody")
+    const $totalRow = document.querySelector("tfoot #totalRow");
+    let total = 0;
+    let formato = "";
+    for(let insumo of listaInsumos){
+        formato +=
+        `<tr>
+            <td data-label = "Id">555</td>
+            <td data-label = "Producto">${insumo.nombre}</td>
+            <td data-label = "Cantidad">${insumo.cantidad}</td>
+            <td data-label = "Precio">${insumo.precio}</td>
+            <td data-label="Accion">
+                <div class="action-buttons">
+                    <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
+                    <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+                </div>
+            </td>
+        </tr>
+        `
+        total += (parseFloat(insumo.precio)) * parseInt(insumo.cantidad);
+    }
+    $tbody.innerHTML = formato;
+    $totalRow.innerHTML = `TOTAL: ${total.toFixed(2)}`;
+}
 
 document.addEventListener("DOMContentLoaded", (e)=>{
-    const $main= document.querySelector('#main')
     const $tabla= document.querySelector('#tabla')
     const $formulario= document.querySelector('#formulario')
     const $tablaTitulo= document.querySelector('.table-title')
@@ -22,8 +67,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
       
         
         if(e.target.matches("#listarInsumos")){
-            console.log("boie")
-        
             $formulario.setAttribute('hidden','');
             $tabla.removeAttribute('hidden');
             $tablaTitulo.removeAttribute('hidden');
@@ -31,18 +74,12 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         }
        
     });
-
-    $main.addEventListener("click", (e) => {
-        console.log("diste clicks")
-        if(e.target.matches("#btn-tabla")){
-            console.log("Entro")
-            $formulario.removeAttribute('hidden');
-            $tabla.setAttribute('hidden','');
-            $tablaTitulo.setAttribute("hidden",'');
-            
-        }
-   
-    });
+    //boton volver atras
+    document.getElementById("btn-tabla").addEventListener("click", function(e){
+        $formulario.removeAttribute('hidden');
+        $tabla.setAttribute('hidden','');
+        $tablaTitulo.setAttribute("hidden",'');
+    })
     
     $formulario.addEventListener("keyup", (e) => { 
             if(e.target.matches("#observaciones")){
@@ -103,12 +140,6 @@ function controlFecha(){
 
 };
 
-
-
-
-
-
-
 function validarCampo(expresion, input, campo){
     if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
@@ -127,3 +158,14 @@ function validarCampo(expresion, input, campo){
 	}
     
 }
+
+
+
+document.addEventListener("click", function(e){
+    if(e.target === $botonAgregarInsumo){
+        cargarInsumo();
+    }
+    if(e.target === $botonVerInsumos){
+        cargarListaInsumos()
+    }
+});
