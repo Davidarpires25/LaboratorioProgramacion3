@@ -170,3 +170,7 @@ a.sidebar-link:hover {
 a.sidebar-link.collapsed.has-dropdown.oculto::after{
     visibility: hidden;
 }
+
+#logoMana{
+    cursor: pointer;
+}
