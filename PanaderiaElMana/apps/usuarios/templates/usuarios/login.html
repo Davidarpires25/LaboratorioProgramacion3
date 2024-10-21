@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content%}
+    <header id="home">
+        <h1>Login de Usuario</h1>
+        <p>Ingrese sus credenciales para Ingresaral Sistema</p>
+    </header>
+    <hrclass="w-75">
+    <br>
+    {% if msj%}
+    <div>{{ msj}}</div>
+    {% endif%}
+        {% csrf_token%}
+        <form action="{% url 'usuario:login' %}" method="post" class="w-75">
+        <div class="mb-3">
+            <label class="form-label" for="username">Nombrede Usuario: </label>
+            <input type="text" id="username" name="username" class="form-control" >
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="passw">Contraseña: </label>
+            <input type="password" id="passw" name="password" class="form-control" >
+        </div>
+            <input type="submit" class="btnbtn-primary" value="Login">
+        </form>
+    {% endblock %}
+    
+</body>
+</html>

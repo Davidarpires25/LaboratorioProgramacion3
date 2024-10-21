@@ -29,6 +29,8 @@ urlpatterns = [
     path('base/', TemplateView.as_view(template_name='base.html'), name='base'),
     path('pedidos/', include('apps.pedidos.urls', namespace='pedidos')),
     path('ventas/', include('apps.ventas.urls', namespace='ventas')),
-    path('productos/', include('apps.productos.urls', namespace='productos'))
+    path('productos/', include('apps.productos.urls', namespace='productos')),
+    path('', include('apps.usuarios.urls', namespace='usuario'))
+
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
