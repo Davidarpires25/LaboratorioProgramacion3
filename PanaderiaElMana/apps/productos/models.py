@@ -9,12 +9,14 @@ class Producto(models.Model):
     precio= models.FloatField()
     cantidad= models.FloatField()
     estado=models.BooleanField(default=False)
+    
     CATEGORIA_CHOICES = [
         ('PAN', 'Panificación'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('PAS', 'Pastelería'),
 
     ]
-    
+    categoria = models.CharField(max_length=15, choices=CATEGORIA_CHOICES)
+
 
     def __str__(self):
         return f"Descripcion: {self.descripcion} Precio: {self.precio} Cantidad:{self.cantidad} Estado: {self.estado}Categorizacion: {self.CATEGORIA_CHOICES}"
