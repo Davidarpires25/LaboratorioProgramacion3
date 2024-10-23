@@ -24,7 +24,7 @@ class Insumo(models.Model):
     estado=models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Descripcion: {self.descripcion} Precio: {self.precio,} Cantidad:{self.cantidad} Estado: {self.estado}"
+        return f"{self.descripcion}"
 
 
 
@@ -35,7 +35,6 @@ class Pedido(models.Model):
     fecha_pedido= models.DateField(auto_now=True)
     observaciones= models.TextField(max_length=100 ,blank=True, null=True)
     cantidad= models.FloatField(blank=False)
-    insumos= models.ManyToManyField(Insumo)
     proveedor= models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     
 
@@ -44,14 +43,14 @@ class Pedido(models.Model):
 
 
 
-class ItemInsumo():
+class ItemInsumo(models.Model):
     pedido= models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    Insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
+    insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
     cantidad= models.IntegerField()
     precio= models.FloatField()
 
 
-class recepcionPedidos():
+class recepcionPedidos(models.Model):
     fecha_llegada=models.DateField(auto_now=True)
     observacion= models.TextField(max_length=100 ,blank=True, null=True)
     conformidad= models.BooleanField()
