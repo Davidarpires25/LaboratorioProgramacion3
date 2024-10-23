@@ -37,7 +37,8 @@
                     <label for="insumo" class="formulario__label">Insumo</label>
                     <div class="formulario__grupo-input">
                         <select class="formulario__input" id="insumo" name="insumo" required>
-                            <option value="Seleccione" selected disabled hidden>Seleccione</option>            
+                            <option value="Seleccione" hidden>Seleccione</option> 
+                            <option value="Poleeenta">Poleenta</option>           
                         </select>
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
@@ -122,54 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td data-label="Id">1</td>
-                        <td data-label="Insumo">Harina</td>
-                        <td data-label="Cantidad">4</td>
-                        <td data-label="Total unitario">$100</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">2</td>
-                        <td data-label="Insumo">Trigo</td>
-                        <td data-label="Cantidad">3</td>
-                        <td data-label="Total unitario">$200</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">3</td>
-                        <td data-label="Insumo">Sal</td>
-                        <td data-label="Cantidad">4</td>
-                        <td data-label="Total unitario">$50</td>
-                        <td data-label="Accion">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Id">4</td>
-                        <td data-label="Insumo">Azucar</td>
-                        <td data-label="Cantidad">5</td>
-                        <td data-label="Total unitario">$50</td>
-                        <td data-label="Accion" class="action-buttons">
-                            <div class="action-buttons">
-                                <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                                <button class="action-button delete-button"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+
                 </tbody>
                 <tfoot>
                     
@@ -178,18 +132,19 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td >TOTAL: $400</td>
+                        <td id="totalRow">TOTAL: $400</td>
                     </tr>
                 </tfoot>
     
     
             </table>
             <button type="button" class="table-buttons" id="btn-tabla" >
-                <i class="fa-solid fa-left-long fa-xl" style="color: #ffffff;"></i>Volver
+                <i class="fa-solid fa-left-long fa-xl" style="color: #ffffff;"></i><span>Volver</span>
             </button>
     
         </div>
-    
+        <input type="hidden" id="idInsumo" value="55">
+        <input type="hidden" id="precioInsumo" value="20">
         
 	</main>
     

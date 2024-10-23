@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/LogoPanaderia.png' %}"/>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -19,22 +20,22 @@
     <div class="wrapper">
         <aside id="sidebar">
             <div class="d-flex">
-                <button class="toggle-btn" type="button">
-                    <i class="lni lni-grid-alt"></i>
+                <button class="toggle-btn" type="button" id="btnExpand">
+                    <i class="lni lni-grid-alt" id="iconoExpand"></i>
                 </button>
                 
             </div>
             <div class="sidebar-logo">
-                <img src="{% static 'img/logoPanaderia.png' %}" alt="" width="150" height="150">
+                <img src="{% static 'img/logoPanaderia.png' %}" alt="" width="150" height="150" id="logoMana">
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#stock" aria-expanded="false" aria-controls="stock">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" 
+                        aria-expanded="false" aria-controls="stock" data-collapsed = "true">
                         <i class="lni lni-package"></i>
                         <span>Stock</span>
                     </a>
-                    <ul id="stock" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <ul class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Insumos</a>
                         </li>
@@ -42,28 +43,28 @@
                             <a href="#" class="sidebar-link">Productos elaborados</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Pedidos</a>
+                            <a href="/pedidos" class="sidebar-link">Pedidos</a>
                         </li>
                     </ul>
                 </li>
 
                 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#producto" aria-expanded="false" aria-controls="producto">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" 
+                        aria-expanded="false" aria-controls="producto" data-collapsed = "true">
                         <i class="lni lni-cart"></i>
                         <span>Productos</span>
                     </a>
                     <ul id="producto" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Ventas</a>
+                            <a href="/ventas" class="sidebar-link">Ventas</a>
                         </li>
                        
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#informe" aria-expanded="false" aria-controls="informe">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" 
+                        aria-expanded="false" aria-controls="informe" data-collapsed = "true">
                         <i class="lni lni-graph"></i>
                         <span>Informes</span>
                     </a>
@@ -84,8 +85,8 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#administracion" aria-expanded="false" aria-controls="administracion">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" 
+                        aria-expanded="false" aria-controls="administracion" data-collapsed = "true">
                         <i class="lni lni-cog"></i>
                         <span>Administración</span>
                     </a>
