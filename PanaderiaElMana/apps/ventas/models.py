@@ -29,7 +29,8 @@ class Venta(models.Model):
         ('OTRO', 'Otro')
         
     ]
-    producto= models.ManyToManyField(Producto)
+    # producto= models.ManyToManyField(Producto)
+    
 
     
 
