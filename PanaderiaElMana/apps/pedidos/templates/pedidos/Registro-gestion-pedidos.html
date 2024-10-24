@@ -37,10 +37,6 @@
                     <label for="insumo" class="formulario__label">Insumo</label>
                     <div class="formulario__grupo-input">
                         {{ form_insumo_pedido.insumo }}
-                        <select class="formulario__input" id="insumo" name="insumo" required>
-                            <option value="Seleccione" hidden>Seleccione</option> 
-                            <option value="Poleeenta">Poleenta</option>           
-                        </select>
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">seleccione un insumo.</p>
@@ -77,12 +73,17 @@
                     </div>
                     <p class="formulario__input-error">Ingrese un proveedor.</p>
                 </div>
-                       
-                <div class="formulario__grupo" >
-                    <p>Agregar insumo                               <i id="agregarInsumo" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
-                    <p>Lista de insumos Agregados                   <i id="listarInsumos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
 
+                <div class="formulario__grupo" id="grupo__precio">
+                    <label for="precio" class="formulario__label">Precio</label>
+                    <div class="formulario__grupo-input">
+                        {{ form_insumo_pedido.precio }}
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Ingrese un proveedor.</p>
                 </div>
+                       
+              
                 <div class="formulario__grupo" id="grupo__observaciones">
                     <label for="observaciones" class="formulario__label">Observaciones</label>
                     <div class="formulario__grupo-input">
@@ -91,7 +92,12 @@
                     </div>
                     <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
                 </div>
-           
+                
+                <div class="formulario__grupo" >
+                    <p>Agregar insumo                               <i id="agregarInsumo" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
+                    <p>Lista de insumos Agregados                   <i id="listarInsumos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
+
+                </div>
 
                 <div class="formulario__mensaje" id="formulario__mensaje">
                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
