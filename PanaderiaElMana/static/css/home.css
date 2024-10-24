@@ -1,7 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); 
 
 
 body{
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     min-height: 125vh;
     position: relative;
@@ -23,7 +25,8 @@ section h2{
 
 /*#212529*/
 .navbar{
-    background-color: #d88d22;
+    font-size: 20px;
+    background-color: #3D2F2F;
     position: relative;
     z-index: 3;
 }
@@ -32,11 +35,11 @@ section h2{
 }
 
 .navbar li{
-    background-color: #d88d22;
+    background-color: #3D2F2F;
     display: block;
 }
 .navbar ul{
-    background-color: #d88d22;
+    background-color: #3D2F2F;
  
 }
 main{
@@ -47,6 +50,15 @@ main{
 .tarjeta-mostrar{
     position: relative;
     z-index: 2;
+}
+
+.sidebar-logo {
+  
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
 }
 
 
@@ -81,7 +93,7 @@ card-body{
 
 
 button:hover[type="submit"]{
-    background-color: #b3741d;
+    background-color: #c44c0a;
     border-color: #d88c2255;
 
 }
@@ -90,19 +102,20 @@ button:hover[type="submit"]{
 button[type="submit"]{
     
 
+  
     border-color: #d88c2255;
-    background-color: #d88d22;
+    background-color: #fc8213;
 }
 
 
 button:active:hover{
-    background-color: #925f18;
+    background-color: #7d3311;
     border-color: #d88c2255;
     color: rgb(255, 255, 255);
 }
 
 footer{
-    background-color: #d88d22;
+    background-color: #3D2F2F;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -126,4 +139,14 @@ footer p{
 
 .dropdown-item{
     --bs-dropdown-link-active-bg: #925f18;
+}
+.btn-home{
+    height: 50px;
+	line-height: 20px;
+	width: 30%;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	transition: .1s ease all;
+	margin-right: 30px;
 }

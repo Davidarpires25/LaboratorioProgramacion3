@@ -8,6 +8,7 @@ from .forms import PedidoForm, ItemInsumoFormSet
 
 
 def registroPedidos(request):
+    
     if request.method == 'POST':
         form = PedidoForm(request.POST,request.FILES)
         print('Datos recibidos:', request.POST)
