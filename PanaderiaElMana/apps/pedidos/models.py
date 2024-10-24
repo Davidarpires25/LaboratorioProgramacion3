@@ -11,7 +11,7 @@ class Proveedor(models.Model):
     estado=models.BooleanField(False)
 
     def __str__(self):
-        return f"Nombre: {self. nombre}Estado: {self.estado}"
+        return f"{self. nombre}"
 
 
 
@@ -32,9 +32,8 @@ class Insumo(models.Model):
 
 class Pedido(models.Model):
 
-    fecha_pedido= models.DateField(auto_now=True)
+    fecha_pedido= models.DateField()
     observaciones= models.TextField(max_length=100 ,blank=True, null=True)
-    cantidad= models.FloatField(blank=False)
     proveedor= models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     
 
@@ -47,7 +46,7 @@ class ItemInsumo(models.Model):
     pedido= models.ForeignKey(Pedido, on_delete=models.CASCADE)
     insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
     cantidad= models.IntegerField()
-    precio= models.FloatField()
+
 
 
 class recepcionPedidos(models.Model):

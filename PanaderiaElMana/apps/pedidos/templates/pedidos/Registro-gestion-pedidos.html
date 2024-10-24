@@ -17,7 +17,10 @@
 {% block content %}
 <body>
     <main id="main">
-		<form action="" class="formulario" id="formulario">
+        {% csrf_token %}
+		<form action="" class="formulario" id="formulario" method="post">
+            {% csrf_token %}
+
             <div class="card-header navbar-dark ">
 
                 <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Pedidos</h1>
@@ -33,10 +36,12 @@
                 </div>
 
                 <!-- Grupo: insumo -->
+                {{ formset.management_form }}
+                {% for form in formset %}
                 <div class="formulario__grupo" id="grupo__insumo">
                     <label for="insumo" class="formulario__label">Insumo</label>
                     <div class="formulario__grupo-input">
-                        {{ form_insumo_pedido.insumo }}
+                        {{ form.insumo }}
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">seleccione un insumo.</p>
@@ -44,9 +49,9 @@
 
                 <!-- Grupo: Fecha -->
                 <div class="formulario__grupo" id="grupo__fechaSolicitud">
-                    <label for="fechaSolicitud" class="formulario__label">Fecha</label>
+                    <label for="fechaPedido" class="formulario__label">Fecha</label>
                     <div class="formulario__grupo-input">
-                        <input type="date" class="formulario__input" name="fechaSolicitud" id="fechaSolicitud">
+                        {{ formPedido.fecha_pedido}}
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">Fecha incorrecta.</p>
@@ -61,43 +66,34 @@
                     </div>
                     <p class="formulario__input-error">Ingrese solamente numeros.</p>
                 </div>
+                {% endfor %}
 
                 <!-- Grupo: Proveedor -->
                 <div class="formulario__grupo" id="grupo__proveedor">
                     <label for="proveedor" class="formulario__label">Proveedor</label>
                     <div class="formulario__grupo-input">
-                        <select class="formulario__input" name="proveedor" id="proveedor" required>
-                            <option value="Seleccione" selected disabled hidden>Seleccione</option>
-                        </select>
+                        {{ formPedido.proveedor }}
+
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">Ingrese un proveedor.</p>
                 </div>
 
-                <div class="formulario__grupo" id="grupo__precio">
-                    <label for="precio" class="formulario__label">Precio</label>
-                    <div class="formulario__grupo-input">
-                        {{ form_insumo_pedido.precio }}
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                    </div>
-                    <p class="formulario__input-error">Ingrese un proveedor.</p>
-                </div>
-                       
-              
-                <div class="formulario__grupo" id="grupo__observaciones">
-                    <label for="observaciones" class="formulario__label">Observaciones</label>
-                    <div class="formulario__grupo-input">
-                        {{ form.observaciones }}
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                    </div>
-                    <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
-                </div>
-                
                 <div class="formulario__grupo" >
                     <p>Agregar insumo                               <i id="agregarInsumo" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
                     <p>Lista de insumos Agregados                   <i id="listarInsumos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
 
                 </div>
+                <div class="formulario__grupo" id="grupo__observaciones">
+                    <label for="observaciones" class="formulario__label">Observaciones</label>
+                    <div class="formulario__grupo-input">
+                        {{ formPedido.observaciones }}
+                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    </div>
+                    <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
+                </div>
+                
+              
 
                 <div class="formulario__mensaje" id="formulario__mensaje">
                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
