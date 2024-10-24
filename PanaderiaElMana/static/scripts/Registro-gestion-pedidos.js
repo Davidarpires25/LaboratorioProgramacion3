@@ -129,16 +129,16 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 
 function controlFecha(){
-    const $fechaSolicitud= document.querySelector("#fechaSolicitud");
+    const $fechaSolicitud= document.querySelector("#fechaPedido");
     const fechaActual = new Date().toISOString().split('T')[0];
-    let fechaMaxima = new Date();
-    fechaMaxima.setMonth(fechaMaxima.getMonth() + 1)
-   
-    fechaMaxima=fechaMaxima.toISOString().split('T')[0];
+    let fechaLimite = new Date();
+    $fechaSolicitud.value = fechaActual;
+    fechaLimite.setMonth(fechaLimite.getMonth() - 1)
+    fechaLimite = fechaLimite.toISOString().split('T')[0];
 
-    $fechaSolicitud.setAttribute("min",fechaActual);
-    $fechaSolicitud.setAttribute("max",fechaMaxima);
-
+    $fechaSolicitud.setAttribute("min",fechaLimite);
+    $fechaSolicitud.setAttribute("max",fechaActual);
+    $fechaSolicitud.disabled=true;
 
 };
 
