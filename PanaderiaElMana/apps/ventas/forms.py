@@ -1,21 +1,10 @@
 from django import forms
-from .models import Venta
+from .models import Venta, Producto, ItemProducto
 from django.forms import inlineformset_factory, DateInput
 import datetime
 
 
 class ventasForm(forms.ModelForm):
-  
-    # tipoVenta = forms.ModelChoiceField(
-    #     queryset=Proveedor.objects.filter(estado=True),
-    #     empty_label="Seleccione",  # Filtra solo los insumos activos
-    #     widget=forms.Select(attrs={
-    #         'class': 'formulario__input',
-    #         'id': 'CategoriaVenta',
-    #         'name': 'catgVenta'
-    #     }),
-   
-    # )
     class Meta:
         model = Venta
         fields = ['tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
@@ -51,6 +40,11 @@ class ventasForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'observaciones',
                 'name': 'observaciones'                 
+            }),
+            'precioTotal': forms.TextInput(attrs={
+                'class': 'formulario__input',
+                'id': 'observaciones',
+                'name': 'observaciones'                 
             })
         }
 
@@ -58,7 +52,35 @@ class ventasForm(forms.ModelForm):
                 # 'id': '',
                 # 'name': ''
         
+class ProductoForm(forms.ModelForm):
+    producto = forms.ModelChoiceField(
+        queryset=Producto.objects.filter(estado=True),
+        empty_label="Seleccione",  # Filtra solo los insumos activos
+        widget=forms.Select(attrs={
+            'class': 'formulario__input',
+            'id':'insumo',
+        }),
+        
+    )
+    class Meta:
+        model = ItemProducto
+        fields = ['producto', 'cantidad', 'precioActual']
+        widget = {
+            'cantidad': forms.NumberInput(attrs={
+                'class': 'formulario__input',
+                'id': 'cantidad',
+                'name': 'cantidad'                
+            })
+        }
 
+
+ItemProductoFormSet = inlineformset_factory(
+    Venta,  # El modelo padre
+    ItemProducto,  # El modelo hijo que está relacionado con el padre
+    form=ProductoForm,  # El formulario que creamos antes
+    extra=1,  # Cuántos formularios extra queremos mostrar
+    can_delete=True  # Permitir eliminar objetos existentes
+)    
 #     class Meta:
 #         model = Pedido
 #         fields = ['fecha_pedido', 'proveedor', 'observaciones']

@@ -58,7 +58,7 @@ d.addEventListener("change", function(e){
 d.addEventListener("submit", function(e){
     e.preventDefault();
     if(valido){
-        console.log("bien")
+        $formulario.submit();
     }
 });
 
