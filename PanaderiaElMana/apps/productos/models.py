@@ -19,5 +19,5 @@ class Producto(models.Model):
 
 
     def __str__(self):
-        return f"Descripcion: {self.descripcion} Precio: {self.precio} Cantidad:{self.cantidad} Estado: {self.estado}Categorizacion: {self.CATEGORIA_CHOICES}"
+        return self.descripcion
 

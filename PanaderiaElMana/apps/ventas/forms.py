@@ -59,8 +59,15 @@ class ProductoForm(forms.ModelForm):
         widget=forms.Select(attrs={
             'class': 'formulario__input',
             'id':'insumo',
-        }),
-        
+        })
+    ),
+    precio = forms.DecimalField(
+        required=True,
+        widget=forms.NumberInput(attrs={
+            'class': 'formulario__input',
+            'id': 'precio',
+            'readonly': 'readonly',  # Para evitar edición manual
+        })
     )
     class Meta:
         model = ItemProducto

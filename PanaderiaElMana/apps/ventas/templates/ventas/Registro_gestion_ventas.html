@@ -122,15 +122,15 @@
                         <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
                     </div>
                 </div>
-                {{ formset.management_form }}
+                <!-- {{ formset.management_form }} -->
                 <div class="form-background grupoProducto">
-                    {% for form in formset %}
+                    <!-- {% for form in formset %} -->
                     <!-- Grupo: Producto -->
                     <div class="formulario__grupo" id="grupo__producto">
                         <label for="numeroPedido" class="formulario__label">Producto</label>
                         <div class="formulario__grupo-input">
-                            <!-- <div class="formulario__grupo-input">
-                                <select class="formulario__input" id="producto" name="producto" required>
+                            <div class="formulario__grupo-input">
+                                <!-- <select class="formulario__input" id="producto" name="producto" required>
                                     <option value="" hidden>Seleccione</option>
                                     <option value="manzana">Manzana</option>            
                                 </select> -->
@@ -145,7 +145,8 @@
                     <div class="formulario__grupo" id="grupo__precio">
                         <label for="cantidad" class="formulario__label">Precio</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="precio" id="precio">
+                            <!-- <input type="text" class="formulario__input" name="precio" id="precio"> -->
+                             {{ form.precio }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese solamente numeros.</p>
@@ -161,11 +162,7 @@
                         </div>
                         <p class="formulario__input-error">Ingrese solamente numeros.</p>
                     </div>
-                    {% endfor %}
-                    <div class="formulario__grupo" >
-                        <p>Agregar Producto <i id="agregarProducto" class="fa-solid fa-square-plus fa-2xl btn-insumo"></i></p>
-                        <p>Lista de Productos Agregados <i id="listarProductos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo"></i></p>
-                    </div>                
+                    {% endfor %}             
 
                     <div class="formulario__mensaje" id="formulario__mensaje">
                         <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
@@ -181,37 +178,6 @@
 			</div>
             {{ formVenta.precioTotal }}
 		</form>
-
-
-        <div class="table-title" hidden>Lista de productos agregados</div>
-        <div class="table-container" id="tabla" hidden>
-            <table >
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                    <tr class="total-row" id="foot-tr">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="totalRow"></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-    
-    
-            </table>
-            <button type="button" class="table-buttons" id="btn-tabla" >
-                <i class="fa-solid fa-left-long fa-xl" style="color: #ffffff;"></i>Volver
-            </button>
     
         </div>
         <input type="hidden" id="idProducto" value="232">
