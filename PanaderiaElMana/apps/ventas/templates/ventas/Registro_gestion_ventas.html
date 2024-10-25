@@ -27,11 +27,12 @@
                     <div class="formulario__grupo" id="grupo__numeroPedido">
                         <label for="numeroPedido" class="formulario__label">Tipo de venta</label>
                         <div class="formulario__grupo-input">
-                            <select class="formulario__input" id="CategoriaVenta" name="catgVenta" required>
+                            <!-- <select class="formulario__input" id="CategoriaVenta" name="catgVenta" required>
                                 <option value="" hidden>Seleccione</option>
                                 <option value="minorista">Minorista</option>
                                 <option value="mayorista">Mayorista</option>
-                            </select>
+                            </select> -->
+                            {{ formVenta.tipo_venta }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -40,7 +41,8 @@
                     <div class="formulario__grupo" id="grupo__fechaSolicitud">
                         <label for="fechaSolicitud" class="formulario__label">Fecha De Venta</label>
                         <div class="formulario__grupo-input">
-                            <input type="date" class="formulario__input" name="fechaSolicitud" id="fechaVenta">
+                            <!-- <input type="date" class="formulario__input" name="fechaSolicitud" id="fechaVenta"> -->
+                            {{ formVenta.FechaVenta }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Fecha incorrecta.</p>
@@ -51,12 +53,13 @@
                     <div class="formulario__grupo" id="grupo__proveedor">
                         <label for="proveedor" class="formulario__label">Tipo De Comprobante</label>
                         <div class="formulario__grupo-input">
-                            <select class="formulario__input" name="proveedor" id="proveedor" required>
+                            <!-- <select class="formulario__input" name="tipoComprobante" id="tipoComprobante" required>
                                 <option value="" hidden>Seleccione</option>
                                 <option value="ticket">Recibo</option>
                                 <option value="factura">Factura</option>
                                 <option value="otro">Otro</option>
-                            </select>
+                            </select> -->
+                            {{ formVenta.tipo_comprobante }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese un proveedor.</p>
@@ -77,7 +80,8 @@
                     <div class="formulario__grupo" id="grupo__numeroPedido">
                         <label for="numeroPedido" class="formulario__label">Nro De Comprobante</label>
                         <div class="formulario__grupo-input">
-                            <input type="number" class="formulario__input" name="nroComprobante" id="numeroComprobante" placeholder="#" required>
+                            <!-- <input type="number" class="formulario__input" name="nroComprobante" id="numeroComprobante" placeholder="#" required> -->
+                             {{ formVenta.numeroComprobante }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -86,13 +90,14 @@
                     <div class="formulario__grupo" id="grupo__insumo">
                         <label for="insumo" class="formulario__label">Forma De Pago</label>
                         <div class="formulario__grupo-input">
-                            <select class="formulario__input" name="proveedor" id="proveedor" required>
+                            <!-- <select class="formulario__input" name="formaPago" id="formaPago" required>
                                 <option value="" hidden>Seleccione</option>
                                 <option value="contado">Contado</option>
                                 <option value="transferencia">Transferencia</option>
                                 <option value="credito">Crédito</option>
                                 <option value="otro">Otro</option>
-                            </select>
+                            </select> -->
+                            {{ formVenta.forma_pago }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">seleccione un insumo.</p>
@@ -102,7 +107,8 @@
                     <div class="formulario__grupo" id="grupo__observaciones">
                         <label for="observaciones" class="formulario__label">Observaciones</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="observaciones" id="observaciones" placeholder="ta bueno">
+                            <!-- <input type="text" class="formulario__input" name="observaciones" id="observaciones"> -->
+                            {{ formVenta.observaciones }}
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
