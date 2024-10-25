@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const $tabla= document.querySelector('#tabla')
     const $formulario= document.querySelector('#formulario')
     const $tablaTitulo= document.querySelector('.table-title')
-    controlFecha();
     
 
     $formulario.addEventListener("click", (e) => {
@@ -100,7 +99,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         console.log(camposPedidos.observaciones,camposPedidos.cantidad)
 	    if(camposPedidos.observaciones && camposPedidos.cantidad ){
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
-            $formulario.reset();
             document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
             setTimeout(() => {
                 document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
@@ -128,19 +126,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 
 
-function controlFecha(){
-    const $fechaSolicitud= document.querySelector("#fechaPedido");
-    const fechaActual = new Date().toISOString().split('T')[0];
-    let fechaLimite = new Date();
-    $fechaSolicitud.value = fechaActual;
-    fechaLimite.setMonth(fechaLimite.getMonth() - 1)
-    fechaLimite = fechaLimite.toISOString().split('T')[0];
 
-    $fechaSolicitud.setAttribute("min",fechaLimite);
-    $fechaSolicitud.setAttribute("max",fechaActual);
-    $fechaSolicitud.disabled=true;
-
-};
 
 function validarCampo(expresion, input, campo){
     if(expresion.test(input.value)){

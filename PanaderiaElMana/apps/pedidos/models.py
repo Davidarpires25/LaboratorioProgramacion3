@@ -38,7 +38,7 @@ class Pedido(models.Model):
     
 
     def __str__(self):
-        return f"Fecha de pedido: {self.fechaPedido} Observaciones: {self.observaciones,} Cantidad:{self.cantidad} proveedor: {self.proveedor.nombre}"
+        return f"Fecha de pedido: {self.fechaPedido} Observaciones: {self.observaciones} proveedor: {self.proveedor.nombre}"
 
 
 

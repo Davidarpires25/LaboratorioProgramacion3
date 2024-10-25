@@ -1,18 +1,13 @@
 from django import forms
 from .models import Pedido,ItemInsumo,Insumo,Proveedor
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, DateInput
+import datetime
 
 
 
 
 class PedidoForm(forms.ModelForm):
-    fecha_pedido = forms.DateField(
-        widget=forms.DateInput(attrs={
-            'class': 'formulario__input', 
-            'id': 'fechaPedido', 
-            'type': 'date'  # Asegúrate de establecer el tipo como 'date'
-        })
-    )
+  
     proveedor = forms.ModelChoiceField(
         queryset=Proveedor.objects.filter(estado=True),
         empty_label="Seleccione",  # Filtra solo los insumos activos
@@ -27,16 +22,26 @@ class PedidoForm(forms.ModelForm):
         model = Pedido
         fields = ['fecha_pedido', 'proveedor', 'observaciones']
         
+        today = datetime.date.today()
+        max_date = today + datetime.timedelta(days=10)
         widgets = {
-         
+             'fecha_pedido': DateInput(format='%Y-%m-%d', attrs={
+                'type': 'date',
+                'class': 'formulario__input',
+                'min': today.strftime('%Y-%m-%d'),  # Asigna el 'min' como la fecha de hoy
+                'max': max_date.strftime('%Y-%m-%d'),
+           
+            }),
+
             'proveedor': forms.Select(attrs={
                 'class': 'formulario__input', 
-                'id': 'proveedor'
+                'id': 'proveedor',
+               
             }),
             'observaciones': forms.TextInput(attrs={
                 'class': 'formulario__input', 
                 'placeholder': 'ta bueno', 
-                'id': 'observaciones'
+                'id': 'observaciones',
             }),
         }
 
