@@ -43,43 +43,40 @@ class ventasForm(forms.ModelForm):
             }),
             'precioTotal': forms.TextInput(attrs={
                 'class': 'formulario__input',
-                'id': 'observaciones',
-                'name': 'observaciones'                 
+                'id': 'precioTotal',
+                'name': 'precioTotal'                 
             })
         }
 
                 # 'class': '',
                 # 'id': '',
                 # 'name': ''
-        
+
+
 class ProductoForm(forms.ModelForm):
     producto = forms.ModelChoiceField(
         queryset=Producto.objects.filter(estado=True),
         empty_label="Seleccione",  # Filtra solo los insumos activos
         widget=forms.Select(attrs={
             'class': 'formulario__input',
-            'id':'insumo',
-        })
-    ),
-    precio = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(attrs={
-            'class': 'formulario__input',
-            'id': 'precio',
-            'readonly': 'readonly',  # Para evitar edición manual
+            'id':'producto'
         })
     )
     class Meta:
         model = ItemProducto
         fields = ['producto', 'cantidad', 'precioActual']
         widget = {
+            'precioActual': forms.NumberInput(attrs={
+                'class': 'formulario__input',
+                'id': 'precioActual',
+                'name': 'precioActual'
+            }),
             'cantidad': forms.NumberInput(attrs={
                 'class': 'formulario__input',
                 'id': 'cantidad',
                 'name': 'cantidad'                
             })
         }
-
 
 ItemProductoFormSet = inlineformset_factory(
     Venta,  # El modelo padre

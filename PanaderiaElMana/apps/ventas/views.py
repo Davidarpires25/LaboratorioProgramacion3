@@ -8,6 +8,10 @@ def registroVentas(request):
         if form.is_valid():
             ventaNueva = form.save()
             formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
+            print(request.POST)  # Ver los datos que se están enviando
+            print(formset.errors) 
+            print(f'Número de formularios: {len(formset.save())}')  # Para ver cuántos formularios están en el formset
+
             if formset.is_valid():
                 formset.save()
                 return redirect('home')
