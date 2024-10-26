@@ -14,40 +14,29 @@
     <link rel="stylesheet" href="{% static 'css/tabla.css' %}">
     {% endblock %}
 </head>
-{% block content %}
+
 <body>
+    {% block content %}
     <main id="main">
-  
+        
 		<form action="" class="formulario" id="formulario" method="post">
             {% csrf_token %}
 
             <div class="card-header navbar-dark ">
 
-                <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Pedidos</h1>
+                <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Pedido</h1>
             </div>
             <div class="form-background">
-                <!-- Grupo: numeroPedido -->
-                <div class="formulario__grupo" id="grupo__numeroPedido">
-                    <label for="numeroPedido" class="formulario__label">Nro de pedido</label>
-                    <div class="formulario__grupo-input">
-                        <input type="number" class="formulario__input" name="numeroPedido" id="numeroPedido" placeholder="#2123" disabled>
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <!-- Grupo: numeroPedido -->
+                    <div class="formulario__grupo" id="grupo__numeroPedido">
+                        <label for="numeroPedido" class="formulario__label">Nro de pedido</label>
+                        <div class="formulario__grupo-input">
+                            <input type="number" class="formulario__input" name="numeroPedido" id="numeroPedido" placeholder="#2123" disabled>
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Grupo: insumo -->
-                {{ formset.management_form }}
-                {% for form in formset %}
-                <div class="formulario__grupo" id="grupo__insumo">
-                    <label for="insumo" class="formulario__label">Insumo</label>
-                    <div class="formulario__grupo-input">
-                        {{ form.insumo }}
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                    </div>
-                    <p class="formulario__input-error">seleccione un insumo.</p>
-                </div>
-
-                <!-- Grupo: Fecha -->
+                    <!-- Grupo: Fecha -->
                 <div class="formulario__grupo" id="grupo__fechaSolicitud">
                     <label for="fecha_pedido" class="formulario__label">Fecha</label>
                     <div class="formulario__grupo-input">
@@ -56,72 +45,84 @@
                     </div>
                     <p class="formulario__input-error">Fecha incorrecta.</p>
                 </div>
+                    
 
-                <!-- Grupo: cantidad -->
-                <div class="formulario__grupo" id="grupo__cantidad">
-                    <label for="cantidad" class="formulario__label">Cantidad (Kg)</label>
-                    <div class="formulario__grupo-input">
-                        {{ form.cantidad }}
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <!-- Grupo: Proveedor -->
+                    <div class="formulario__grupo" id="grupo__proveedor">
+                        <label for="proveedor" class="formulario__label">Proveedor</label>
+                        <div class="formulario__grupo-input">
+                            {{ formPedido.proveedor }}
+
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">Ingrese un proveedor.</p>
                     </div>
-                    <p class="formulario__input-error">Ingrese solamente numeros.</p>
-                </div>
-                {% endfor %}
 
-                <!-- Grupo: Proveedor -->
-                <div class="formulario__grupo" id="grupo__proveedor">
-                    <label for="proveedor" class="formulario__label">Proveedor</label>
-                    <div class="formulario__grupo-input">
-                        {{ formPedido.proveedor }}
-
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                    <div class="formulario__grupo" id="grupo__observaciones">
+                        <label for="observaciones" class="formulario__label">Observaciones</label>
+                        <div class="formulario__grupo-input">
+                            {{ formPedido.observaciones }}
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
                     </div>
-                    <p class="formulario__input-error">Ingrese un proveedor.</p>
-                </div>
-
-                <div class="formulario__grupo" >
-                    <p>Agregar insumo                               <i id="agregarInsumo" class="fa-solid fa-square-plus fa-2xl btn-insumo" style="color: #63E6BE;"></i></p>
-                    <p>Lista de insumos Agregados                   <i id="listarInsumos" class="fa-solid fa-rectangle-list fa-2xl btn-insumo" style="color: #ffffff;"></i></p>
-
-                </div>
-                <div class="formulario__grupo" id="grupo__observaciones">
-                    <label for="observaciones" class="formulario__label">Observaciones</label>
-                    <div class="formulario__grupo-input">
-                        {{ formPedido.observaciones }}
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                    </div>
-                    <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
-                </div>
+                    
                 
-              
 
-                <div class="formulario__mensaje" id="formulario__mensaje">
-                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
-                </div>
-                <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
-                    <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
-                </div>
+                    <div class="formulario__mensaje" id="formulario__mensaje">
+                        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                    </div>
+                    <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+                        <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
+                    </div>
             </div>
-			
-
-			<div class="formulario__grupo formulario__grupo-btn-enviar">
+            <div action="" id="formset">
+                {{ formset.management_form }}
+                <div id="formset-container" >
+                    {% for form in formset %}
+                    <!-- Grupo: insumo -->
+                    <div class="seccion-form" id="formset-grid">
+                        <div class="formulario__grupo" id="grupo__insumo">
+                            <label for="insumo" class="formulario__label">Insumo</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.insumo }}
+                                <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formulario__input-error">seleccione un insumo.</p>
+                        </div>
+        
+                        <!-- Grupo: cantidad -->
+                        <div class="formulario__grupo" id="grupo__cantidad">
+                            <label for="cantidad" class="formulario__label">Cantidad (Kg)</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.cantidad }}
+                                <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formulario__input-error">Ingrese solamente numeros.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            
+            </div>
+            <div class="formulario__grupo formulario__grupo-btn-enviar">
+                <button type="button" class="table-buttons" id="add-form">Agregar Insumo</button>
 				<button type="submit" class="formulario__btn"><i class="bi bi-send me-2"></i>Guardar Pedido</button>
                 <button type="button" class="btn-modificar"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Modificar Pedido</button>
               
-
 			</div>
+
 		</form>
 
+        <div class="table-container" id="tabla" >
+            <div class="table-title" >Lista de Insumos</div>
 
-        <div class="table-title"  hidden>Lista de insumos agregados</div>
-        <div class="table-container" id="tabla" hidden>
             <table >
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>N°</th>
                         <th>Insumo</th>
                         <th>Cantidad</th>
-                        <th>Total unitario</th>
                         <th>Accion</th>
                     </tr>
                 </thead>
@@ -134,33 +135,20 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td id="totalRow">TOTAL: $400</td>
+                        <td></td>       
                     </tr>
                 </tfoot>
     
     
             </table>
-            <button type="button" class="table-buttons" id="btn-tabla" >
-                <i class="fa-solid fa-left-long fa-xl" style="color: #ffffff;"></i><span>Volver</span>
-            </button>
+            
     
         </div>
         <input type="hidden" id="idInsumo" value="55">
         <input type="hidden" id="precioInsumo" value="20">
-        
+       
 	</main>
-    
-
-  
-
-
-    
-    <footer class="py-1 mt-8 fixed-bottom">
-        <div class="card-footer container text-center">
-            <p class=" mb-0">&copy; 2024 Panadería El Mana. Todos los derechos reservados.</p>
-        </div>
-    </footer>
     {% endblock %}
     {% block js %}<script src="{% static 'scripts/Registro-gestion-pedidos.js'%}"></script>{% endblock %}
+</body>
 </html>

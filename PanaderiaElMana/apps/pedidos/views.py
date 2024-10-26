@@ -12,11 +12,12 @@ def registroPedidos(request):
     if request.method == 'POST':
         form = PedidoForm(request.POST,request.FILES)
         print('Datos recibidos:', request.POST)
-        print(form)
+        print('Datos recibidos:', request.POST)
+        
         if form.is_valid():
-            print('valido')
             pedido = form.save()
             formset = ItemInsumoFormSet(request.POST, instance=pedido)
+            print('formset',formset)
             print('guardo pedido')
             if formset.is_valid():
                 print('valido formest')

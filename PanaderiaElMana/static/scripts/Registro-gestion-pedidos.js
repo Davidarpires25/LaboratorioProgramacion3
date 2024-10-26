@@ -1,4 +1,4 @@
-const $botonAgregarInsumo = document.getElementById("agregarInsumo");
+const $botonAgregarInsumo = document.getElementById("add-form");
 const $botonVerInsumos = document.getElementById("listarInsumos")
 const listaInsumos = [];
 
@@ -13,12 +13,13 @@ const camposPedidos = {
 }
 
 function obtenerInsumo(){
-    const $insumo = document.querySelector('.formulario__input#insumo').value
-    const $cantidad = document.querySelector('.formulario__input#cantidad').value
+    const $insumo = document.querySelector('#insumo')
+    const $insumo_nombre=$insumo.options[$insumo.selectedIndex].text;
+    const $cantidad = document.querySelector('#cantidad').value
     //los campos id y precio se deben leer de un input hidden, este input hidden obtendrá los datos de la base de datos de insumo 😎
     const $id = document.querySelector("input[type='hidden']#idInsumo").value
     const $precio = document.querySelector("input[type='hidden']#precioInsumo").value;
-    return {id:$id, nombre:$insumo, cantidad: $cantidad, precio:$precio}
+    return {id:$id, nombre:$insumo_nombre, cantidad: $cantidad, precio:$precio}
 }
 
 function cargarInsumo(){
@@ -35,13 +36,13 @@ function cargarListaInsumos(){
     const $totalRow = document.querySelector("tfoot #totalRow");
     let total = 0;
     let formato = "";
+    let i=0
     for(let insumo of listaInsumos){
         formato +=
         `<tr>
-            <td data-label = "Id">555</td>
+            <td data-label = "id">${i+1}</td>
             <td data-label = "Producto">${insumo.nombre}</td>
             <td data-label = "Cantidad">${insumo.cantidad}</td>
-            <td data-label = "Precio">${insumo.precio}</td>
             <td data-label="Accion">
                 <div class="action-buttons">
                     <button class="action-button edit-button"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
@@ -57,28 +58,11 @@ function cargarListaInsumos(){
 }
 
 document.addEventListener("DOMContentLoaded", (e)=>{
-    const $tabla= document.querySelector('#tabla')
     const $formulario= document.querySelector('#formulario')
-    const $tablaTitulo= document.querySelector('.table-title')
-    
+    const addButton = document.getElementById('add-form');
+    const formsetContainer = document.getElementById('formset-container');
 
-    $formulario.addEventListener("click", (e) => {
-      
-        
-        if(e.target.matches("#listarInsumos")){
-            $formulario.setAttribute('hidden','');
-            $tabla.removeAttribute('hidden');
-            $tablaTitulo.removeAttribute('hidden');
-                
-        }
-       
-    });
-    //boton volver atras
-    document.getElementById("btn-tabla").addEventListener("click", function(e){
-        $formulario.removeAttribute('hidden');
-        $tabla.setAttribute('hidden','');
-        $tablaTitulo.setAttribute("hidden",'');
-    })
+
     
     $formulario.addEventListener("keyup", (e) => { 
             if(e.target.matches("#observaciones")){
@@ -93,10 +77,10 @@ document.addEventListener("DOMContentLoaded", (e)=>{
    
         
     $formulario.addEventListener("submit",(e)=>{
+        e.target.submit();
+
         e.preventDefault();
-        const terminos = document.getElementById('terminos');
-      
-        console.log(camposPedidos.observaciones,camposPedidos.cantidad)
+     
 	    if(camposPedidos.observaciones && camposPedidos.cantidad ){
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
             document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
@@ -119,11 +103,62 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     
     
+
+    // Función para actualizar el índice de un elemento
+   
+    // Agregar nuevo formulario
+    addButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        const formCount = formsetContainer.children.length;
+        const template = formsetContainer.children[0].cloneNode(true);
+        
+
+        // Limpiar los valores del formulario clonado
+        template.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+        template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+        formsetContainer.appendChild(template);
+        updateFormIndexes();
+    });
+
+    // Eliminar formulario
+    formsetContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-form')) {
+            e.preventDefault();
+            const form = e.target.closest('.seccion-form');
+            form.remove();
+            updateFormIndexes();
+        }
+    });
+    
  
 
 });
 
+function updateFormIndexes() {
+    const totalForms = document.getElementById('id_insumos-TOTAL_FORMS');
+    const formsetContainer = document.getElementById('formset-container');
+    const forms = formsetContainer.getElementsByClassName('seccion-form');
+    for (let i = 0; i < forms.length; i++) {
+        const formInputs = forms[i].getElementsByTagName('input');
+        const formSelects = forms[i].getElementsByTagName('select');
 
+        for (let input of formInputs) {
+            updateElementIndex(input, 'insumos', i);
+        }
+        for (let select of formSelects) {
+            updateElementIndex(select, 'insumos', i);
+        }
+    }
+    totalForms.value = forms.length;
+}
+
+function updateElementIndex(element, prefix, index) {
+    const idRegex = new RegExp(`(${prefix}-\\d+)`);
+    const replacement = `${prefix}-${index}`;
+    if (element.id) element.id = element.id.replace(idRegex, replacement);
+    if (element.name) element.name = element.name.replace(idRegex, replacement);
+}
 
 
 
@@ -151,9 +186,9 @@ function validarCampo(expresion, input, campo){
 
 document.addEventListener("click", function(e){
     if(e.target === $botonAgregarInsumo){
+        console.log(e.value)
         cargarInsumo();
+        cargarListaInsumos();
     }
-    if(e.target === $botonVerInsumos){
-        cargarListaInsumos()
-    }
+   
 });

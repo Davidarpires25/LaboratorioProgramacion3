@@ -43,7 +43,7 @@ class Pedido(models.Model):
 
 
 class ItemInsumo(models.Model):
-    pedido= models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    pedido= models.ForeignKey(Pedido, on_delete=models.CASCADE,related_name="insumos")
     insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
     cantidad= models.IntegerField()
 
