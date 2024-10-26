@@ -207,3 +207,7 @@ input[id=numeroPedido]{
 		width: 100%;
 	}
 }
+
+.hidden-fields-container{
+	display: none;
+}

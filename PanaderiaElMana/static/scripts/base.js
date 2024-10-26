@@ -47,7 +47,7 @@ document.addEventListener("click", function (e) {
       }
     }
   }
-  console.log(e.target)
+ 
   if(e.target === document.getElementById("logoMana")){
     window.location.href = "/";
   }
