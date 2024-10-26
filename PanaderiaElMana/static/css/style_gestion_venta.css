@@ -61,6 +61,9 @@ h1{
     justify-self: center; /* Centra el div horizontalmente */
 }
 
+#formset-container{
+    transform: translateX(50%);
+}
 
 .form-background{
     border-style: groove;
@@ -96,8 +99,13 @@ h1{
     color: #bdbdbd;
 }
 
+
+
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
+    #formset-container{
+        transform: translateX(-1px);
+    }
     h1{
         transform: translate(35%, 0px);    
     }
