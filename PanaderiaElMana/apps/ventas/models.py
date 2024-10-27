@@ -10,12 +10,15 @@ class Mayorista(models.Model):
     direccion= models.TextField(max_length=50)
     telefono= models.CharField(max_length=20)
     email= models.CharField(max_length=50)
+    estado=models.BooleanField(default=False)
     CONDICION_VENTA_CHOICES = [
         ('CONTADO', 'Contado'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('CREDITO', 'Credito'),  
     ]
     condicion_venta= models.CharField(max_length=15, choices=CONDICION_VENTA_CHOICES)
     
+    def __str__(self):
+        return self.razon_social
 
 class Venta(models.Model):
     numeroComprobante= models.CharField(max_length=15)
@@ -57,7 +60,7 @@ class ItemProducto(models.Model):
 
 
 
-class itemMayorista():
+class itemMayorista(models.Model):
     venta=models.ForeignKey(Venta, on_delete=models.CASCADE)
-    mayorista=models.ForeignKey(Mayorista, on_delete=models.CASCADE)
+    mayorista_cuit=models.ForeignKey(Mayorista, on_delete=models.CASCADE)
   

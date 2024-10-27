@@ -1,19 +1,28 @@
 from django import forms
-from .models import Venta, Producto, ItemProducto
+from .models import Venta, Producto, ItemProducto, Mayorista
 from django.forms import inlineformset_factory, DateInput
 import datetime
 
 
 class ventasForm(forms.ModelForm):
+    mayorista = forms.ModelChoiceField(
+        queryset=Mayorista.objects.filter(estado=True),
+        empty_label="Seleccione",  # Filtra solo los insumos activos
+        widget=forms.Select(attrs={
+            'class': 'formulario__input',
+            'id':'nombreMayorista',
+            'name': 'mayorista'
+        })
+    )
     class Meta:
         model = Venta
-        fields = ['tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
+        fields = ['mayorista', 'tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
 
         widgets = {
             'tipo_venta': forms.Select(attrs={
                 'class': 'formulario__input',
-                'id': 'CategoriaVenta',
-                'name': 'catgVenta'
+                'id': 'tipo_venta',
+                'name': 'tipo_venta'
             }),
             'FechaVenta': DateInput(attrs={
                 'type': 'date',
@@ -45,7 +54,7 @@ class ventasForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'precioTotal',
                 'name': 'precioTotal'                 
-            })
+            }),
         }
 
                 # 'class': '',
