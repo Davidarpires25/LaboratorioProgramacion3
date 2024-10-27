@@ -12,7 +12,8 @@ const camposPedidos = {
 document.addEventListener("DOMContentLoaded", (e)=>{
  
     cargarTablaDesdeFormset();
-    
+    validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
+    validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
 
 
 
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     $formulario.addEventListener("submit",(e)=>{
         
         e.preventDefault();
-     
+       
 	    if(camposPedidos.observaciones && camposPedidos.cantidad_tabla ){
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
             document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-           
+            cargarDatosEnFormset()
             e.target.submit();
         }
        
@@ -81,9 +82,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         
        
     });
-    $modificar.addEventListener('click', function(e) {
-        cargarDatosEnFormset()
-      
+    $modificar.addEventListener('click', function(e) {  
         e.preventDefault();
         
        
@@ -139,7 +138,7 @@ function agregarInsumo(){
         <td>${rowCount}</td>
         <td class="insumo-item">${insumo}</td>
         <td class="cantidad-item">${cantidad}</td>
-        <td class="btn-accion">
+        <td>
             <button type="button" class="action-button edit-button" onclick="habilitarEdicion(this)"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
             <button type="button" class="action-button delete-button" onclick="eliminarFormulario(this)" ><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
         </td>

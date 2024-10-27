@@ -68,3 +68,5 @@ def editarPedidos(request, pk):
     })
 
 
+def eliminarPedido(request,pk):
+    pedido = get_object_or_404(Pedido, pk=pk)

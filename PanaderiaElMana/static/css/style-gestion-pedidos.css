@@ -93,3 +93,7 @@ button[class="btn-modificar"][type="button"]:active{
     width: 100%;
     justify-content: center;
 }
+
+.hidden-fields-container{
+    display: none;
+}

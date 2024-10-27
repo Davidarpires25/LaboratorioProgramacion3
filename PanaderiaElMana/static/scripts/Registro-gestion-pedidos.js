@@ -8,7 +8,7 @@ const expresionesPedidos = {
 }
 const camposPedidos = {
 	observaciones: false,
-	cantidad_tabla: true,
+	cantidad_tabla: false,
 	
 }
 
@@ -18,6 +18,7 @@ const camposPedidos = {
 
 document.addEventListener("DOMContentLoaded", (e)=>{
     const $formulario= document.querySelector('#formulario')
+    const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
     const formsetContainer = document.getElementById('formset-container');
     const $modificar= document.querySelector('.btn-modificar')
@@ -27,12 +28,12 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     
 
     
-    $formulario.addEventListener("keyup", (e) => { 
+    $main.addEventListener("keyup", (e) => { 
             if(e.target.matches("#observaciones")){
                 
                 validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
             }   
-            else if(e.target.matches("#cantidad")){
+            else if(e.target.matches("#cantidad_tabla")){
                 validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
             }
         });
@@ -42,7 +43,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     $formulario.addEventListener("submit",(e)=>{
         
         e.preventDefault();
-     
+        validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
+        validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
 	    if(camposPedidos.observaciones && camposPedidos.cantidad_tabla ){
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
             document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-           
+            generarCamposOcultos();
             e.target.submit();
         }
        
@@ -77,18 +79,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         
        
     });
-/*  
- 
-    // Eliminar formulario
-    formsetContainer.addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete-form')) {
-            e.preventDefault();
-            const form = e.target.closest('.seccion-form');
-            form.remove();
-            updateFormIndexes();
-        }
-    });
-    */
  
 
 });
@@ -98,6 +88,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 
 function validarCampo(expresion, input, campo){
+    console.log(input)
     if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
@@ -117,34 +108,6 @@ function validarCampo(expresion, input, campo){
 }
 
 
-
-
-/*
-function agregarFormularioATabla(form, index) {
-    const $tbody = document.querySelector("table tbody");
-    const insumos=querySelectorAll('#insumo')
-    const insumo = form.querySelector('select[name$="-insumo"]').options[form.querySelector('select[name$="-insumo"]').selectedIndex].text;
-    const cantidad = form.querySelector('input[name$="-cantidad"]').value;
-    console.log(form)
-    console.log(insumo,cantidad)
-    const row = document.createElement('tr');
-    row.setAttribute("data-form-index", index);
-
-    
-    row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${insumo}</td>
-        <td>${cantidad}</td>
-        <td>
-            <div class="action-buttons">
-                    <button class="action-button edit-button onclick="editarFormulario(${index})"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-                    <button class="action-button delete-button" onclick="eliminarFormulario(${index})"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
-            </div>
-        </td>
-    `;
-    $tbody.appendChild(row);
-}
-*/
 
 function editarFormulario(index) {
     const form = document.querySelector(`#formset-container .seccion-form:nth-child(${index + 1})`);
