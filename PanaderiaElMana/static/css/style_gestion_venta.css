@@ -75,10 +75,49 @@ h1{
     display: none;
 }
 
+#btnEliminarProducto{
+    padding: 1px;
+    transform: translateX(200%);
+}
 
+#grupo__precio{
+    transform: translateX(25%);
+}
 
+#grupo__cantidad{
+    transform: translateX(50%);
+}
 
+#addProducto{
+    color: black;
+    text-align: center;
+    border-color: #d88c2255;
+    background-color: #10dca6;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: block;
+}
 
+#centrarInput{
+    text-align: center;
+}
+
+#centrarInput span{
+    font-size: 32px;
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 6px;
+}
+
+#precioTotal{
+    width: 150px;
+    background-color: #d88d22;
+    font-size: 32px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    color: white;
+}
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     #formset-container{

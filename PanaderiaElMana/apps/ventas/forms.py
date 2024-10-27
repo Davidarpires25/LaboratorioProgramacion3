@@ -53,7 +53,8 @@ class ventasForm(forms.ModelForm):
             'precioTotal': forms.TextInput(attrs={
                 'class': 'formulario__input',
                 'id': 'precioTotal',
-                'name': 'precioTotal'                 
+                'name': 'precioTotal',
+                'readonly': 'readonly'                
             }),
         }
 

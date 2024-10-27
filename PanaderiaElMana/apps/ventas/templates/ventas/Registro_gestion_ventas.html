@@ -165,9 +165,12 @@
                                 {{ form.cantidad }}
                                 <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
+
                             <p class="formulario__input-error">Ingrese solamente numeros.</p>
                         </div>
+                        <button class="btn btn-danger" id="btnEliminarProducto">Eliminar Producto</button>                        
                     </div>
+                    
                     {% endfor %}             
                     <div class="formulario__mensaje" id="formulario__mensaje">
                         <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
@@ -175,14 +178,22 @@
                     <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
                         <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
                     </div>
+                    
                 </div>
+                
             </div>
-            {{ formVenta.precioTotal }}
-            <button id="addProducto">Agregar producto</button>
+            <div id="centrarInput">
+                <p><span>TOTAL</span>{{ formVenta.precioTotal }}</p>
+            </div>
+            
+            <br><br><br>
+			<div class="formulario__grupo formulario__grupo-btn-enviar">
+				<button id="addProducto" class="formulario__btn"><i class="bi bi-cart4  me-1"></i>Agregar producto</button>
+			</div>
+            <br><br>            
 			<div class="formulario__grupo formulario__grupo-btn-enviar">
 				<button type="submit" class="formulario__btn"><i class="bi bi-cart4  me-2"></i>Registrar Venta</button>
 			</div>
-            
             
 		</form>
     
