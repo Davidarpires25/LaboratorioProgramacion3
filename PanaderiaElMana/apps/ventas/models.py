@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 from apps.productos.models import Producto
 
 # Create your models here.
@@ -20,7 +20,7 @@ class Mayorista(models.Model):
 class Venta(models.Model):
     numeroComprobante= models.CharField(max_length=15)
     FechaVenta= models.DateField()
-    precioTotal= models.FloatField()
+    precioTotal= models.FloatField(validators=[MinValueValidator(0.0)])
     observaciones= models.TextField(max_length=200)                        
 
     TIPO_VENTA_CHOICES = [
@@ -51,8 +51,8 @@ class Venta(models.Model):
 class ItemProducto(models.Model):
     venta= models.ForeignKey(Venta,on_delete=models.CASCADE)
     producto= models.ForeignKey(Producto,on_delete=models.CASCADE)
-    cantidad= models.IntegerField()
-    precioActual= models.FloatField()
+    cantidad= models.PositiveIntegerField()
+    precioActual= models.FloatField(validators=[MinValueValidator(0.0)])
 
 
 
