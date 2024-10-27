@@ -4,12 +4,15 @@ body {
 }
 
 .table-container {
+    max-width: 1140px;
     margin-top: 50px;
+    width: 100%;
     overflow: hidden;
     border-radius: 10px;
     
 }
 .table-title {
+   
     color: white;
     padding-bottom: 15px;
    
@@ -17,7 +20,8 @@ body {
     font-weight: bold;
 }
 table {
-    width: 1200px;
+    max-width: 1200px;
+    width: 100%;
     border-collapse: collapse;
 }
 th, td {

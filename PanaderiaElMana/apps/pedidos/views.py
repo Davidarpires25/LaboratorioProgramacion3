@@ -1,10 +1,16 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Insumo,Pedido
+from .models import Insumo,Pedido,ItemInsumo
 from .forms import PedidoForm, ItemInsumoFormSet
 
 # Create your views here.
 
+
+def pedidos(request):
+    pedidos=Pedido.objects.all()
+    return render (request, 'pedidos/Lista-pedidos.html',{
+        'pedidos':pedidos
+    })
 
 
 def registroPedidos(request):
@@ -23,6 +29,7 @@ def registroPedidos(request):
                 print('valido formest')
                 formset.save()
                 messages.success(request, 'pedido creado exitosamente.')
+                return redirect('pedidos:lista_pedidos')
                 
     else:
         form = PedidoForm()
@@ -36,24 +43,26 @@ def registroPedidos(request):
 
 
 def editarPedidos(request, pk):
+    insumos= Insumo.objects.filter(estado=True)
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == 'POST':
         form = PedidoForm(request.POST, request.FILES, instance=Pedido)
         if form.is_valid():
             pedido = form.save()
-            formset = ItemInsumoFormSet(request.POST, instance=pedido)
+            formset = ItemInsumoFormSet(request.POST, instance=pedido,queryset=ItemInsumo.objects.filter(pedido=pedido))
             if formset.is_valid():
                 formset.save()
                 messages.success(request, 'Pedido actualizado exitosamente.')
-                return redirect('home')
+                return redirect('pedidos:lista_pedidos')
     else:
         form = PedidoForm(instance=pedido)
-        formset = ItemInsumoFormSet(instance=pedido)
+        formset = ItemInsumoFormSet(instance=pedido,queryset=ItemInsumo.objects.filter(pedido=pedido))
 
     return render(request, 'pedidos/Detalle-pedido.html', {
         'form': form,
         'formset': formset,
-        'pedido': pedido
+        'pedido': pedido,
+        'insumos':insumos
     })
 
 

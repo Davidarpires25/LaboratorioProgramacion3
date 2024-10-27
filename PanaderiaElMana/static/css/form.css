@@ -32,7 +32,7 @@ input[id=numeroPedido]{
     border-radius: 8px;
 	max-width: 450px;
 	width: 100%;
-	margin-left: 20%;
+	margin-left: 15%;
 }
 .formulario__label {
     color: white;
@@ -114,7 +114,8 @@ input[id=numeroPedido]{
 .formulario__grupo-btn-enviar {
 	display: flex;
 	margin-top: 10px;
-	justify-content: center;
+	flex-direction: row;
+	margin-left: 100px;
    
 }
 
@@ -128,8 +129,7 @@ input[id=numeroPedido]{
 	border: none;
 	border-radius: 8px;
 	transition: .1s ease all;
-	margin-right: 30px;
-    
+	margin-right: 60px;
 }
 
 .formulario__mensaje-exito {

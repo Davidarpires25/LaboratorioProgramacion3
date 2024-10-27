@@ -84,7 +84,7 @@ button[class="btn-modificar"][type="button"]:active{
 	border: none;
 	border-radius: 8px;
 	transition: .1s ease all;
-	margin-right: 30px;
+    margin-right: 100px;
 }
 
 #main{

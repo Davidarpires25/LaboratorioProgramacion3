@@ -38,7 +38,7 @@
 
                     <!-- Grupo: Fecha -->
                 <div class="formulario__grupo" id="grupo__fechaSolicitud">
-                    <label for="fecha_pedido" class="formulario__label">Fecha</label>
+                    <label for="id_fecha_pedido" class="formulario__label">Fecha</label>
                     <div class="formulario__grupo-input">
                         {{ formPedido.fecha_pedido}}
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -79,6 +79,7 @@
             {{ formset.management_form }}
             {% for form in formset %}
             <div class="hidden-fields-container" id="formset-container" >
+                
                 <div class="insumos-form ">
                     {{form}}
                 </div>
@@ -155,8 +156,7 @@
             
     
         </div>
-        <input type="hidden" id="idInsumo" value="55">
-        <input type="hidden" id="precioInsumo" value="20">
+     
        
 	</main>
     {% endblock %}
