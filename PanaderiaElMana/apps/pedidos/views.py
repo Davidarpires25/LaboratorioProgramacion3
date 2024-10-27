@@ -46,17 +46,19 @@ def editarPedidos(request, pk):
     insumos= Insumo.objects.filter(estado=True)
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == 'POST':
-        form = PedidoForm(request.POST, request.FILES, instance=Pedido)
+        form = PedidoForm(request.POST, request.FILES, instance=pedido)
         if form.is_valid():
             pedido = form.save()
-            formset = ItemInsumoFormSet(request.POST, instance=pedido,queryset=ItemInsumo.objects.filter(pedido=pedido))
+            formset = ItemInsumoFormSet(request.POST, instance=pedido)
+            print('Datos recibidos:', request.POST)
+            print('formset',formset)
             if formset.is_valid():
                 formset.save()
                 messages.success(request, 'Pedido actualizado exitosamente.')
                 return redirect('pedidos:lista_pedidos')
     else:
         form = PedidoForm(instance=pedido)
-        formset = ItemInsumoFormSet(instance=pedido,queryset=ItemInsumo.objects.filter(pedido=pedido))
+        formset = ItemInsumoFormSet(instance=pedido)
 
     return render(request, 'pedidos/Detalle-pedido.html', {
         'form': form,

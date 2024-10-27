@@ -52,7 +52,7 @@ class ItemInsumoForm(forms.ModelForm):
         empty_label="Seleccione",  # Filtra solo los insumos activos
         widget=forms.Select(attrs={
             'class': 'formulario__input',
-            'id':'insumo',
+          
         }),
  
     )
@@ -62,7 +62,7 @@ class ItemInsumoForm(forms.ModelForm):
         widgets = {
             'cantidad': forms.NumberInput(attrs={
                 'class': 'formulario__input', 
-                'id': 'cantidad'
+                
             }),
            
         }

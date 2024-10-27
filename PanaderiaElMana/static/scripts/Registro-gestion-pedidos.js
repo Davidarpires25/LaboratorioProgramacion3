@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
-            generarCamposOcultos();
+           
             e.target.submit();
         }
        
@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     });
     $modificar.addEventListener('click', function(e) {
         
+        generarCamposOcultos();
         e.preventDefault();
         
        
@@ -118,7 +119,7 @@ function validarCampo(expresion, input, campo){
 
 
 
-
+/*
 function agregarFormularioATabla(form, index) {
     const $tbody = document.querySelector("table tbody");
     const insumos=querySelectorAll('#insumo')
@@ -143,7 +144,7 @@ function agregarFormularioATabla(form, index) {
     `;
     $tbody.appendChild(row);
 }
-
+*/
 
 function editarFormulario(index) {
     const form = document.querySelector(`#formset-container .seccion-form:nth-child(${index + 1})`);
@@ -167,7 +168,7 @@ function eliminarFormulario(index) {
 
 
 function agregarInsumo(){
-    const tableBody = document.querySelector("#tabla tbody");
+    const tableBody = document.querySelector("#tableContainer tbody");
     const rowCount = tableBody.rows.length + 1;
     
     // Obtener valores de los campos de entrada
@@ -189,7 +190,7 @@ function agregarInsumo(){
         <td class="cantidad-item">${cantidad}</td>
         <td>
             <button type="button" class="action-button edit-button" onclick="habilitarEdicion(this)"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
-            <button type="button" class="action-button delete-button" onclick="eliminarFila(this)"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
+            <button type="button" class="action-button delete-button" onclick="eliminarFila(this)" ><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
         </td>
     `;
     
@@ -263,10 +264,13 @@ function guardarEdicion(button) {
 }
 
 function generarCamposOcultos() {
+    
     const formsetContainer = document.getElementById('formset-container');
     const totalForms = document.getElementById('id_insumos-TOTAL_FORMS');
-    const filas = document.querySelectorAll("#tabla tbody tr");
-
+    const filas = document.querySelectorAll("#tableContainer tbody tr");
+    console.log(formsetContainer)
+    console.log(totalForms)
+    console.log(filas)
     // Vaciar los formularios actuales (excepto el primero, que es la plantilla)
     while (formsetContainer.children.length > 1) {
         formsetContainer.removeChild(formsetContainer.lastChild);
@@ -278,7 +282,7 @@ function generarCamposOcultos() {
     // Usar el primer formulario del formset para el primer elemento de la tabla
     if (filas.length > 0) {
         const firstTemplate = formsetContainer.children[0];
-        
+        console.log(firstTemplate)
         // Obtener valores de insumo y cantidad desde la primera fila
         const firstInsumo = filas[0].querySelector(".insumo-item").textContent.trim();
         const firstCantidad = filas[0].querySelector(".cantidad-item").textContent.trim();
@@ -289,7 +293,7 @@ function generarCamposOcultos() {
         for (let option of firstSelect.options) {
             option.selected = (option.textContent.trim() === firstInsumo);
         }
-
+        console.log(firstTemplate)
         // Actualizar índices del primer formulario
         updateElementIndex(firstTemplate.querySelector('input[type="number"]'), 'insumos', 0);
         updateElementIndex(firstTemplate.querySelector('select'), 'insumos', 0);
@@ -331,32 +335,6 @@ function generarCamposOcultos() {
 
 
 
-/*
-filas.forEach((fila, index) => {
-    const insumo = fila.querySelector(".insumo-item").textContent;
-    const cantidad = fila.querySelector(".cantidad-item").textContent;
-
-    // Crear inputs ocultos para cada campo de cada fila
-    const insumoInput = document.createElement("select");
-  
-    insumoInput.name = `insumos-${index}-insumo`;
-    insumoInput.value = insumo;
-    insumoInput.setAttribute('id','insumo')
-    const option = document.createElement("option");
-    option.value = insumo;
-    option.text = insumo;
-    insumoInput.appendChild(option);
-    console.log('insumo Select ',insumoInput,'valor:',insumoInput.value)
-    const cantidadInput = document.createElement("input");
-    cantidadInput.type = "number";
-    cantidadInput.name = `cantidades-${index}-cantidad`;
-    cantidadInput.value = cantidad;
-    cantidadInput.setAttribute('id','cantidad')
-    console.log('cantidad input',cantidadInput,'valor:',cantidadInput.value)
-    hiddenContainer.appendChild(insumoInput);
-    hiddenContainer.appendChild(cantidadInput);
-});
-*/
 
 function updateFormIndexes() {
     const totalForms = document.getElementById('id_insumos-TOTAL_FORMS');
