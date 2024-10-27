@@ -1,6 +1,14 @@
 const hamBurger = document.querySelector(".toggle-btn");
 const $sidebar = document.getElementById("sidebar");
 
+async function productosBajaCantidad(){
+  let respuesta = await fetch("http://127.0.0.1:8000/productos/baja_cantidad")
+  let jsonProductos = await respuesta.json();
+  console.log(jsonProductos);
+}
+
+
+
 function ocultarPalomita(instruccion){
   const $sidebarLinks = document.querySelectorAll("a.sidebar-link.collapsed.has-dropdown");
   if(instruccion){
@@ -47,7 +55,6 @@ document.addEventListener("click", function (e) {
       }
     }
   }
-  console.log(e.target)
   if(e.target === document.getElementById("logoMana")){
     window.location.href = "/";
   }
@@ -66,5 +73,6 @@ document.addEventListener("mouseover", function(e){
 
 document.addEventListener("DOMContentLoaded", function(){
   ocultarPalomita(true);
+  productosBajaCantidad();
 })
 
