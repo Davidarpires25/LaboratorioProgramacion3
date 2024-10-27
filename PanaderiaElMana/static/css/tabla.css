@@ -69,6 +69,9 @@ div .action-button{
 .delete-button {
     background-color: #b92c31;
 }
+.save-button{
+    background-color: #D9D6D1;
+}
 
 .total-row td {
     text-align: center;
@@ -130,6 +133,12 @@ div .action-button{
 	margin-right: 10px;
     margin-bottom: 10px;
     
+}
+
+.btn-accion{
+    display: flex;
+    gap: 30px;
+
 }
 
 .table-input-container{

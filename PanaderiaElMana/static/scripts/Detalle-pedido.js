@@ -4,7 +4,7 @@ const expresionesPedidos = {
 }
 const camposPedidos = {
 	observaciones: false,
-	cantidad_tabla: true,
+	cantidad_tabla: false,
 	
 }
 
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 document.addEventListener("DOMContentLoaded", (e)=>{
     const $formulario= document.querySelector('#formulario')
+    const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
     const formsetContainer = document.getElementById('formset-container');
     const $modificar= document.querySelector('.btn-modificar')
@@ -34,12 +35,14 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     
 
     
-    $formulario.addEventListener("keyup", (e) => { 
+    $main.addEventListener("keyup", (e) => { 
             if(e.target.matches("#observaciones")){
                 
                 validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
             }   
-            else if(e.target.matches("#cantidad")){
+            else if(e.target.matches("#cantidad_tabla")){
+                console.log(e.target)
+                console.log(e.target.value)
                 validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
             }
         });
@@ -136,7 +139,7 @@ function agregarInsumo(){
         <td>${rowCount}</td>
         <td class="insumo-item">${insumo}</td>
         <td class="cantidad-item">${cantidad}</td>
-        <td>
+        <td class="btn-accion">
             <button type="button" class="action-button edit-button" onclick="habilitarEdicion(this)"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
             <button type="button" class="action-button delete-button" onclick="eliminarFormulario(this)" ><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
         </td>
@@ -151,32 +154,27 @@ function agregarInsumo(){
 
 }  
 
-
-
 function habilitarEdicion(button) {
     const row = button.closest("tr");
     const insumoCell = row.querySelector(".insumo-item");
     const cantidadCell = row.querySelector(".cantidad-item");
-
     // Obtener los valores actuales
     const insumoActual = insumoCell.textContent.trim();
     const cantidadActual = cantidadCell.textContent.trim();
-
     // Crear el select e input de edición como antes
     const insumoSelect = document.getElementById("insumo_tabla").cloneNode(true);
-    insumoSelect.classList.add("tabla__input");
-    insumoSelect.id = "insumo_editar";
-
+    insumoSelect.classList.add("tabla__input", "insumo-editar"); // Cambia a clase
     for (let option of insumoSelect.options) {
         option.selected = (option.textContent.trim() === insumoActual);
     }
-
     insumoCell.innerHTML = "";
     insumoCell.appendChild(insumoSelect);
-
     cantidadCell.innerHTML = `<input type="number" class="tabla__input" id="cantidad_editar" value="${cantidadActual}">`;
-
-    button.textContent = "Guardar";
+    
+    // Cambiar el botón a ícono de guardar y clase
+    button.innerHTML = '<i class="fa-solid fa-floppy-disk fa-2xl" style="color: #1f1e1e;"></i>';
+    button.classList.remove("edit-button");
+    button.classList.add("save-button");
     button.onclick = function() {
         guardarEdicion(button);
     };
@@ -186,31 +184,38 @@ function guardarEdicion(button) {
     const row = button.closest("tr");
     const insumoCell = row.querySelector(".insumo-item");
     const cantidadCell = row.querySelector(".cantidad-item");
+    const insumoEditarElement = row.querySelector(".insumo-editar");
+    const cantidadEditarElement = row.querySelector("#cantidad_editar");
 
-    const insumoEditado = row.querySelector("#insumo_editar").options[row.querySelector("#insumo_editar").selectedIndex].text;
-    const cantidadEditada = row.querySelector("#cantidad_editar").value;
+    if (insumoEditarElement && cantidadEditarElement) {
+        const insumoEditado = insumoEditarElement.options[insumoEditarElement.selectedIndex].text;
+        const cantidadEditada = cantidadEditarElement.value;
 
-    insumoCell.textContent = insumoEditado;
-    cantidadCell.textContent = cantidadEditada;
+        insumoCell.textContent = insumoEditado;
+        cantidadCell.textContent = cantidadEditada;
 
-    // Obtener el índice del formulario en el formset
-    const index = Array.from(row.parentNode.children).indexOf(row);
+        // Obtener el índice del formulario en el formset
+        const index = Array.from(row.parentNode.children).indexOf(row);
+        // Actualizar los campos correspondientes en el formset usando el índice
+        const form = document.querySelector(`#formset-container .insumos-form:nth-child(${index + 1})`);
+        const insumoField = form.querySelector('select');
+        const cantidadField = form.querySelector('input[type="number"]');
 
-    // Actualizar los campos correspondientes en el formset usando el índice
-    const form = document.querySelector(`#formset-container .insumos-form:nth-child(${index + 1})`);
-    const insumoField = form.querySelector('select');
-    const cantidadField = form.querySelector('input[type="number"]');
-    
-    // Actualizar los valores del formset con los valores editados en la tabla
-    insumoField.value = row.querySelector("#insumo_editar").value;
-    cantidadField.value = cantidadEditada;
+        // Actualizar los valores del formset con los valores editados en la tabla
+        insumoField.value = insumoEditarElement.value;
+        cantidadField.value = cantidadEditada;
 
-    button.textContent = "Modificar";
-    button.onclick = function() {
-        habilitarEdicion(button);
-    };
+        // Cambiar el botón a ícono de modificar y clase
+        button.innerHTML = '<i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>';
+        button.classList.remove("save-button");
+        button.classList.add("edit-button");
+        button.onclick = function() {
+            habilitarEdicion(button);
+        };
+    } else {
+        console.error("Elementos de edición no encontrados.");
+    }
 }
-
 
 
 
