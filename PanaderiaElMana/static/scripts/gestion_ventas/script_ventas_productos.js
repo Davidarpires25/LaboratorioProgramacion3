@@ -105,6 +105,10 @@ function validarTeclas(key){
 document.addEventListener("DOMContentLoaded", function(e){
     const $formsetContainer = document.getElementById('formset-container');
     const $totalForms = document.getElementById("id_itemproducto_set-TOTAL_FORMS");
+    const $precioAct = document.getElementById("id_itemproducto_set-0-precioActual");
+    const $cantidad = document.getElementById("id_itemproducto_set-0-cantidad");
+    $precioAct.classList.add("formulario__input");
+    $cantidad.classList.add("formulario__input");
     function updateFormIndexes() {
         const forms = $formsetContainer.getElementsByClassName('form-background');
         for (let i = 0; i < forms.length; i++) {
@@ -121,24 +125,17 @@ document.addEventListener("DOMContentLoaded", function(e){
             }
         }
         $totalForms.value = forms.length;
-        alert($totalForms.value)
     }    
     // Función para actualizar el índice de un elemento
     function updateElementIndex(element, prefix, index) {
-        console.log(`ELEMENTO: ${element} PREFIJO ${prefix} INDICE ${index}`)
         const idRegex = new RegExp(`(${prefix}-\\d+)`);
-        console.log("IDREX " , idRegex)
         const replacement = `${prefix}-${index}`;
-        console.log("REPLACEEMEMEM", replacement)
         if (element.id) element.id = element.id.replace(idRegex, replacement);
         if (element.name) element.name = element.name.replace(idRegex, replacement);
-        console.warn(element.id)
-        console.warn(element.name)
     }
     // Agregar nuevo formulario
     $botonAgregarProducto.addEventListener('click', function(e) {
         e.preventDefault();
-        const formCount = $formsetContainer.children.length;
         const template = $formsetContainer.children[0].cloneNode(true);
 
         // Limpiar los valores del formulario clonado

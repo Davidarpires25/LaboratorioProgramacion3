@@ -19,6 +19,6 @@ class Producto(models.Model):
 
 
     def __str__(self):
-        return self. descripcion
+        return f"{self. descripcion} (precio:{self.precio})"
 
 #opcion: mandar esos 2 y con las expReg en js capturar el precio del option seleccionado

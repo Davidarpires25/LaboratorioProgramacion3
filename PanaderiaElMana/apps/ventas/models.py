@@ -18,7 +18,7 @@ class Mayorista(models.Model):
     
 
 class Venta(models.Model):
-    numeroComprobante= models.IntegerField()
+    numeroComprobante= models.CharField(max_length=15)
     FechaVenta= models.DateField()
     precioTotal= models.FloatField()
     observaciones= models.TextField(max_length=200)                        

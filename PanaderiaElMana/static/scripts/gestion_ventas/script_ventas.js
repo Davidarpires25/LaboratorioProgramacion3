@@ -58,9 +58,11 @@ d.addEventListener("change", function(e){
 d.addEventListener("submit", function(e){
     e.preventDefault();
     console.warn(valido)
-    alert("")
-    alert("")
-    $formulario.submit();
+    if(valido){
+        alert("VENTA REALIZADA CON EXITO")
+        $formulario.submit();
+    }
+
 });
 
 
