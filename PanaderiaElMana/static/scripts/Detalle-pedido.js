@@ -335,10 +335,12 @@ function agregarInsumoFormset() {
 
 function actualizarIndicesFormset(formsetContainer) {
     const forms = formsetContainer.querySelectorAll('.insumos-form');
+    console.log(forms)
     forms.forEach((form, index) => {
         const inputs = form.querySelectorAll('input');
         const selects = form.querySelectorAll('select');
-
+        console.log(inputs)
+        console.log(selects)
         inputs.forEach(input => {
             updateElementIndex(input, 'insumos', index);
         });
@@ -347,4 +349,13 @@ function actualizarIndicesFormset(formsetContainer) {
             updateElementIndex(select, 'insumos', index);
         });
     });
+}
+
+
+
+function updateElementIndex(element, prefix, index) {
+    const idRegex = new RegExp(`(${prefix}-\\d+)`);
+    const replacement = `${prefix}-${index}`;
+    if (element.id) element.id = element.id.replace(idRegex, replacement);
+    if (element.name) element.name = element.name.replace(idRegex, replacement);
 }
