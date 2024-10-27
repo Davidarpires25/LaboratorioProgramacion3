@@ -11,5 +11,4 @@ def gestionarProductos(request):
 def productosCantidadBaja(request):
     productos = Producto.objects.filter(cantidad__lt=10).values('id', 'descripcion', 'cantidad')
     # jsonProductos = serializers.serialize('json', productos)
-    print(productos)
     return JsonResponse(list(productos), safe=False)

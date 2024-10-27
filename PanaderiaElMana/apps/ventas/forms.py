@@ -8,6 +8,7 @@ class ventasForm(forms.ModelForm):
     mayorista = forms.ModelChoiceField(
         queryset=Mayorista.objects.filter(estado=True),
         empty_label="Seleccione",  # Filtra solo los insumos activos
+        required=False,
         widget=forms.Select(attrs={
             'class': 'formulario__input',
             'id':'nombreMayorista',
@@ -54,7 +55,7 @@ class ventasForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'precioTotal',
                 'name': 'precioTotal',
-                'readonly': 'readonly'                
+                # 'readonly': 'readonly'                
             }),
         }
 
