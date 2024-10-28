@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
     const formsetContainer = document.getElementById('formset-container');
-    const $modificar= document.querySelector('.btn-modificar')
 
 
 
@@ -82,11 +81,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         
        
     });
-    $modificar.addEventListener('click', function(e) {  
-        e.preventDefault();
-        
-       
-    });
+ 
 
  
 

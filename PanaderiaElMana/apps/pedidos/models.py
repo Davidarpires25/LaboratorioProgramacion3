@@ -35,10 +35,10 @@ class Pedido(models.Model):
     fecha_pedido= models.DateField()
     observaciones= models.TextField(max_length=100 ,blank=True, null=True)
     proveedor= models.ForeignKey(Proveedor,on_delete=models.CASCADE)
-    
+    estado=models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Fecha de pedido: {self.fechaPedido} Observaciones: {self.observaciones} proveedor: {self.proveedor.nombre}"
+        return f"Fecha de pedido: {self.fecha_pedido} Observaciones: {self.observaciones} proveedor: {self.proveedor.nombre}"
 
 
 

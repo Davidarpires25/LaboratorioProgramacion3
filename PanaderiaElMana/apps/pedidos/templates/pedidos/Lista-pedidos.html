@@ -12,14 +12,75 @@
   
     <link rel="stylesheet" href="{% static 'css/form.css' %}">
     <link rel="stylesheet" href="{% static 'css/tabla.css' %}">
+
+    <style>
+        .table-input-container-list{
+            display: grid;
+            grid-template-columns: 0.4fr 0.4fr 0.4fr 0.3fr;
+        }
+        .formulario__input_list{
+            max-width: 200px;
+            width: 100%;
+            background: #fff;
+            border: 3px solid transparent;
+            border-radius: 3px;
+            height: 45px;
+            line-height: 45px;
+            padding: 0 40px 0 10px;
+            transition: .3s ease all;
+        }
+        
+        .table-buttons-list{
+            cursor: pointer;
+            height: 50px;
+            line-height: 20px;
+            max-width: 200px;
+            width: 100%;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            transition: .1s ease all;
+            margin-top: 20px;
+           
+            margin-bottom: 10px;
+        }
+
+    </style>
     {% endblock %}
 </head>
 
 <body>
     {% block content %}
     <main id="main">
-        <div class="table-container" id="tabla" >
-            <div class="table-title" >Lista de Pedidos</div>
+        <div class="table-container" id="tabla">
+            <div class="table-title">Lista de Pedidos</div>
+            <div class="table-input-container-list">
+                <div class="formulario__grupo" id="grupo__searchInputID">
+                    <label for="searchInputID" class="formulario__label">Insumo</label>
+                    <div class="formulario__grupo-input">
+                        <input type="text" class="formulario__input_list" id="searchInputID" placeholder="Buscar por ID" onkeyup="buscarPedido()">   
+                    </div>
+                </div>
+                <div class="formulario__grupo" id="grupo__fechaTablaMin">
+                    <label for="searchInputDateMin" class="formulario__label">Fecha Mínima</label>
+                    <div class="formulario__grupo-input">
+                        <input type="date" class="formulario__input_list" id="searchInputDateMin" placeholder="Fecha mínima">
+                    </div>
+                </div>
+                <div class="formulario__grupo" id="grupo__fechaTablaMax">
+                    <label for="searchInputDateMax" class="formulario__label">Fecha Máxima</label>
+                    <div class="formulario__grupo-input">
+                        <input type="date" class="formulario__input_list" id="searchInputDateMax" placeholder="Fecha máxima">                 
+                    </div>             
+                </div>
+                <div class="formulario__grupo" id="grupo__buscarTabla">
+                    <label for="buscarTabla" class="formulario__label"></label>
+                  
+                        <button type="button" class="table-buttons-list" id="buscarTabla" onclick="buscarPedido()">Buscar</button>
+                    
+                </div>
+            </div>
+          
             <table>
                 <thead>
                     <tr>
@@ -27,31 +88,34 @@
                         <th>Fecha</th>
                         <th>Observaciones</th>
                         <th>Proveedor</th>
-                        <th>Accion</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
                     {% for pedido in pedidos %}
-                    {% if pedido.id > 60 %}
+                    {% if pedido.estado %}
                     <tr>
                         <td>{{ pedido.id }}</td>
                         <td>{{ pedido.fecha_pedido }}</td>
                         <td>{{ pedido.observaciones }}</td>
                         <td>{{ pedido.proveedor }}</td>
                         <td>
-                            <button type="button" class="action-button edit-button" >
-                            <a href="{% url 'pedidos:editarPedidos' pedido.id %}">
-                                <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>
-                            </a>
+                            <button type="button" class="action-button edit-button">
+                                <a href="{% url 'pedidos:editarPedidos' pedido.id %}">
+                                    <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>
+                                </a>
                             </button>
-                        </td>       
+                            <button type="button" class="action-button delete-button">
+                                <a href="{% url 'pedidos:cancelarPedido' pedido.id %}">
+                                    <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>
+                                </a>          
+                            </button>
+                        </td>
                     </tr>
-                  
                     {% endif %}
                     {% endfor %}
-                    
                 </tbody>
-                <tfoot>          
+                <tfoot>
                     <tr class="total-row" id="foot-tr">
                         <td></td>
                         <td></td>
@@ -59,13 +123,60 @@
                         <td></td>
                         <td></td>
                     </tr>
-                </tfoot> 
+                </tfoot>
             </table>
-              
         </div>
+    </main>
+    <script>
+        function buscarPedido() {
+            const inputID = document.getElementById("searchInputID").value.toUpperCase();
+            const inputDateMin = document.getElementById("searchInputDateMin").value;
+            const inputDateMax = document.getElementById("searchInputDateMax").value;
+            const table = document.querySelector(".table-container table");
+            const rows = table.getElementsByTagName("tr");
 
-	</main>
+            for (let i = 1; i < rows.length; i++) {
+                const idCell = rows[i].getElementsByTagName("td")[0];
+                const fechaCell = rows[i].getElementsByTagName("td")[1];
+
+                if (idCell && fechaCell) {
+                    const idText = idCell.textContent || idCell.innerText;
+                    const fechaText = fechaCell.textContent || fechaCell.innerText;
+                    const fechaDate = new Date(fechaText);
+
+                    let matchesID = true;
+                    let matchesFecha = true;
+
+                    // Filtrar por ID
+                    if (inputID && idText.toUpperCase().indexOf(inputID) === -1) {
+                        matchesID = false;
+                    }
+
+                    // Filtrar por rango de fechas
+                    if (inputDateMin && fechaDate < new Date(inputDateMin)) {
+                        matchesFecha = false;
+                    }
+                    if (inputDateMax && fechaDate > new Date(inputDateMax)) {
+                        matchesFecha = false;
+                    }
+
+                    // Mostrar o esconder la fila según las coincidencias
+                    if (matchesID && matchesFecha) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        
+    </script>
     {% endblock %}
-  
+    
 </body>
+
+
+
+
 </html>
+

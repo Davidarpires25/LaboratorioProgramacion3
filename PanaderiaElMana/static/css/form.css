@@ -129,7 +129,8 @@ input[id=numeroPedido]{
 	border: none;
 	border-radius: 8px;
 	transition: .1s ease all;
-	margin-right: 60px;
+	margin-left: 1%;
+	margin-top: 2%;
 }
 
 .formulario__mensaje-exito {

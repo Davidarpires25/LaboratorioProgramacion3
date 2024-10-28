@@ -7,7 +7,7 @@ from .forms import PedidoForm, ItemInsumoFormSet
 
 
 def pedidos(request):
-    pedidos=Pedido.objects.all()
+    pedidos=Pedido.objects.all().order_by('-id')
     return render (request, 'pedidos/Lista-pedidos.html',{
         'pedidos':pedidos
     })
@@ -68,5 +68,22 @@ def editarPedidos(request, pk):
     })
 
 
-def eliminarPedido(request,pk):
+def cancelarPedido(request, pk):
+    print("Cancelando pedido con ID:", pk)  # Agrega esta línea
     pedido = get_object_or_404(Pedido, pk=pk)
+    
+    if request.method == 'POST':
+        print("Estado anterior:", pedido.estado)  # Agrega esta línea
+        pedido.estado = False
+        pedido.save()
+        print("Nuevo estado:", pedido.estado)  # Agrega esta línea
+        messages.success(request, "El pedido ha sido cancelado exitosamente.")
+        return redirect('pedidos:lista_pedidos')
+    elif request.method == 'GET':
+        pedido.estado = False
+        pedido.save()
+        messages.success(request, "El pedido ha sido cancelado exitosamente.")
+        return redirect('pedidos:lista_pedidos')
+    else:
+        messages.error(request, "La cancelación no se pudo completar.")
+        return redirect('pedidos:lista_pedidos')

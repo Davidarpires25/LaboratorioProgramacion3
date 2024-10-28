@@ -28,7 +28,8 @@
                 <div class="formulario__grupo" id="grupo__numeroPedido">
                     <label for="numeroPedido" class="formulario__label">Nro de pedido</label>
                     <div class="formulario__grupo-input">
-                        <input type="number" class="formulario__input" name="numeroPedido" id="numeroPedido" placeholder="#2123" disabled>
+                        
+                        <input type="number" class="formulario__input" name="numeroPedido" id="numeroPedido" value="{{pedido.id}}">
                         <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                 </div>
@@ -75,10 +76,9 @@
             </div>
             <div class="formulario__grupo formulario__grupo-btn-enviar">
                 <button type="submit" class="formulario__btn"><i class="bi bi-send me-2"></i>Guardar Pedido</button>
-                <button type="button" class="btn-modificar"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Modificar Pedido</button> 
             </div>
         </form>
-
+       
         <div class="table-container" id="tableContainer">
             <div class="table-input-container">
                 <div class="formulario__grupo" id="grupo__insumo">
@@ -131,6 +131,10 @@
                     </tr>
                 </tfoot>
             </table>
+            <form action="{% url 'pedidos:cancelarPedido' pedido.id %}" method="POST">
+                {% csrf_token %}
+                <button  class="btn-cancelar"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i> Cancelar Pedido</button> 
+            </form>
         </div>
     </main>
     {% endblock %}
