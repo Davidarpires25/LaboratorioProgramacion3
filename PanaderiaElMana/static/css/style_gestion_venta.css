@@ -4,9 +4,10 @@ html,body{
 
 
 body{
-    background-image: url("../img/gestion_ventas/ventas2.jpg");
+    background-image: url("../img/gestion_ventas/d6axvp4qecqpn5jeg2jz.jpg");
     background-size: cover;
-    background-position: center;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 
@@ -99,10 +100,20 @@ h1{
 }
 
 #centrarInput{
+    background-color: #0000005a;
     text-align: center;
+    width: 400px;
+    margin-left: 20%;
+    border-radius: 10px;
+    border-style: groove;
+    border-color: #d88d22;
 }
 
+#centrarInput p{
+    margin-top: 5%;
+}
 #centrarInput span{
+    color: #fdfdfd;
     font-size: 32px;
     font-weight: bold;
     font-style: italic;
@@ -111,13 +122,13 @@ h1{
 
 #precioTotal{
     width: 150px;
-    background-color: #d88d22;
+    background-color: #ffffff;
     font-size: 32px;
     font-weight: bold;
     font-style: italic;
     text-align: center;
-    color: white;
-    border-color: black;
+    color: #d88d22;
+    border-color: #d88d22;
     border-radius: 10px;
 }
 /* Media query para resoluciones más pequeñas */
@@ -176,6 +187,9 @@ h1{
 @media (max-width: 619px){
     #id_itemproducto_set-0-cantidad{
         transform: translateY(-25px);
+    }
+    #centrarInput{
+        transform: translateX(-20%);
     }
 }
 
