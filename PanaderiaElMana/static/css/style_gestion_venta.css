@@ -131,6 +131,16 @@ h1{
     border-color: #d88d22;
     border-radius: 10px;
 }
+
+[id^="id_itemproducto_set"][id$="precioActual"]:hover{
+    cursor: default;
+}
+
+#centrarInput p, #precioTotal{
+    cursor: default;
+}
+
+
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     #formset-container{

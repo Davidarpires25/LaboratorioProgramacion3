@@ -1,6 +1,6 @@
 
-const $botonAgregarProducto = document.getElementById("addProducto");
-const $botonVerProductos = document.getElementById("listarProductos")
+const $botonAgregarProducto = d.getElementById("addProducto");
+const $botonVerProductos = d.getElementById("listarProductos")
 const $grupoProducto = ".form-background.grupoProducto";
 const listaProductos = [];
 
@@ -81,32 +81,10 @@ function cargarProducto(){
 
 
 function agregarFormularioProducto(){
-    
-    console.log($totalForms)
-
-}
-
-
-document.addEventListener("click", function(e){
-    // if(e.target === $botonAgregarProducto){
-    //     agregarFormularioProducto()
-    // }
-});
-
-function validarTeclas(key){
-    return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
-}
-
-// document.querySelector(`${$grupoProducto} #grupo__cantidad .formulario__grupo-input #cantidad`).addEventListener("keydown", function(keyEvent){
-//     if(validarTeclas(keyEvent.keyCode)) keyEvent.preventDefault();
-// })
-
-
-document.addEventListener("DOMContentLoaded", function(e){
-    const $formsetContainer = document.getElementById('formset-container');
-    const $totalForms = document.getElementById("id_itemproducto_set-TOTAL_FORMS");
-    const $precioAct = document.getElementById("id_itemproducto_set-0-precioActual");
-    const $cantidad = document.getElementById("id_itemproducto_set-0-cantidad");
+    const $formsetContainer = d.getElementById('formset-container');
+    const $totalForms = d.getElementById("id_itemproducto_set-TOTAL_FORMS");
+    const $precioAct = d.getElementById("id_itemproducto_set-0-precioActual");
+    const $cantidad = d.getElementById("id_itemproducto_set-0-cantidad");
     $precioAct.classList.add("formulario__input");
     $cantidad.classList.add("formulario__input");
     function updateFormIndexes() {
@@ -116,11 +94,9 @@ document.addEventListener("DOMContentLoaded", function(e){
             const formSelects = forms[i].getElementsByTagName('select');
 
             for (let input of formInputs) {
-                console.error(input)
                 updateElementIndex(input, 'itemproducto_set', i);
             }
             for (let select of formSelects) {
-                console.error(select)
                 updateElementIndex(select, 'itemproducto_set', i);
             }
         }
@@ -145,5 +121,55 @@ document.addEventListener("DOMContentLoaded", function(e){
         $formsetContainer.appendChild(template);
         updateFormIndexes();
     });
+}
 
+
+
+function validarTeclas(key){
+    return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
+}
+
+// document.querySelector(`${$grupoProducto} #grupo__cantidad .formulario__grupo-input #cantidad`).addEventListener("keydown", function(keyEvent){
+//     if(validarTeclas(keyEvent.keyCode)) keyEvent.preventDefault();
+// })
+
+function filtrarPrecio(texto){
+    return parseFloat(texto.match(/\b\d+(\.\d+)?\b/)[0]);
+}
+
+function actualizarTotal(cantidad){
+    const $precioTotal = d.getElementById("precioTotal");
+    const precios = d.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]');
+    let precioTotal = 0;
+    for(let precio of precios){
+        precioTotal += parseFloat(precio.value) * parseInt(cantidad);
+    }
+    $precioTotal.value = precioTotal;
+}
+
+function campoSoloLectura(){
+    const $precios = d.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]');
+    for(let precio of $precios){
+        precio.setAttribute("readonly", true);
+    }
+}
+
+
+d.addEventListener("DOMContentLoaded", function(e){
+    campoSoloLectura();
+    agregarFormularioProducto();
+});
+
+d.addEventListener("change", function(e){
+    if(e.target.matches("#producto")){
+        let productoTexto = e.target.options[e.target.selectedIndex].text;
+        let precioProducto = filtrarPrecio(productoTexto);
+        let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
+        let cantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']").value;
+        campoPrecio.value = precioProducto;
+        actualizarTotal(cantidad || 1)
+    }
+    if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
+        actualizarTotal(e.target.value || 1);
+    }
 })

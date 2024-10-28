@@ -55,7 +55,7 @@ class ventasForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'precioTotal',
                 'name': 'precioTotal',
-                # 'readonly': 'readonly'                
+                'readonly': 'readonly'                
             }),
         }
 
