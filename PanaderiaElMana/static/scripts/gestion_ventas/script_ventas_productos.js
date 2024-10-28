@@ -139,10 +139,11 @@ function filtrarPrecio(texto){
 
 function actualizarTotal(cantidad){
     const $precioTotal = d.getElementById("precioTotal");
-    const precios = d.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]');
+    const precios = d.querySelectorAll("input[type='hidden']#precioActualizado");
     let precioTotal = 0;
     for(let precio of precios){
-        precioTotal += parseFloat(precio.value) * parseInt(cantidad);
+        console.warn(precio.value)
+        precioTotal += parseFloat(precio.value);
     }
     $precioTotal.value = precioTotal;
 }
@@ -165,11 +166,16 @@ d.addEventListener("change", function(e){
         let productoTexto = e.target.options[e.target.selectedIndex].text;
         let precioProducto = filtrarPrecio(productoTexto);
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
-        let cantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']").value;
+        let campoCantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']");
         campoPrecio.value = precioProducto;
-        actualizarTotal(cantidad || 1)
+        const $precioActualizado = campoCantidad.nextElementSibling;
+        $precioActualizado.value = precioProducto * (campoCantidad.value || 1);
+        actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
-        actualizarTotal(e.target.value || 1);
+        let precioProducto = e.target.parentNode.parentNode.parentNode.querySelector("input[type='number']").value;
+        const $precioActualizado = e.target.nextElementSibling;
+        $precioActualizado.value = precioProducto * (e.target.value || 1);
+        actualizarTotal()
     }
 })

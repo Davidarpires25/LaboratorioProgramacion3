@@ -70,7 +70,8 @@ class ProductoForm(forms.ModelForm):
         empty_label="Seleccione",  # Filtra solo los insumos activos
         widget=forms.Select(attrs={
             'class': 'formulario__input',
-            'id':'producto'
+            'id':'producto',
+            'required': 'required'
         })
     )
     class Meta:
@@ -85,7 +86,7 @@ class ProductoForm(forms.ModelForm):
             'cantidad': forms.NumberInput(attrs={
                 'class': 'formulario__input',
                 'id': 'cantidad',
-                'name': 'cantidad'                
+                'name': 'cantidad'              
             })
         }
 
@@ -94,7 +95,7 @@ ItemProductoFormSet = inlineformset_factory(
     ItemProducto,  # El modelo hijo que está relacionado con el padre
     form=ProductoForm,  # El formulario que creamos antes
     extra=1,  # Cuántos formularios extra queremos mostrar
-    can_delete=True  # Permitir eliminar objetos existentes
+    can_delete=True, 
 )    
 #     class Meta:
 #         model = Pedido

@@ -152,6 +152,7 @@
                             <div class="formulario__grupo-input">
                                 <!-- <input type="text" class="formulario__input" name="precio" id="precio"> -->
                                 {{ form.precioActual }}
+                                
                                 <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
                             <p class="formulario__input-error">Ingrese solamente numeros.</p>
@@ -163,12 +164,14 @@
                             <div class="formulario__grupo-input">
                                 <!-- <input type="text" class="formulario__input" name="cantidad" id="cantidad" placeholder="#1,2,3..."> -->
                                 {{ form.cantidad }}
+                                <input type="hidden" id="precioActualizado">
                                 <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
 
                             <p class="formulario__input-error">Ingrese solamente numeros.</p>
                         </div>
-                        <button class="btn btn-danger" id="btnEliminarProducto">Eliminar Producto</button>                        
+                        <button class="btn btn-danger" id="btnEliminarProducto">Eliminar Producto</button>  
+                        {{ form.DELETE }}                      
                     </div>
                     
                     {% endfor %}             
