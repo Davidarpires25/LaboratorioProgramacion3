@@ -41,8 +41,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
             }   
             else if(e.target.matches("#cantidad_tabla")){
-                console.log(e.target)
-                console.log(e.target.value)
+            
                 validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
             }
         });
@@ -133,7 +132,7 @@ function agregarInsumo(){
         <td>${rowCount}</td>
         <td class="insumo-item">${insumo}</td>
         <td class="cantidad-item">${cantidad}</td>
-        <td>
+        <td >
             <button type="button" class="action-button edit-button" onclick="habilitarEdicion(this)"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
             <button type="button" class="action-button delete-button" onclick="eliminarFormulario(this)" ><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
         </td>
@@ -166,9 +165,14 @@ function habilitarEdicion(button) {
     cantidadCell.innerHTML = `<input type="number" class="tabla__input" id="cantidad_editar" value="${cantidadActual}">`;
     
     // Cambiar el botón a ícono de guardar y clase
-    button.innerHTML = '<i class="fa-solid fa-floppy-disk fa-2xl" style="color: #1f1e1e;"></i>';
+    button.innerHTML = `
+         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" fill="white" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+        <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+        <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
+    </svg> `;
     button.classList.remove("edit-button");
     button.classList.add("save-button");
+
     button.onclick = function() {
         guardarEdicion(button);
     };
@@ -334,12 +338,10 @@ function agregarInsumoFormset() {
 
 function actualizarIndicesFormset(formsetContainer) {
     const forms = formsetContainer.querySelectorAll('.insumos-form');
-    console.log(forms)
     forms.forEach((form, index) => {
         const inputs = form.querySelectorAll('input');
         const selects = form.querySelectorAll('select');
-        console.log(inputs)
-        console.log(selects)
+      
         inputs.forEach(input => {
             updateElementIndex(input, 'insumos', index);
         });

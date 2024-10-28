@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 
 function validarCampo(expresion, input, campo){
-    console.log(input)
+ 
     if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
@@ -200,7 +200,14 @@ function habilitarEdicion(button) {
     `;
 
     // Cambiar el botón "Modificar" a "Guardar"
-    button.textContent = "Guardar";
+    button.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" fill="white" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+    <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+    <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
+    </svg> `;
+    button.classList.remove("edit-button");
+    button.classList.add("save-button");
+    
     button.onclick = function() {
         guardarEdicion(button);
     };
@@ -220,7 +227,10 @@ function guardarEdicion(button) {
     cantidadCell.textContent = cantidadEditada;
 
     // Cambiar el botón "Guardar" de nuevo a "Modificar"
-    button.textContent = "Modificar";
+    // Cambiar el botón a ícono de modificar y clase
+    button.innerHTML = '<i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>';
+    button.classList.remove("save-button");
+    button.classList.add("edit-button");
     button.onclick = function() {
         habilitarEdicion(button);
     };
@@ -231,9 +241,7 @@ function generarCamposOcultos() {
     const formsetContainer = document.getElementById('formset-container');
     const totalForms = document.getElementById('id_insumos-TOTAL_FORMS');
     const filas = document.querySelectorAll("#tableContainer tbody tr");
-    console.log(formsetContainer)
-    console.log(totalForms)
-    console.log(filas)
+    
     // Vaciar los formularios actuales (excepto el primero, que es la plantilla)
     while (formsetContainer.children.length > 1) {
         formsetContainer.removeChild(formsetContainer.lastChild);
@@ -245,7 +253,7 @@ function generarCamposOcultos() {
     // Usar el primer formulario del formset para el primer elemento de la tabla
     if (filas.length > 0) {
         const firstTemplate = formsetContainer.children[0];
-        console.log(firstTemplate)
+   
         // Obtener valores de insumo y cantidad desde la primera fila
         const firstInsumo = filas[0].querySelector(".insumo-item").textContent.trim();
         const firstCantidad = filas[0].querySelector(".cantidad-item").textContent.trim();
@@ -256,7 +264,7 @@ function generarCamposOcultos() {
         for (let option of firstSelect.options) {
             option.selected = (option.textContent.trim() === firstInsumo);
         }
-        console.log(firstTemplate)
+       
         // Actualizar índices del primer formulario
         updateElementIndex(firstTemplate.querySelector('input[type="number"]'), 'insumos', 0);
         updateElementIndex(firstTemplate.querySelector('select'), 'insumos', 0);
