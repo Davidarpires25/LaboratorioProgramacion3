@@ -34,3 +34,7 @@ def informeVentas(request):
             # print(request.POST)  # Ver los datos que se están enviando
             # print(formset.errors) 
             # print(f'Número de formularios: {len(formset.save())}')  # Para ver cuántos formularios están en el formset
+
+def registroMayoristas(request):
+    return render(request, 'ventas/Registro_mayoristas.html')
+
