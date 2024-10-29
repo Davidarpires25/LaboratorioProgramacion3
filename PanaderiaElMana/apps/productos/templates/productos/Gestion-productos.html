@@ -96,7 +96,10 @@
                                 <button class="btn btn-edit"><a href="{% url 'productos:editar_productos' producto.id %}" style="color: white;">
                                 <i class="fas fa-edit" style="color: white;"></i>Editar</button>
                                 </a>
-                                <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                <form action="" id="formulario_eliminar" class="needs-validation formulario" method="post">
+                                    {% csrf_token %}
+                                    <button type="button" class="btn btn-delete" onclick="confirmCancel(`{% url 'productos:eliminar_productos' producto.id %}`)"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                                </form>
                             </td>       
                         </tr>
                         {% endfor %}
@@ -127,6 +130,7 @@
 
         {% block js %}
         <script src="{% static 'scripts/Validacion-GestionProductos.js'%}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {% endblock %}
     </body>
 </html>

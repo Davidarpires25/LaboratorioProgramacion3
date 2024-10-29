@@ -93,3 +93,22 @@ function validarSoloLetras(input) {
     const regex = /^[a-zA-ZñÑ\s]+$/;
     return regex.test(input.value);
 }
+
+function confirmCancel(enlace) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar producto',
+        cancelButtonText: 'No, mantener producto'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let formulario = document.getElementById('formulario_eliminar')
+            formulario.action = enlace
+            formulario.submit()
+        }
+    });
+}

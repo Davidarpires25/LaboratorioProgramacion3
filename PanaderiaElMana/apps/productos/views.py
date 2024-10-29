@@ -18,7 +18,7 @@ def gestionarProductos(request):
 
             descripcion = producto_form.cleaned_data['descripcion'].lower()
 
-            if Producto.objects.filter(Q(descripcion__iexact=descripcion)).exists():
+            if Producto.objects.filter(Q(descripcion__iexact=descripcion), estado=True).exists():
                 messages.error(request, 'El producto ya existe')
                 return render(request, 'productos/Gestion-productos.html', {'producto_form': producto_form,'productos':productos})
             else:
@@ -26,7 +26,7 @@ def gestionarProductos(request):
                 nuevo_producto.save()
                 messages.success(
                 request,
-                'Se ha agregado correctamente el Anuncio {}'.format(nuevo_producto))
+                "Producto agregado exitosamente")
                 return redirect(reverse('productos:gestionarProductos'))
                 
     else:
@@ -44,7 +44,7 @@ def editarProductos(request, pk):
 
             existe_producto = Producto.objects.filter(
                 Q(descripcion__iexact=descripcion)
-            ).exclude(id=producto.id).exists()
+            , estado=True).exclude(id=producto.id).exists()
 
             if existe_producto:
                 messages.error(request, 'El producto ya existe')
@@ -66,3 +66,18 @@ def editarProductos(request, pk):
         'producto': producto,
         'productos': productos
     })
+
+def eliminarProductos(request, pk):
+
+    producto = get_object_or_404(Producto, pk=pk)
+    
+    if request.method == 'POST':
+        print("Estado anterior:", producto.estado)
+        producto.estado = False
+        producto.save()
+        messages.success(request, "El producto ha sido eliminado exitosamente.")
+        return redirect('productos:gestionarProductos')
+    
+    else:
+        messages.error(request, "La cancelación no se pudo completar.")
+        return redirect('productos:gestionarProductos')

@@ -32,6 +32,15 @@ button[type="submit"] {
     background-color: rgba(61, 47, 47, 0.4);
 }
 
+.success{
+    color: rgb(47, 255, 54);
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: rgba(61, 47, 47, 0.4);
+}
+
 table {
     width: 70%;
     border-collapse: collapse;
