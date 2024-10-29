@@ -25,6 +25,7 @@ class Venta(models.Model):
     FechaVenta= models.DateField()
     precioTotal= models.FloatField(validators=[MinValueValidator(0.0)])
     observaciones= models.TextField(max_length=200)                        
+    estado=models.BooleanField(default=True)
 
     TIPO_VENTA_CHOICES = [
         ('MINORISTA', 'Minorista'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra

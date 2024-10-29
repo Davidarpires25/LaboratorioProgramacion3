@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ventasForm, ItemProductoFormSet
-from .models import itemMayorista
+from .models import itemMayorista, Venta
 # Create your views here.
 def registroVentas(request):
     if request.method == "POST":
@@ -24,6 +24,11 @@ def registroVentas(request):
         formset = ItemProductoFormSet()
     return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})
 
+def informeVentas(request):
+    ventas = Venta.objects.all().order_by('-id')
+    return render (request, 'ventas/Lista_ventas.html',{
+        'ventas': ventas
+    })   
 
 
             # print(request.POST)  # Ver los datos que se están enviando
