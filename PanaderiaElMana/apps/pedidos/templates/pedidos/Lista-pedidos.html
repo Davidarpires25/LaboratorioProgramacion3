@@ -111,9 +111,9 @@
                                     <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>
                                 </a>
                             </button>
-                            <form action="{% url 'pedidos:cancelarPedido' pedido.id %}" method="POST">
+                            <form action="{% url 'pedidos:cancelarPedido' pedido.id %}" method="POST" id="cancelForm">
                                 {% csrf_token %}
-                                <button type="button" class="action-button delete-button" onclick="confirmCancel()">
+                                <button type="button" class="action-button delete-button" onclick="confirmCancel()" >
                                     <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>     
                                 </button>
                             </form>
