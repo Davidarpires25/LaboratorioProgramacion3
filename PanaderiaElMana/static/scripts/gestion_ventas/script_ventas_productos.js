@@ -110,17 +110,34 @@ function agregarFormularioProducto(){
         if (element.name) element.name = element.name.replace(idRegex, replacement);
     }
     // Agregar nuevo formulario
-    $botonAgregarProducto.addEventListener('click', function(e) {
-        e.preventDefault();
-        const template = $formsetContainer.children[0].cloneNode(true);
-
-        // Limpiar los valores del formulario clonado
-        template.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
-        template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-
-        $formsetContainer.appendChild(template);
-        updateFormIndexes();
-    });
+    d.addEventListener("click", function(e){
+        if(e.target === $botonAgregarProducto){
+            e.preventDefault();
+            const template = $formsetContainer.children[0].cloneNode(true);
+    
+            // Limpiar los valores del formulario clonado
+            template.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+            template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+    
+            $formsetContainer.appendChild(template);
+            updateFormIndexes();
+        }
+        if(e.target.matches("#btnEliminarProducto")){
+            e.preventDefault()
+            if(controlFormsProducto()){
+                const $checkBox = e.target.nextElementSibling;
+                $checkBox.checked = true;
+                let form = e.target.closest(".grupoProducto")
+                console.log(form)
+                form.remove()
+                updateFormIndexes();
+                actualizarTotal();
+            }
+            else{
+                alert("DEBE EXISTIR POR LO MENOS 1 FORMULARIO DE PRODUCTO")
+            }
+        }
+    })
 }
 
 
@@ -137,7 +154,7 @@ function filtrarPrecio(texto){
     return parseFloat(texto.match(/\b\d+(\.\d+)?\b/)[0]);
 }
 
-function actualizarTotal(cantidad){
+function actualizarTotal(){
     const $precioTotal = d.getElementById("precioTotal");
     const precios = d.querySelectorAll("input[type='hidden']#precioActualizado");
     let precioTotal = 0;
@@ -145,7 +162,7 @@ function actualizarTotal(cantidad){
         console.warn(precio.value)
         precioTotal += parseFloat(precio.value);
     }
-    $precioTotal.value = precioTotal;
+    $precioTotal.value = precioTotal || '';
 }
 
 function campoSoloLectura(){
@@ -155,10 +172,23 @@ function campoSoloLectura(){
     }
 }
 
+function ocultarDelete(){
+    const $checkboxDelete = d.querySelectorAll('[id^="id_itemproducto_set"][id$="DELETE"]');
+    for(let checkbox of $checkboxDelete){
+        checkbox.classList.add("desactivado");
+    }
+}
+
+function controlFormsProducto(){
+    const $gruposProductos = d.querySelectorAll(".grupoProducto")
+    return $gruposProductos.length > 1;
+}
 
 d.addEventListener("DOMContentLoaded", function(e){
     campoSoloLectura();
     agregarFormularioProducto();
+    ocultarDelete();
+    
 });
 
 d.addEventListener("change", function(e){
@@ -178,4 +208,5 @@ d.addEventListener("change", function(e){
         $precioActualizado.value = precioProducto * (e.target.value || 1);
         actualizarTotal()
     }
-})
+});
+
