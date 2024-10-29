@@ -11,7 +11,7 @@ class Producto(models.Model):
     estado=models.BooleanField(default=True)
     categoria = models.CharField(max_length=15)
 
-
     def __str__(self):
-        return f"Descripcion: {self.descripcion} Precio: {self.precio} Cantidad:{self.cantidad} Estado: {self.estado}Categorizacion: {self.categoria}"
+        return f"{self. descripcion} (precio:{self.precio})"
 
+#opcion: mandar esos 2 y con las expReg en js capturar el precio del option seleccionado

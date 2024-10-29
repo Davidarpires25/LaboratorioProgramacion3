@@ -1,5 +1,4 @@
-#from django.shortcuts import render
-
+from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -7,8 +6,12 @@ from .forms import ProductoForm
 from .models import Producto
 from django.db.models import Q
 
-def gestionarProductos(request):
 
+def productosCantidadBaja(request):
+    productos = Producto.objects.filter(cantidad__lt=10).values('id', 'descripcion', 'cantidad')
+    return JsonResponse(list(productos), safe=False)
+
+def gestionarProductos(request):
     nuevo_producto = None
     productos = Producto.objects.filter(estado=True)
 
@@ -68,7 +71,6 @@ def editarProductos(request, pk):
     })
 
 def eliminarProductos(request, pk):
-
     producto = get_object_or_404(Producto, pk=pk)
     
     if request.method == 'POST':

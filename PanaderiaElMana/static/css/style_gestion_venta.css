@@ -4,9 +4,10 @@ html,body{
 
 
 body{
-    background-image: url("../img/gestion_ventas/ventas2.jpg");
+    background-image: url("../img/gestion_ventas/d6axvp4qecqpn5jeg2jz.jpg");
     background-size: cover;
-    background-position: center;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 
@@ -61,6 +62,9 @@ h1{
     justify-self: center; /* Centra el div horizontalmente */
 }
 
+#formset-container{
+    transform: translateX(50%);
+}
 
 .form-background{
     border-style: groove;
@@ -72,32 +76,76 @@ h1{
     display: none;
 }
 
-#agregarProducto{
-    color: #63E6BE;
+#btnEliminarProducto{
+    padding: 1px;
+    transform: translateX(200%);
 }
 
-#agregarProducto:hover{
-    color: #45be99;
+#grupo__precio{
+    transform: translateX(25%);
 }
 
-#agregarProducto:hover:active{
-    color: #2b9473;
+#grupo__cantidad{
+    transform: translateX(50%);
 }
 
-#listarProductos{
-    color: #ffffff;
+#addProducto{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-color: #d88c2255;
+    background-color: #10dca6;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: block;
 }
 
-#listarProductos:hover{
-    color: #dddddd;
+#centrarInput{
+    background-color: #0000005a;
+    text-align: center;
+    width: 400px;
+    margin-left: 20%;
+    border-radius: 10px;
+    border-style: groove;
+    border-color: #d88d22;
 }
 
-#listarProductos:hover:active{
-    color: #bdbdbd;
+#centrarInput p{
+    margin-top: 5%;
 }
+#centrarInput span{
+    color: #fdfdfd;
+    font-size: 32px;
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 6px;
+}
+
+#precioTotal{
+    width: 150px;
+    background-color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    color: #d88d22;
+    border-color: #d88d22;
+    border-radius: 10px;
+}
+
+[id^="id_itemproducto_set"][id$="precioActual"]:hover{
+    cursor: default;
+}
+
+#centrarInput p, #precioTotal{
+    cursor: default;
+}
+
 
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
+    #formset-container{
+        transform: translateX(-1px);
+    }
     h1{
         transform: translate(35%, 0px);    
     }
@@ -143,6 +191,15 @@ h1{
     /*tamaño de los íconos*/
     .form-background .formulario__validacion-estado {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 619px){
+    #id_itemproducto_set-0-cantidad{
+        transform: translateY(-25px);
+    }
+    #centrarInput{
+        transform: translateX(-20%);
     }
 }
 

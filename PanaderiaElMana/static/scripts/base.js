@@ -1,6 +1,45 @@
 const hamBurger = document.querySelector(".toggle-btn");
 const $sidebar = document.getElementById("sidebar");
 
+async function productosBajaCantidad(){
+  let respuesta = await fetch("http://127.0.0.1:8000/productos/baja_cantidad");
+  let jsonProductos = await respuesta.json();
+  const $sidebarItemNotificacion = document.getElementById("notificacion");
+  const $iconoCampana = document.getElementById("iconoNotificacion");
+  console.log(jsonProductos)
+  let formato =
+  `<li class="sidebar-item">
+        <b class="sidebar-link">Productos stock bajo:</b>
+  </li>`;
+
+  if(jsonProductos.length > 0){
+    $iconoCampana.classList.remove("fa-regular");
+    $iconoCampana.classList.add("fa-solid");
+    $iconoCampana.style.color = "#f37a16"
+    for(let producto of jsonProductos){
+      formato += 
+      `
+      <li class="sidebar-item">
+          <b class="sidebar-link">${producto.descripcion} cantidad: ${producto.cantidad}</b>
+      </li>
+      `
+    }
+    $sidebarItemNotificacion.innerHTML = formato
+  }
+  else{
+    $sidebarItemNotificacion.innerHTML =    
+    `
+    <li class="sidebar-item">
+        <b class="sidebar-link">No hay notificaciones</b>
+    </li>
+    `
+  }
+
+
+}
+
+
+
 function ocultarPalomita(instruccion){
   const $sidebarLinks = document.querySelectorAll("a.sidebar-link.collapsed.has-dropdown");
   if(instruccion){
@@ -47,7 +86,6 @@ document.addEventListener("click", function (e) {
       }
     }
   }
-  console.log(e.target)
   if(e.target === document.getElementById("logoMana")){
     window.location.href = "/";
   }
@@ -66,5 +104,6 @@ document.addEventListener("mouseover", function(e){
 
 document.addEventListener("DOMContentLoaded", function(){
   ocultarPalomita(true);
+  productosBajaCantidad();
 })
 
