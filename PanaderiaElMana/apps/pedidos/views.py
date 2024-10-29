@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Insumo,Pedido,ItemInsumo
-from .forms import PedidoForm, ItemInsumoFormSet
+from .models import Insumo,Pedido,ItemInsumo,RecepcionPedidos
+from .forms import PedidoForm, ItemInsumoFormSet,RecepcionForm
 
 # Create your views here.
 
@@ -16,9 +16,7 @@ def pedidos(request):
 def registroPedidos(request):
     insumos= Insumo.objects.filter(estado=True)
     if request.method == 'POST':
-        form = PedidoForm(request.POST,request.FILES)
-        print('Datos recibidos:', request.POST)
-      
+        form = PedidoForm(request.POST,request.FILES)      
         
         if form.is_valid():
             pedido = form.save()
@@ -83,3 +81,41 @@ def cancelarPedido(request, pk):
     else:
         messages.error(request, "La cancelación no se pudo completar.")
         return redirect('pedidos:lista_pedidos')
+    
+
+def listaRecepcion(request):
+    pedidos=Pedido.objects.all().order_by('-id')
+    return render (request, 'pedidos/Lista-recepcion.html',{
+        'pedidos':pedidos
+    })
+
+
+
+def recepcionarPedidos(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    formpedido = PedidoForm(request.POST, request.FILES, instance=pedido)
+    formset = ItemInsumoFormSet(instance=pedido)
+    print('esta en view')
+
+    if request.method == 'POST':
+        print(request.POST)
+        form = RecepcionForm(request.POST,request.FILES)
+        print(form.is_valid)
+        print(form.errors)
+        if form.is_valid():
+            recepcion = form.save(commit=False)  # Evita que se guarde en la base de datos inmediatamente
+            recepcion.pedido = pedido  # Asigna el pedido antes de guardar
+            recepcion.save()  # Ahora guarda el objeto con el pedido ya asignado
+            pedido.estado = False
+            pedido.save()
+            messages.success(request, 'Pedido reservado exitosamente.')
+            return redirect('pedidos:listaRecepcion')
+    else:
+        form = RecepcionForm()
+
+    return render(request, 'pedidos/Recepcion-pedido.html', {
+        'form': form,
+        'formPedido': formpedido,
+        'formset': formset,
+        'pedido':pedido
+    })

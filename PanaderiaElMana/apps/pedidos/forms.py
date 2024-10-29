@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pedido,ItemInsumo,Insumo,Proveedor
+from .models import Pedido,ItemInsumo,Insumo,Proveedor,RecepcionPedidos
 from django.forms import inlineformset_factory, DateInput
 import datetime
 
@@ -67,6 +67,33 @@ class ItemInsumoForm(forms.ModelForm):
            
         }
         
+
+    
+
+class RecepcionForm(forms.ModelForm):
+  
+    class Meta:
+        model = RecepcionPedidos
+        fields = ['observacion', 'conformidad','precio_total']
+        
+        today = datetime.date.today()
+        max_date = today + datetime.timedelta(days=10)
+        widgets = {
+            'observacion': forms.TextInput(attrs={
+                'class': 'formulario__input', 
+                'placeholder': 'ta bueno', 
+                
+            }),
+              'conformidad': forms.CheckboxInput(attrs={
+                'class': 'check__input', 
+               
+            }),
+              'precio_total': forms.NumberInput(attrs={
+                'class': 'formulario__input', 
+                'id':'precioTotal'
+
+            }),
+        }
 
 ItemInsumoFormSet = inlineformset_factory(
     Pedido,  # El modelo padre

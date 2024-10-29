@@ -59,7 +59,7 @@
     {% block content %}
     <main id="main">
         <div class="table-container" id="tabla">
-            <div class="table-title">Lista de Pedidos</div>
+            <div class="table-title">Recepcion de pedidos</div>
             <div class="table-input-container-list">
                 <div class="formulario__grupo" id="grupo__searchInputID">
                     <label for="searchInputID" class="formulario__label">Insumo</label>
@@ -107,17 +107,10 @@
                         <td>{{ pedido.proveedor }}</td>
                         <td class="action-item-list">
                             <button type="button" class="action-button edit-button">
-                                <a href="{% url 'pedidos:editarPedidos' pedido.id %}">
+                                <a href="{% url 'pedidos:recepcionarPedidos' pedido.id %}">
                                     <i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>
                                 </a>
                             </button>
-                            
-                            <form action="{% url 'pedidos:cancelarPedido' pedido.id %}" method="POST" id="{{pedido.id}}">
-                                {% csrf_token %}
-                                <button type="button" class="action-button delete-button" onclick="confirmCancel('{{pedido.id}}')" >
-                                    <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>     
-                                </button>
-                            </form>
                         </td>
                     </tr>
                     {% endif %}
@@ -181,7 +174,7 @@
         }
         
 
-        function confirmCancel(id) {
+        function confirmCancel() {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "¡No podrás revertir esto!",
@@ -193,7 +186,7 @@
             cancelButtonText: 'No, mantener pedido'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById(id).submit();
+                document.getElementById('cancelForm').submit();
             }
         });
     }

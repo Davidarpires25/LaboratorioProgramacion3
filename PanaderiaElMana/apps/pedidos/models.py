@@ -21,7 +21,7 @@ class Insumo(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
     cantidad= models.FloatField()
-    estado=models.BooleanField(default=False)
+    estado=models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.descripcion}"
@@ -49,9 +49,11 @@ class ItemInsumo(models.Model):
 
 
 
-class recepcionPedidos(models.Model):
+class RecepcionPedidos(models.Model):
+    
     fecha_llegada=models.DateField(auto_now=True)
     observacion= models.TextField(max_length=100 ,blank=True, null=True)
     conformidad= models.BooleanField()
+    precio_total= models.FloatField(default=0)   
     pedido= models.ForeignKey(Pedido,on_delete=models.CASCADE)
     
