@@ -21,7 +21,6 @@ function ajusteMayorista(){
 function getCuitMayorista(){
     let cuitMayoristaSeleccionado = $inputMayorista.value;
     $formulario.cuitMayorista.value = cuitMayoristaSeleccionado;
-    console.log($formulario.cuitMayorista)
 }
 
 
@@ -38,27 +37,13 @@ function controlFecha(){
 
 };
 
-function validacionNroComprobante(nroComprobante){
-    const $span = $formulario.nroComprobante.nextElementSibling;
-    let soloNumeros = /^\d+$/;
-    if(!soloNumeros.test(nroComprobante.value)){
-        $span.classList.remove("desactivado");
-        $span.innerText = "Formato invalido!"
-        return false;
-    }
-    $span.classList.add("desactivado");
-    $span.innerText = "";
-    return true;
-}
+
 
 function validarTeclas(key){
     return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
 }
 
 d.addEventListener("change", function(e){
-    if(e.target === $formulario.nroComprobante){
-        valido = validacionNroComprobante($formulario.nroComprobante);
-    }
     if(e.target === $formulario.tipo_venta){
         ajusteMayorista();
     }
@@ -69,12 +54,8 @@ d.addEventListener("change", function(e){
 
 d.addEventListener("submit", function(e){
     e.preventDefault();
-    console.warn(valido)
-    if(valido){
-        alert("VENTA REALIZADA CON EXITO")
-        $formulario.submit();
-    }
-
+    alert("VENTA REALIZADA CON EXITO")
+    $formulario.submit();
 });
 
 

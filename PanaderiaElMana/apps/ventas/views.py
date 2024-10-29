@@ -18,7 +18,7 @@ def registroVentas(request):
             formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
             if formset.is_valid():
                 formset.save()
-                return redirect('home')
+                return redirect(f'http://{request.get_host()}/ventas/')
     else:
         form = ventasForm()
         formset = ItemProductoFormSet()

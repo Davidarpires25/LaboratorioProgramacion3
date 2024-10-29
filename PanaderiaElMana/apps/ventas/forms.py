@@ -39,7 +39,8 @@ class ventasForm(forms.ModelForm):
             'numeroComprobante': forms.NumberInput(attrs={
                 'class': 'formulario__input',
                 'id': 'nroComprobante',
-                'name': 'nroComprobante'
+                'name': 'nroComprobante',
+                'readonly': 'readonly'
             }),
             'forma_pago': forms.Select(attrs={
                 'class': 'formulario__input',
