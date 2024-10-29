@@ -79,11 +79,7 @@ def cancelarPedido(request, pk):
         print("Nuevo estado:", pedido.estado)  # Agrega esta línea
         messages.success(request, "El pedido ha sido cancelado exitosamente.")
         return redirect('pedidos:lista_pedidos')
-    elif request.method == 'GET':
-        pedido.estado = False
-        pedido.save()
-        messages.success(request, "El pedido ha sido cancelado exitosamente.")
-        return redirect('pedidos:lista_pedidos')
+    
     else:
         messages.error(request, "La cancelación no se pudo completar.")
         return redirect('pedidos:lista_pedidos')
