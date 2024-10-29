@@ -1,14 +1,14 @@
-const botones = document.querySelectorAll('#formulario button')
-botones.forEach(boton => {
-    boton.addEventListener('click',validar)
-});
+const boton_agregar = document.getElementById('boton_agregar')
+boton_agregar.addEventListener('click',validar)
+document.getElementById('categoria_producto').options[0].hidden = true;
+console.log(document.getElementById('categoria_producto').options[0])
 
 const formulario = document.getElementById('formulario');
 
 function validar(e){
     e.preventDefault();
 
-    const descripcion = document.getElementById('desc_producto');
+    const descripcion = document.getElementById('descripcion_producto');
     if(descripcion.value === '')
     {
         alert('Descripción del producto es obligatorio');
@@ -53,14 +53,13 @@ function validar(e){
 }
 
 function validarCategoria(){
-    const opciones = document.getElementsByName('categoria_producto');
-    let seleccionado = false;
+    const opciones = document.getElementById('categoria_producto').options[0].selected
+    let seleccionado = true;
 
-    opciones.forEach(opcion => {
-        if (opcion.checked) {
-            seleccionado = true;
-        }
-    });
+  
+    if (opciones === true) {
+        seleccionado = false;
+    }
 
     if (!seleccionado) {
         return false;
@@ -69,7 +68,7 @@ function validarCategoria(){
 }
 
 function validarPrecio(){
-    const precio = document.getElementById('costo_producto');
+    const precio = document.getElementById('precio_producto');
     if(precio.value === '')
     {
         return false;
@@ -78,7 +77,7 @@ function validarPrecio(){
 }
 
 function validarCantidad(){
-    const cantidad = document.getElementById('cant_producto');
+    const cantidad = document.getElementById('cantidad_producto');
     if(cantidad.value === '')
     {
         return false;
@@ -93,4 +92,23 @@ function validarSoloLetras(input) {
     }
     const regex = /^[a-zA-ZñÑ\s]+$/;
     return regex.test(input.value);
+}
+
+function confirmCancel(enlace) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar producto',
+        cancelButtonText: 'No, mantener producto'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let formulario = document.getElementById('formulario_eliminar')
+            formulario.action = enlace
+            formulario.submit()
+        }
+    });
 }

@@ -41,35 +41,48 @@
                         <div class="formulario__grupo" id="grupo__descripcion">
                             <label for="desc_producto" class="formulario__label">Descripción del producto</label>
                             <div class="formulario__grupo-input">
-                                {{ producto_form.descripcion}}
+                                {{ form.descripcion}}
+                                {% for error in form.descripcion.errors %}
+                                    <div class="error"><p>Ingresa una descripcion válida</p></div>
+                                {% endfor %}
                             </div>
                         </div>
                         
                         <div class="formulario__grupo" id="grupo__categoria">
                             <label for="categoria_panificacion" class="formulario__label">Categoria de producto</label>
                             <div class="formulario__grupo-input">
-                                {{producto_form.categoria}}
+                                {{form.categoria}}
+                                {% for error in form.categoria.errors %}
+                                    <div class="error"><p>Ingresa una categoria</p></div>
+                                {% endfor %}
                             </div>
                         </div>
 
                         <div class="formulario__grupo" id="grupo__precioProducto">
                             <label for="costo_producto" class="formulario__label">Precio del producto</label>
                             <div class="formulario__grupo-input">
-                                {{ producto_form.precio}}
+                                {{ form.precio}}
+                                {% for error in form.precio.errors %}
+                                    <div class="error"><p>Ingresa un precio válido</p></div>
+                                {% endfor %}
                             </div>
                         </div>
 
                         <div class="formulario__grupo" id="grupo__precioProducto">
                             <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
                             <div class="formulario__grupo-input">
-                                {{ producto_form.cantidad}}
+                                {{ form.cantidad}}
+                                {% for error in form.cantidad.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
-                    <button type="submit" name="Agregar" id="boton_agregar" class="formulario__btn"><i class="bi bi-send me-2"></i>Agregar</button>
+                    <button type="submit" name="Editar" id="boton_editar" class="formulario__btn">
+                    <i class="fa-solid fa-pen-to-square fa-sm me-2"></i>Editar
                     </button>
                 </div>
             </form>
@@ -94,12 +107,9 @@
                             <td>{{ producto.categoria }}</td>
                             <td class="action-buttons">
                                 <button class="btn btn-edit"><a href="{% url 'productos:editar_productos' producto.id %}" style="color: white;">
-                                <i class="fas fa-edit" style="color: white;"></i>Editar</button>
-                                </a>
-                                <form action="" id="formulario_eliminar" class="needs-validation formulario" method="post">
-                                    {% csrf_token %}
-                                    <button type="button" class="btn btn-delete" onclick="confirmCancel(`{% url 'productos:eliminar_productos' producto.id %}`)"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                                </form>
+                                    <i class="fas fa-edit" style="color: white;"></i>Editar</button>
+                                    </a>
+                                <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Eliminar</button>
                             </td>       
                         </tr>
                         {% endfor %}
@@ -129,8 +139,7 @@
         {% endblock %}
 
         {% block js %}
-        <script src="{% static 'scripts/Validacion-GestionProductos.js'%}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{% static 'scripts/Validacion-MofidicacionProductos.js'%}"></script>
         {% endblock %}
     </body>
 </html>
