@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from pyexpat.errors import messages
+from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Prefetch
 from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto
@@ -75,6 +76,19 @@ def detalleVenta(request, id):
     print(venta_productos)
     return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
 
+
+def anularVenta(request, id):
+    venta= get_object_or_404(Venta, id=id)
+    
+    if request.method == 'POST':
+        venta.estado = False
+        venta.save()
+        # messages.success(request, "La venta ha sido anulada exitosamente.")
+        return redirect('ventas:informe_ventas')
+    
+    else:
+        # messages.error(request, "La cancelación no se pudo completar.")
+        return redirect('ventas:informe_ventas')
 
 
 def registroMayoristas(request):

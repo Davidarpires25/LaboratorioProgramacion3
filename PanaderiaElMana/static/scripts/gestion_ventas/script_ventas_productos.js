@@ -93,7 +93,8 @@ function agregarFormularioProducto(){
             const template = $formsetContainer.children[0].cloneNode(true);
     
             // Limpiar los valores del formulario clonado
-            template.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+            template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
+            template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => input.value = '1');
             template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
     
             $formsetContainer.appendChild(template);
@@ -157,11 +158,17 @@ function generadorNroComprobante(){
     d.getElementById("nroComprobante").value = numero;
 }
 
+function valorCampoCantidad(){
+    const $campoCantidad = d.getElementById('id_itemproducto_set-0-cantidad');  
+    $campoCantidad.value = 1 
+}
+
 d.addEventListener("DOMContentLoaded", function(e){
     campoSoloLectura();
     agregarFormularioProducto();
     ocultarDelete();
     generadorNroComprobante();
+    valorCampoCantidad();
 });
 
 d.addEventListener("change", function(e){
