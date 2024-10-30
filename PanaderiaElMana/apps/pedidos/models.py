@@ -21,7 +21,7 @@ class Insumo(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
     cantidad= models.FloatField()
-    estado=models.BooleanField(default=False)
+    estado=models.BooleanField(default=True)
 
     def __str__(self):
         return f"Descripcion: {self.descripcion} Precio: {self.precio,} Cantidad:{self.cantidad} Estado: {self.estado}"
