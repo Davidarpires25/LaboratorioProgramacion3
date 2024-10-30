@@ -67,14 +67,14 @@ def editarPedidos(request, pk):
 
 
 def cancelarPedido(request, pk):
-    print("Cancelando pedido con ID:", pk)  # Agrega esta línea
+    print("Cancelando pedido con ID:", pk)  
     pedido = get_object_or_404(Pedido, pk=pk)
     
     if request.method == 'POST':
-        print("Estado anterior:", pedido.estado)  # Agrega esta línea
+        print("Estado anterior:", pedido.estado)  
         pedido.estado = False
         pedido.save()
-        print("Nuevo estado:", pedido.estado)  # Agrega esta línea
+        print("Nuevo estado:", pedido.estado)  
         messages.success(request, "El pedido ha sido cancelado exitosamente.")
         return redirect('pedidos:lista_pedidos')
     
@@ -94,25 +94,34 @@ def listaRecepcion(request):
 def recepcionarPedidos(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     formpedido = PedidoForm(request.POST, request.FILES, instance=pedido)
-    formset = ItemInsumoFormSet(instance=pedido)
     print('esta en view')
+   
 
     if request.method == 'POST':
-        print(request.POST)
         form = RecepcionForm(request.POST,request.FILES)
-        print(form.is_valid)
-        print(form.errors)
+        formset = ItemInsumoFormSet(request.POST,instance=pedido)
         if form.is_valid():
-            recepcion = form.save(commit=False)  # Evita que se guarde en la base de datos inmediatamente
-            recepcion.pedido = pedido  # Asigna el pedido antes de guardar
-            recepcion.save()  # Ahora guarda el objeto con el pedido ya asignado
+            recepcion = form.save(commit=False)  
+            recepcion.pedido = pedido  
+            recepcion.save()  
+
+            for form in formset:
+                if form.has_changed():
+                    print(form)
+                    item_insumo = form.save(commit=False) 
+                    insumo = item_insumo.insumo
+                    insumo.cantidad += item_insumo.cantidad
+                    insumo.save()   
+                
+
+            
             pedido.estado = False
             pedido.save()
             messages.success(request, 'Pedido reservado exitosamente.')
             return redirect('pedidos:listaRecepcion')
     else:
         form = RecepcionForm()
-
+        formset = ItemInsumoFormSet(instance=pedido)
     return render(request, 'pedidos/Recepcion-pedido.html', {
         'form': form,
         'formPedido': formpedido,

@@ -62,19 +62,21 @@
                 </div>
             
             </div>
+            {{ formset.management_form }}
+            <div class="hidden-fields-container" id="formset-container">
+                {% for form in formset %}
+                <div class="insumos-form">
+                    {{ form }}
+                </div>
+                {% endfor %}
+            </div>
             <div class="formulario__grupo formulario__grupo-btn-enviar">
                 <button type="submit" class="formulario__btn"><i class="bi bi-send me-2"></i>Recepcionar Pedido</button>
             </div>
            
         </form>
-        {{ formset.management_form }}
-        <div class="hidden-fields-container" id="formset-container">
-            {% for form in formset %}
-            <div class="insumos-form">
-                {{ form }}
-            </div>
-            {% endfor %}
-        </div>
+        
+        
         <div class="table-container" id="tableContainer"> 
             <div class="table-title">Lista de insumos</div>
             <table>
