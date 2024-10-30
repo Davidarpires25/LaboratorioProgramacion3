@@ -1,0 +1,82 @@
+html,body{
+    height: 100%;
+}
+
+
+body{
+    background-image: url("../img/gestion_ventas/d6axvp4qecqpn5jeg2jz.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center; 
+    font-size: 32px;
+}
+
+#titulo{
+    margin-left: 25%;
+    color: white;
+    font-size: 32px;
+}
+
+
+.tituloTabla{
+    text-align: center;
+}
+
+.tablaProductos{
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    background-color: #0000005c;
+    color: white;
+    border-radius: 20px;
+    border-style: groove;
+    border-color: #d88d22;
+}
+
+nav{
+    background-color: #0000005c;
+    color: white;
+    border-radius: 20px;
+    border-style: groove;
+    border-color: #d88d22;
+}
+
+.nav-item{
+    color: white;
+}
+tfoot td{
+    background-color: #3d2f2f;
+    color: white;
+}
+
+.btn-mayorista{
+    background-color: #d88d22;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding: 0.75rem 0.375rem ;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+}
+
+.btn-mayorista:hover{
+    color: white;
+    background-color: #e39b37;
+}
+
+.btn-mayorista:active{
+    color: black;
+    background-color: #ad6d14;
+}
+
+.observaciones{
+    text-align: center;
+}
+
+textarea{
+    border-radius: 20px;
+    width: 800px;
+    height: 300px;
+    resize: none;
+}

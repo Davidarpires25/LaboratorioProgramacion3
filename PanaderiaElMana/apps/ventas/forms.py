@@ -79,9 +79,10 @@ class ProductoForm(forms.ModelForm):
             'required': 'required'
         })
     )
+    subtotal = forms.FloatField(widget=forms.HiddenInput())
     class Meta:
         model = ItemProducto
-        fields = ['producto', 'cantidad', 'precioActual']
+        fields = ['producto', 'cantidad', 'precioActual', 'subtotal']
         widget = {
             'precioActual': forms.NumberInput(attrs={
                 'class': 'formulario__input',
@@ -92,7 +93,8 @@ class ProductoForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'cantidad',
                 'name': 'cantidad'              
-            })
+            }),
+            
         }
 
 ItemProductoFormSet = inlineformset_factory(
