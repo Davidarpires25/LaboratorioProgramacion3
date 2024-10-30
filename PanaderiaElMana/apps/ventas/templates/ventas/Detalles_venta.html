@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos por Venta</title>
+</head>
+<body>
+    <h1>Productos para la Venta ID: {{ venta_productos.0.venta.id }}</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ventap in venta_productos %}
+                <tr>
+                    <td>{{ ventap.producto.id }}</td>
+                    <td>{{ ventap.producto.descripcion }}</td>
+                    <td>{{ ventap.cantidad }}</td>
+                    <td>{{ ventap.precioActual }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No hay productos para esta venta.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

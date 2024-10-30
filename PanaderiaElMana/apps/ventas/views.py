@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ventasForm, ItemProductoFormSet
-from .models import itemMayorista, Venta
+from .models import itemMayorista, Venta, ItemProducto
 # Create your views here.
 def registroVentas(request):
     if request.method == "POST":
@@ -30,10 +30,14 @@ def informeVentas(request):
         'ventas': ventas
     })   
 
-
             # print(request.POST)  # Ver los datos que se están enviando
             # print(formset.errors) 
             # print(f'Número de formularios: {len(formset.save())}')  # Para ver cuántos formularios están en el formset
+
+def detalleVenta(request, id):
+    venta_productos = ItemProducto.objects.select_related('venta', 'producto').filter(venta_id=id)
+    print(venta_productos)
+    return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
 
 def registroMayoristas(request):
     return render(request, 'ventas/Registro_mayoristas.html')

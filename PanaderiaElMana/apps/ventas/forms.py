@@ -15,6 +15,15 @@ class ventasForm(forms.ModelForm):
             'name': 'mayorista'
         })
     )
+    observaciones = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'formulario__input',
+            'id': 'observaciones',
+            'name': 'observaciones',
+            'placeholder': 'Opcional'
+        })
+    )
     class Meta:
         model = Venta
         fields = ['mayorista', 'tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
@@ -46,11 +55,6 @@ class ventasForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'formaPago',
                 'name': 'formaPago'                 
-            }),
-            'observaciones': forms.TextInput(attrs={
-                'class': 'formulario__input',
-                'id': 'observaciones',
-                'name': 'observaciones'                 
             }),
             'precioTotal': forms.TextInput(attrs={
                 'class': 'formulario__input',
