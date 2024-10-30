@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 from apps.productos.models import Producto
 
 # Create your models here.
@@ -10,18 +10,22 @@ class Mayorista(models.Model):
     direccion= models.TextField(max_length=50)
     telefono= models.CharField(max_length=20)
     email= models.CharField(max_length=50)
+    estado=models.BooleanField(default=False)
     CONDICION_VENTA_CHOICES = [
         ('CONTADO', 'Contado'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('CREDITO', 'Credito'),  
     ]
     condicion_venta= models.CharField(max_length=15, choices=CONDICION_VENTA_CHOICES)
     
+    def __str__(self):
+        return self.razon_social
 
 class Venta(models.Model):
-    numeroComprobante= models.IntegerField()
-    FechaVenta= models.DateField(auto_now=True)
-    precioTotal= models.FloatField()
+    numeroComprobante= models.CharField(max_length=15)
+    FechaVenta= models.DateField()
+    precioTotal= models.FloatField(validators=[MinValueValidator(0.0)])
     observaciones= models.TextField(max_length=200)                        
+    estado=models.BooleanField(default=True)
 
     TIPO_VENTA_CHOICES = [
         ('MINORISTA', 'Minorista'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
@@ -51,13 +55,13 @@ class Venta(models.Model):
 class ItemProducto(models.Model):
     venta= models.ForeignKey(Venta,on_delete=models.CASCADE)
     producto= models.ForeignKey(Producto,on_delete=models.CASCADE)
-    cantidad= models.IntegerField()
-    precioActual= models.FloatField()
+    cantidad= models.PositiveIntegerField()
+    precioActual= models.FloatField(validators=[MinValueValidator(0.0)])
 
 
 
 
-class itemMayorista():
+class itemMayorista(models.Model):
     venta=models.ForeignKey(Venta, on_delete=models.CASCADE)
-    mayorista=models.ForeignKey(Mayorista, on_delete=models.CASCADE)
+    mayorista_cuit=models.ForeignKey(Mayorista, on_delete=models.CASCADE)
   

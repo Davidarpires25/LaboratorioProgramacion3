@@ -4,27 +4,26 @@ body {
 }
 
 .table-container {
+    max-width: max-content;
+    margin-top: 50px;
+    width: 100%;
     overflow: hidden;
-    margin-left: 15%;
-    margin-right: 15%;
     border-radius: 10px;
+
     
 }
 .table-title {
+   
     color: white;
-    padding: 15px;
-    margin-top: 9%;
-    margin-left: 15%;
-    margin-right: 15%;
+    padding-bottom: 15px;
+   
     font-size: 20px;
     font-weight: bold;
 }
 table {
+    max-width: 1200px;
     width: 100%;
     border-collapse: collapse;
-   
-    
-
 }
 th, td {
     padding: 12px 15px;
@@ -32,7 +31,7 @@ th, td {
 
 }
 th {
-    background-color: #fc8213;
+    background-color: #3d2f2f;
     color: white;
 }
 tr:nth-child(even) {
@@ -45,12 +44,12 @@ tr:nth-child(odd) {
 }
 #foot-tr{
     text-align: center;
-    background-color: #fc8213;
+    background-color: #3d2f2f;
     color: white;
 }
 .action-buttons {
     
-    gap: 5px;
+    gap: 20px;
 }
 div .action-button{
     text-align: center;
@@ -70,6 +69,9 @@ div .action-button{
 }
 .delete-button {
     background-color: #b92c31;
+}
+.save-button{
+    background-color: #0e0e0e;
 }
 
 .total-row td {
@@ -116,38 +118,39 @@ div .action-button{
 }
 
 
-button:hover[class="table-buttons"]{
-    background-color: #b3741d;
-    border-color: #d88c2255;
 
-}
-
-
-button[class="table-buttons"]{
-    font-size: 1rem;
-    color: white;
-    border-color: #d88c2255;
-    background-color: #fc8213;
-}
-
-
-button:active:hover[class="table-buttons"]{
-    background-color: #925f18;
-    border-color: #d88c2255;
-    color: rgb(255, 255, 255);
-}
 
 .table-buttons{
     cursor: pointer;
-    margin-top: 30px;
+  
 	height: 50px;
 	line-height: 20px;
-	width: 10%;
-    background-color: #fc8213;
-	color: #fff;
-	font-weight: bold;
+	max-width: 200px;
+	width: 100%;
+	color: black;
 	border: none;
-	border-radius: 5px;
+	border-radius: 8px;
 	transition: .1s ease all;
+	margin-right: 10px;
+    margin-bottom: 10px;
     
+}
+
+.btn-accion{
+    display: flex;
+    gap: 30px;
+
+}
+
+.table-input-container{
+    display: grid;
+    grid-template-columns: 0.3fr 0.3fr 0.3fr;
+    gap: 25px;
+    
+}
+
+#add-form {
+    margin-top: 20px;
+    margin-left: 250px;
+     /* Espacio superior específico para el botón */
 }
