@@ -48,8 +48,6 @@ def editarPedidos(request, pk):
         if form.is_valid():
             pedido = form.save()
             formset = ItemInsumoFormSet(request.POST, instance=pedido)
-            print('Datos recibidos:', request.POST)
-            print('formset',formset)
             if formset.is_valid():
                 formset.save()
                 messages.success(request, 'Pedido actualizado exitosamente.')
@@ -67,14 +65,12 @@ def editarPedidos(request, pk):
 
 
 def cancelarPedido(request, pk):
-    print("Cancelando pedido con ID:", pk)  
+    print("Cancelando pedido con ID:", pk)  # Agrega esta línea
     pedido = get_object_or_404(Pedido, pk=pk)
     
     if request.method == 'POST':
-        print("Estado anterior:", pedido.estado)  
         pedido.estado = False
         pedido.save()
-        print("Nuevo estado:", pedido.estado)  
         messages.success(request, "El pedido ha sido cancelado exitosamente.")
         return redirect('pedidos:lista_pedidos')
     
@@ -94,27 +90,23 @@ def listaRecepcion(request):
 def recepcionarPedidos(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     formpedido = PedidoForm(request.POST, request.FILES, instance=pedido)
-    print('esta en view')
    
 
     if request.method == 'POST':
         form = RecepcionForm(request.POST,request.FILES)
         formset = ItemInsumoFormSet(request.POST,instance=pedido)
+        print(form)
         if form.is_valid():
             recepcion = form.save(commit=False)  
             recepcion.pedido = pedido  
             recepcion.save()  
 
-            for form in formset:
-                if form.has_changed():
-                    print(form)
-                    item_insumo = form.save(commit=False) 
-                    insumo = item_insumo.insumo
-                    insumo.cantidad += item_insumo.cantidad
-                    insumo.save()   
-                
+            for form in formset[:-1]:
+                item_insumo = form.save(commit=False)
+                insumo = item_insumo.insumo
+                insumo.cantidad += item_insumo.cantidad
+                insumo.save()      
 
-            
             pedido.estado = False
             pedido.save()
             messages.success(request, 'Pedido reservado exitosamente.')
@@ -122,6 +114,8 @@ def recepcionarPedidos(request, pk):
     else:
         form = RecepcionForm()
         formset = ItemInsumoFormSet(instance=pedido)
+
+        
     return render(request, 'pedidos/Recepcion-pedido.html', {
         'form': form,
         'formPedido': formpedido,
