@@ -99,6 +99,19 @@ a.sidebar-link {
     border-left: 3px solid transparent;
 }
 
+b.sidebar-link{
+    padding: .625rem 1.625rem;
+    color: #FFF;
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-left: 3px solid transparent;    
+}
+
+b.sidebar-link:hover{
+    cursor: default;
+}
+
 .sidebar-link i {
     font-size: 1.1rem;
     margin-right: .75rem;

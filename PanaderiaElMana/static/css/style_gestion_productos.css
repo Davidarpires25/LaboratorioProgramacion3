@@ -7,6 +7,7 @@ body{
     background-image: url("../img/productos.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 button[type="submit"] {
@@ -21,4 +22,90 @@ button[type="submit"] {
 .form-background{
     border-style: groove;
     border-color: #fc8213;
+}
+
+.mensajes{
+    color: red;
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: rgba(61, 47, 47, 0.4);
+}
+
+.success{
+    color: rgb(47, 255, 54);
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: rgba(61, 47, 47, 0.4);
+}
+
+table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #3D2F2F; /* Fondo oscuro de la cabecera */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para las filas pares */
+}
+
+tr:nth-child(odd) {
+    background-color: #fff; /* Color de fondo para las filas impares */
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #eaeaea; /* Color cuando se pasa el cursor */
+}
+
+/* Estilos para los botones de acción */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-edit {
+    background-color: #007bff; /* Azul para el botón de editar */
+}
+
+.btn-delete {
+    background-color: #f44336; /* Rojo para el botón de eliminar */
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.error p{
+    color: red;
 }

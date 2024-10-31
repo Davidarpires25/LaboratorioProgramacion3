@@ -8,16 +8,10 @@ class Producto(models.Model):
     descripcion= models.TextField(max_length=100,null=True)
     precio= models.FloatField()
     cantidad= models.FloatField()
-    estado=models.BooleanField(default=False)
-    
-    CATEGORIA_CHOICES = [
-        ('PAN', 'Panificación'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
-        ('PAS', 'Pastelería'),
-
-    ]
-    categoria = models.CharField(max_length=15, choices=CATEGORIA_CHOICES)
-
+    estado=models.BooleanField(default=True)
+    categoria = models.CharField(max_length=15)
 
     def __str__(self):
-        return f"Descripcion: {self.descripcion} Precio: {self.precio} Cantidad:{self.cantidad} Estado: {self.estado}Categorizacion: {self.CATEGORIA_CHOICES}"
+        return f"{self. descripcion} (precio:{self.precio})"
 
+#opcion: mandar esos 2 y con las expReg en js capturar el precio del option seleccionado
