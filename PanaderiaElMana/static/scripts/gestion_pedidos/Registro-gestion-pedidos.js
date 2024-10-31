@@ -4,11 +4,16 @@ const $botonVerInsumos = document.getElementById("listarInsumos")
 
 const expresionesPedidos = {
 	observaciones: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-	cantidad_tabla: /^.{1,90}$/, // 1 a 90 digitos.
+	cantidad_tabla: /^.{1,90}$/, // 1 a 90 digitos.// 1 a 90 digitos.
+    
 }
 const camposPedidos = {
 	observaciones: false,
 	cantidad_tabla: false,
+    fechaSolicitud:false,
+    insumo_tabla:false,
+    unidad_tabla:false
+    
 	
 }
 
@@ -20,43 +25,49 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const $formulario= document.querySelector('#formulario')
     const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
-    const formsetContainer = document.getElementById('formset-container');
-    const $modificar= document.querySelector('.btn-modificar')
 
 
 
-    
 
     
     $main.addEventListener("keyup", (e) => { 
-            if(e.target.matches("#observaciones")){
-                
-                validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
-            }   
-            else if(e.target.matches("#cantidad_tabla")){
-                validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
-            }
-        });
+         if(e.target.matches("#observaciones")){  
+            validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
+        }   
+        else if(e.target.matches("#cantidad_tabla")){
+            validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
+        }
+    });
 
-   
+    addButton.addEventListener('click', function() {
+        validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
+        validarCampoFuncion(validarSelectInsumo(),'insumo_tabla')
+        validarCampoFuncion(validarSelectUnidad(),'unidad_tabla')
+    
+        if(camposPedidos.insumo_tabla && camposPedidos.unidad_tabla && camposPedidos.cantidad_tabla){
+            agregarInsumo();
+        }
+            
+           
+    });
         
     $formulario.addEventListener("submit",(e)=>{
-        
         e.preventDefault();
-        validarCampo(expresionesPedidos.observaciones, e.target, 'observaciones');
-        validarCampo(expresionesPedidos.cantidad_tabla, e.target, 'cantidad_tabla');
-	    if(camposPedidos.observaciones && camposPedidos.cantidad_tabla ){
+        validarCampoFuncion(validarFecha(),'fechaSolicitud')
+        validarCampoFuncion(validarSelectProveedor(),'proveedor')
+	    if(camposPedidos.observaciones &&  camposPedidos.fechaSolicitud){
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
             document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
             setTimeout(() => {
                 document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-            }, 5000);
+            }, 7000);
 
             document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
                 icono.classList.remove('formulario__grupo-correcto');
             });
             generarCamposOcultos();
             e.target.submit();
+           
         }
        
         else {
@@ -66,26 +77,48 @@ document.addEventListener("DOMContentLoaded", (e)=>{
        
     });
 
-    addButton.addEventListener('click', function(e) {
-        agregarInsumo();
-        e.preventDefault();
-        
-       
-    });
-    $modificar.addEventListener('click', function(e) {
-        
-        generarCamposOcultos();
-        e.preventDefault();
-        
-       
-    });
+   
  
 
 });
 
 
+function validarFecha(){
+    const $fechaVenta= document.getElementById("id_fecha_pedido");
+    
+    if($fechaVenta.value!=""){
+        return true
+    }
+    return false
+}
+
+function validarSelectProveedor(){
+    const $proveedor= document.querySelector("#proveedor")
+    if($proveedor.value===''){
+        return false
+    }
+    return true
+}
+
+function validarSelectInsumo(){
+    const $insumoTabla= document.querySelector("#insumo_tabla")
+    if($insumoTabla.value===''){
+        return false
+    }
+    return true
+}
+
+function validarSelectUnidad(){
+    const $insumoTabla= document.querySelector("#unidad_tabla")
+
+    if($insumoTabla.value===''){
+        return false
+    }
+    return true
+    
 
 
+}
 
 function validarCampo(expresion, input, campo){
  
@@ -101,6 +134,24 @@ function validarCampo(expresion, input, campo){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
 		document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
 		document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+		camposPedidos[campo] = false;
+	}
+    
+}
+
+function validarCampoFuncion(funcion, campo){
+ 
+    if(funcion){
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+		
+		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+		camposPedidos[campo] = true;
+	} else {
+		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+		
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
 		camposPedidos[campo] = false;
 	}
@@ -138,9 +189,11 @@ function agregarInsumo(){
     const insumoSelect = document.getElementById("insumo_tabla");
     const insumo = insumoSelect.options[insumoSelect.selectedIndex].text;
     const cantidad = document.getElementById("cantidad_tabla").value;
+    const unidadSelect = document.getElementById("unidad_tabla");
+    const unidad = unidadSelect.options[unidadSelect.selectedIndex].text;
     
     // Verifica si los campos están completos antes de agregar la fila
-    if (insumoSelect.value === "" || cantidad === "") {
+    if (insumoSelect.value === "" || cantidad === "" || unidadSelect.value=== "") {
         alert("Por favor, complete todos los campos antes de agregar.");
         return;
     }
@@ -151,6 +204,7 @@ function agregarInsumo(){
         <td>${rowCount}</td>
         <td class="insumo-item">${insumo}</td>
         <td class="cantidad-item">${cantidad}</td>
+        <td class="unidad-item">${unidad}</td>
         <td>
             <button type="button" class="action-button edit-button" onclick="habilitarEdicion(this)"><i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i></button>
             <button type="button" class="action-button delete-button" onclick="eliminarFila(this)" ><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i></button>
@@ -162,6 +216,7 @@ function agregarInsumo(){
 
     // Limpiar los campos después de agregar la fila
     insumoSelect.value = "";
+    unidadSelect.value= "";
     document.getElementById("cantidad_tabla").value = "";
 
 }  
@@ -175,36 +230,46 @@ function habilitarEdicion(button) {
     const row = button.closest("tr");
     const insumoCell = row.querySelector(".insumo-item");
     const cantidadCell = row.querySelector(".cantidad-item");
-
+    const unidadCell = row.querySelector(".unidad-item");
     // Obtener los valores actuales
     const insumoActual = insumoCell.textContent.trim();
     const cantidadActual = cantidadCell.textContent.trim();
-
+    const unidadActual= unidadCell.textContent.trim()
     // Obtener el select del HTML y copiar sus opciones
+    
+
     const insumoSelect = document.getElementById("insumo_tabla").cloneNode(true);
-    insumoSelect.classList.add("tabla__input"); // Añadir clase específica para el estilo en la tabla
-    insumoSelect.id = "insumo_editar"; // Asignar un nuevo ID para evitar duplicados
+    insumoSelect.classList.add("tabla__input"); 
+    insumoSelect.id = "insumo_editar"; 
+
+    const unidadSelect = document.getElementById("unidad_tabla").cloneNode(true);
+    unidadSelect.classList.add("tabla__input"); 
+    unidadSelect.id = "unidad_editar"; 
 
     // Establecer el valor actual en el select copiado
     for (let option of insumoSelect.options) {
         option.selected = (option.textContent.trim() === insumoActual);
     }
+    for (let option of unidadSelect.options) {
+        option.selected = (option.textContent.trim() === unidadActual);
+    }
+
 
     // Reemplazar la celda de insumo con el select
     insumoCell.innerHTML = "";
     insumoCell.appendChild(insumoSelect);
+    unidadCell.innerHTML = "";
+    unidadCell.appendChild(unidadSelect);
 
     // Reemplazar la celda de cantidad con un input
-    cantidadCell.innerHTML = `
-        <input type="number" class="tabla__input" id="cantidad_editar" value="${cantidadActual}">
-    `;
+    cantidadCell.innerHTML = `<input type="number" class="tabla__input" id="cantidad_editar" value="${cantidadActual}">`;
 
     // Cambiar el botón "Modificar" a "Guardar"
     button.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" fill="white" class="bi bi-floppy-fill" viewBox="0 0 16 16">
-    <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
-    <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
-    </svg> `;
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" fill="white" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+        <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+        <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
+        </svg> `;
     button.classList.remove("edit-button");
     button.classList.add("save-button");
     
@@ -217,15 +282,18 @@ function guardarEdicion(button) {
     const row = button.closest("tr");
     const insumoCell = row.querySelector(".insumo-item");
     const cantidadCell = row.querySelector(".cantidad-item");
+    const unidadCell = row.querySelector(".unidad-item");
 
     // Obtener los valores del select y el input de edición
     const insumoEditado = row.querySelector("#insumo_editar").options[row.querySelector("#insumo_editar").selectedIndex].text;
     const cantidadEditada = row.querySelector("#cantidad_editar").value;
+    const unidadEditado = row.querySelector("#unidad_editar").options[row.querySelector("#unidad_editar").selectedIndex].text;
+
 
     // Guardar los valores en las celdas como texto
     insumoCell.textContent = insumoEditado;
     cantidadCell.textContent = cantidadEditada;
-
+    unidadCell.textContent=unidadEditado;
     // Cambiar el botón "Guardar" de nuevo a "Modificar"
     // Cambiar el botón a ícono de modificar y clase
     button.innerHTML = '<i class="fa-solid fa-pen-to-square fa-sm" style="color: #ffffff;"></i>';
@@ -257,6 +325,7 @@ function generarCamposOcultos() {
         // Obtener valores de insumo y cantidad desde la primera fila
         const firstInsumo = filas[0].querySelector(".insumo-item").textContent.trim();
         const firstCantidad = filas[0].querySelector(".cantidad-item").textContent.trim();
+        const firstUnidad = filas[0].querySelector(".unidad-item").textContent.trim();
 
         // Asignar los valores al primer formulario
         firstTemplate.querySelector('input[type="number"]').value = firstCantidad;
@@ -264,10 +333,15 @@ function generarCamposOcultos() {
         for (let option of firstSelect.options) {
             option.selected = (option.textContent.trim() === firstInsumo);
         }
+        const secondSelect = firstTemplate.querySelector('#id_insumos-0-unidad_medida');
+        for (let option of secondSelect.options) {
+            option.selected = (option.textContent.trim() === firstUnidad);
+        }
        
         // Actualizar índices del primer formulario
         updateElementIndex(firstTemplate.querySelector('input[type="number"]'), 'insumos', 0);
         updateElementIndex(firstTemplate.querySelector('select'), 'insumos', 0);
+        updateElementIndex(firstTemplate.querySelector('#id_insumos-0-unidad_medida'), 'insumos', 0);
     }
 
     // Clonar el formulario base para el resto de las filas en la tabla
@@ -278,19 +352,35 @@ function generarCamposOcultos() {
         const template = formsetContainer.children[0].cloneNode(true);
         template.querySelector('input[type="number"]').value = "";
         template.querySelector('select').selectedIndex = -1;
-
         formsetContainer.appendChild(template);
+       
 
         // Obtener valores de insumo y cantidad de la fila actual
         const insumo = fila.querySelector(".insumo-item").textContent.trim();
         const cantidad = fila.querySelector(".cantidad-item").textContent.trim();
+        const unidad = fila.querySelector(".unidad-item").textContent.trim();
+
 
         // Asignar los valores al formulario clonado
         template.querySelector('input[type="number"]').value = cantidad;
-        const select = template.querySelector('select');
-        for (let option of select.options) {
-            option.selected = (option.textContent.trim() === insumo);
+        const selects = template.querySelectorAll('select');
+
+        for(let select of selects){
+            console.log(selects)
+            if(select===selects[0]){
+                for (let option of select.options) {
+                    option.selected = (option.textContent.trim() === insumo);
+                } 
+            }
+            else{
+                for (let option of select.options) {
+                    option.selected = (option.textContent.trim() === unidad);
+                } 
+            }
+            
         }
+              
+     
 
         // Actualizar los índices de los elementos en el formulario clonado
         const formInputs = template.getElementsByTagName('input');
@@ -301,6 +391,7 @@ function generarCamposOcultos() {
         for (let select of formSelects) {
             updateElementIndex(select, 'insumos', index);
         }
+
     }
 }
 

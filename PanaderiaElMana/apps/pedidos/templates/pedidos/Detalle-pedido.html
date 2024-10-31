@@ -60,13 +60,18 @@
                     </div>
                     <p class="formulario__input-error">Solo se permiten el ingreso de caracteres.</p>
                 </div>
-                <div class="formulario__mensaje" id="formulario__mensaje">
-                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                <div>
+                    <div class="formulario__mensaje" id="formulario__mensaje">
+                        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                    </div>
+                    <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+                        <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
+                    </div>
                 </div>
-                <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
-                    <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
-                </div>
+                
             </div>
+
+
             {{ formset.management_form }}
             <div class="hidden-fields-container" id="formset-container">
                 {% for form in formset %}
@@ -82,7 +87,7 @@
        
         <div class="table-container" id="tableContainer">
             <div class="table-input-container">
-                <div class="formulario__grupo" id="grupo__insumo">
+                <div class="formulario__grupo" id="grupo__insumo_tabla">
                     <label for="insumo_tabla" class="formulario__label">Insumo</label>
                     <div class="formulario__grupo-input">
                         <select class="formulario__input" id="insumo_tabla" name="insumo_tabla" required>
@@ -91,9 +96,22 @@
                                 <option value="{{ insumo.id }}">{{ insumo.descripcion }}</option>
                             {% endfor %}
                         </select>
-                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
                     </div>
                     <p class="formulario__input-error">Seleccione un insumo.</p>
+                </div>
+                <div class="formulario__grupo" id="grupo__unidad_tabla">
+                    <label for="unidad_tabla" class="formulario__label">Unidad de Medida</label>
+                    <div class="formulario__grupo-input">
+                        <select class="formulario__input" id="unidad_tabla" name="unidad_tabla" required>
+                            <option value="" selected="">Seleccione</option>
+                            <option value="Kilogramos">Kg</option>
+                            <option value="Gramos">g</option>
+                            <option value="Litros">L</option>
+                            <option value="Mililitros">ml</option>
+                            <option value="Unidades">u</option>          
+                        </select>     
+                    </div>
+                    <p class="formulario__input-error">seleccione una unidad de medida.</p>
                 </div>
                 <div class="formulario__grupo" id="grupo__cantidad_tabla">
                     <label for="cantidad_tabla" class="formulario__label">Cantidad (Kg)</label>
@@ -117,6 +135,7 @@
                         <th>N°</th>
                         <th>Insumo</th>
                         <th>Cantidad</th>
+                        <th>Medida</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -125,6 +144,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="total-row" id="foot-tr">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -141,7 +161,7 @@
     {% endblock %}
     {% block js %}
 
-    <script src="{% static 'scripts/Detalle-pedido.js' %}"></script>
+    <script src="{% static 'scripts/gestion_pedidos/Detalle-pedido.js' %}"></script>
     {% endblock %}
 </body>
 </html>

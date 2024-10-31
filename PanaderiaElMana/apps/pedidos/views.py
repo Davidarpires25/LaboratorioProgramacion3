@@ -15,10 +15,13 @@ def pedidos(request):
 
 def registroPedidos(request):
     insumos= Insumo.objects.filter(estado=True)
+    
     if request.method == 'POST':
+        print('entro a pos')
         form = PedidoForm(request.POST,request.FILES)      
-        
+        print(form)
         if form.is_valid():
+            print(' es valido')
             pedido = form.save()
             formset = ItemInsumoFormSet(request.POST, instance=pedido)
             print('formset',formset)

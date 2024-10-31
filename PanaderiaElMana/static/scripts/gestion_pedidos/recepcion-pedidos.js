@@ -102,17 +102,18 @@ function cargarTablaDesdeFormset() {
     // Iterar sobre los formularios en el formset
     const forms = formsetContainer.getElementsByClassName('insumos-form');
     Array.from(forms).forEach((form, index) => {
-        const insumoSelect = form.querySelector('select');
+        const insumoSelect = form.querySelectorAll('select');
         const cantidadInput = form.querySelector('input[type="number"]');
 
         // Verificar que el insumo y la cantidad no estén vacíos
-        if (insumoSelect.value && cantidadInput.value) {
+        if (insumoSelect[0].value && insumoSelect[1].value && cantidadInput.value) {
             // Crear una nueva fila en la tabla
             const fila = document.createElement('tr');
             fila.innerHTML = `
                 <td>${index + 1}</td>
-                <td class="insumo-item">${insumoSelect.options[insumoSelect.selectedIndex].text}</td>
+                <td class="insumo-item">${insumoSelect[0].options[insumoSelect[0].selectedIndex].text}</td>
                 <td class="cantidad-item">${cantidadInput.value}</td>
+                <td class="unidad-item">${insumoSelect[1].options[insumoSelect[1].selectedIndex].text}</td>
                 <td class="precio-item">
                     <input type="number" placeholder="$" class="precio-unitario">
                 </td>

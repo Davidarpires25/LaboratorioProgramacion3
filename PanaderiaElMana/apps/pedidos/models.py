@@ -45,7 +45,8 @@ class Pedido(models.Model):
 class ItemInsumo(models.Model):
     pedido= models.ForeignKey(Pedido, on_delete=models.CASCADE,related_name="insumos")
     insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
-    cantidad= models.IntegerField()
+    cantidad= models.FloatField()
+    unidad_medida= models.CharField(max_length=10,blank=True)
 
 
 

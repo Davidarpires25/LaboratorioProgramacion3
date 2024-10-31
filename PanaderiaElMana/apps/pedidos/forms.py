@@ -56,14 +56,29 @@ class ItemInsumoForm(forms.ModelForm):
         }),
  
     )
+    UNIDAD_CHOICE = [("", "Seleccione"),
+                     ("Kilogramos","Kg"),
+                     ("Gramos","g"),
+                     ("Litros","L"),
+                     ("Mililitros","ml"),
+                     ("Unidades","u")
+                    ]
+    
+    unidad_medida=forms.ChoiceField(
+                choices=UNIDAD_CHOICE,
+                widget=forms.Select(attrs={
+                    'class': 'formulario__input'
+                }))
+    
     class Meta:
         model = ItemInsumo
-        fields = ['insumo', 'cantidad']
+        fields = ['insumo', 'cantidad','unidad_medida']
         widgets = {
             'cantidad': forms.NumberInput(attrs={
                 'class': 'formulario__input', 
                 
             }),
+            
            
         }
         
