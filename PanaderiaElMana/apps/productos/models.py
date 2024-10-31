@@ -7,11 +7,11 @@ class Producto(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
     precio= models.FloatField()
-    cantidad= models.FloatField()
+    cantidad= models.PositiveIntegerField()
     estado=models.BooleanField(default=True)
     categoria = models.CharField(max_length=15)
 
     def __str__(self):
-        return f"{self. descripcion} (precio:{self.precio})"
+        return f"{self. descripcion} (precio:{self.precio}) (cant:{self.cantidad})"
 
 #opcion: mandar esos 2 y con las expReg en js capturar el precio del option seleccionado

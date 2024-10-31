@@ -57,7 +57,7 @@ class ItemProducto(models.Model):
     producto= models.ForeignKey(Producto,on_delete=models.CASCADE)
     cantidad= models.PositiveIntegerField()
     precioActual= models.FloatField(validators=[MinValueValidator(0.0)])
-
+    subtotal = models.FloatField(validators=[MinValueValidator(0.0)])
 
 
 

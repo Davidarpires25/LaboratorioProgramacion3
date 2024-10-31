@@ -15,6 +15,15 @@ class ventasForm(forms.ModelForm):
             'name': 'mayorista'
         })
     )
+    observaciones = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'formulario__input',
+            'id': 'observaciones',
+            'name': 'observaciones',
+            'placeholder': 'Opcional'
+        })
+    )
     class Meta:
         model = Venta
         fields = ['mayorista', 'tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
@@ -47,11 +56,6 @@ class ventasForm(forms.ModelForm):
                 'id': 'formaPago',
                 'name': 'formaPago'                 
             }),
-            'observaciones': forms.TextInput(attrs={
-                'class': 'formulario__input',
-                'id': 'observaciones',
-                'name': 'observaciones'                 
-            }),
             'precioTotal': forms.TextInput(attrs={
                 'class': 'formulario__input',
                 'id': 'precioTotal',
@@ -75,9 +79,10 @@ class ProductoForm(forms.ModelForm):
             'required': 'required'
         })
     )
+    subtotal = forms.FloatField(widget=forms.HiddenInput())
     class Meta:
         model = ItemProducto
-        fields = ['producto', 'cantidad', 'precioActual']
+        fields = ['producto', 'cantidad', 'precioActual', 'subtotal']
         widget = {
             'precioActual': forms.NumberInput(attrs={
                 'class': 'formulario__input',
@@ -88,7 +93,8 @@ class ProductoForm(forms.ModelForm):
                 'class': 'formulario__input',
                 'id': 'cantidad',
                 'name': 'cantidad'              
-            })
+            }),
+            
         }
 
 ItemProductoFormSet = inlineformset_factory(

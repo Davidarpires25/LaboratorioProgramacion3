@@ -93,7 +93,8 @@ function agregarFormularioProducto(){
             const template = $formsetContainer.children[0].cloneNode(true);
     
             // Limpiar los valores del formulario clonado
-            template.querySelectorAll('input[type="number"]').forEach(input => input.value = '');
+            template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
+            template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => input.value = '1');
             template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
     
             $formsetContainer.appendChild(template);
@@ -125,10 +126,9 @@ function filtrarPrecio(texto){
 
 function actualizarTotal(){
     const $precioTotal = d.getElementById("precioTotal");
-    const precios = d.querySelectorAll("input[type='hidden']#precioActualizado");
+    const subtotales = d.querySelectorAll('[id^="id_itemproducto_set"][id$="subtotal"]');
     let precioTotal = 0;
-    for(let precio of precios){
-        console.warn(precio.value)
+    for(let precio of subtotales){
         precioTotal += parseFloat(precio.value);
     }
     $precioTotal.value = precioTotal || '';
@@ -158,11 +158,17 @@ function generadorNroComprobante(){
     d.getElementById("nroComprobante").value = numero;
 }
 
+function valorCampoCantidad(){
+    const $campoCantidad = d.getElementById('id_itemproducto_set-0-cantidad');  
+    $campoCantidad.value = 1 
+}
+
 d.addEventListener("DOMContentLoaded", function(e){
     campoSoloLectura();
     agregarFormularioProducto();
     ocultarDelete();
     generadorNroComprobante();
+    valorCampoCantidad();
 });
 
 d.addEventListener("change", function(e){
@@ -172,15 +178,15 @@ d.addEventListener("change", function(e){
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
         let campoCantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']");
         campoPrecio.value = precioProducto;
-        const $precioActualizado = campoCantidad.nextElementSibling;
-        $precioActualizado.value = precioProducto * (campoCantidad.value || 1);
+        const $subtotal = campoCantidad.nextElementSibling;
+        $subtotal.value = precioProducto * (campoCantidad.value || 1);
         actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
         validarCantidad(e.target.value)
         let precioProducto = e.target.parentNode.parentNode.parentNode.querySelector("input[type='number']").value;
-        const $precioActualizado = e.target.nextElementSibling;
-        $precioActualizado.value = precioProducto * (e.target.value || 1);
+        const $subtotal = e.target.nextElementSibling;
+        $subtotal.value = precioProducto * (e.target.value || 1);
         actualizarTotal()
     }
 });
