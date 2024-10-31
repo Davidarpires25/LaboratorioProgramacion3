@@ -4,28 +4,36 @@ from django.db.models import Prefetch
 from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto
 from apps.productos.models import Producto
+from django.db import transaction
+
 # Create your views here.
 def registroVentas(request):
     if request.method == "POST":
-        form = ventasForm(request.POST, request.FILES)
+        form = ventasForm(request.POST, request.FILES) 
         if form.is_valid():
             tipoVenta = form.cleaned_data.get('tipo_venta')
-            ventaNueva = form.save()
-            if tipoVenta == 'MAYORISTA':
-                idMayorista = request.POST.get("cuitMayorista")
-                nuevaVentaMayorista = itemMayorista(
-                    venta = ventaNueva, 
-                    mayorista_cuit_id = idMayorista
-                    )
-                nuevaVentaMayorista.save()
-            formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
-            if formset.is_valid():
-                formset.save()
-                return redirect(f'http://{request.get_host()}/ventas/')
-    else:
-        form = ventasForm()
-        formset = ItemProductoFormSet()
-    return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})
+            try:
+                with transaction.atomic():
+                    ventaNueva = form.save()
+                    if tipoVenta == 'MAYORISTA':
+                        idMayorista = request.POST.get("cuitMayorista")
+                        nuevaVentaMayorista = itemMayorista(
+                            venta=ventaNueva,
+                            mayorista_cuit_id=idMayorista
+                        )
+                        nuevaVentaMayorista.save()
+
+                    formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
+                    if formset.is_valid():
+                        formset.save()
+                    else:
+                        raise ValueError("Error en formset")
+                    return redirect(f'http://{request.get_host()}/ventas/')
+            except Exception as e:
+                print("Error al guardar la transacción:", e)
+    form = ventasForm()
+    formset = ItemProductoFormSet()
+    return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})    
 
 def informeVentas(request):
     ventas = Venta.objects.all().order_by('-id')
@@ -54,6 +62,7 @@ def detalleVenta(request, id):
             "tipo_venta", 
             "tipo_comprobante", 
             "forma_pago", 
+            "estado",
             # Campos de ItemProducto
             "itemproducto__producto_id", 
             "itemproducto__producto__descripcion", 

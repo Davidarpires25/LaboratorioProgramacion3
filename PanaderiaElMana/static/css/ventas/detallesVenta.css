@@ -80,3 +80,20 @@ textarea{
     height: 200px;
     resize: none;
 }
+
+#btn_anularVenta{
+    background-color: #d10000;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    border-radius: 0.5rem; 
+}
+
+#btn_anularVenta:hover{
+    background-color: #9c0303;
+    color: rgb(214, 214, 214);
+}
+
+#btn_anularVenta:active{
+    background-color: #730202;
+    color: rgb(171, 171, 171);
+}

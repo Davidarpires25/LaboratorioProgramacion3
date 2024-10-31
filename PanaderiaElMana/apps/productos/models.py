@@ -12,6 +12,6 @@ class Producto(models.Model):
     categoria = models.CharField(max_length=15)
 
     def __str__(self):
-        return f"{self. descripcion} (precio:{self.precio})"
+        return f"{self. descripcion} (precio:{self.precio}) (cant:{self.cantidad})"
 
 #opcion: mandar esos 2 y con las expReg en js capturar el precio del option seleccionado
