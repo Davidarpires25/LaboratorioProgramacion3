@@ -34,7 +34,6 @@ function controlFecha(){
 
     $fechaVenta.setAttribute("min",fechaLimite);
     $fechaVenta.setAttribute("max",fechaActual);
-
 };
 
 

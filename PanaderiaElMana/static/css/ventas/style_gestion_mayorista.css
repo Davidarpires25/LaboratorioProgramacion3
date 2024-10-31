@@ -4,10 +4,10 @@ html,body{
 
 
 body{
-    background-image: url("../img/gestion_ventas/d6axvp4qecqpn5jeg2jz.jpg");
+    background-image: url("../../img/gestion_ventas/weuqwpzkyrs1vqzzyvbt.jpg");
     background-size: cover;
     background-attachment: fixed;
-    background-position: center; 
+    background-position: center;
 }
 
 
@@ -45,26 +45,15 @@ button:active[type="submit"]{
 
 
 h1{
-    transform: translate(-35%, 0px);    
+    margin-left: 3.2rem;
 }
 
 .form-container {
     display: grid;
-    grid-template-columns: repeat(2, 1.5fr); /* Dos columnas con un ancho mayor */
-    grid-template-rows: auto auto;
-    gap: 20px; /* Espacio entre los div */
-    margin: 0; /* Centra el contenedor horizontalmente */
-    transform: translate(-35%, 0px);
+    margin-left: 3.2rem; /* Centra el contenedor horizontalmente */
 }
 
-.form-container .form-background:nth-child(3) {
-    grid-column: span 2; /* Hace que ocupe las dos columnas */
-    justify-self: center; /* Centra el div horizontalmente */
-}
 
-#formset-container{
-    transform: translateX(50%);
-}
 
 .form-background{
     border-style: groove;
@@ -76,83 +65,36 @@ h1{
     display: none;
 }
 
-#btnEliminarProducto{
-    padding: 1px;
-    transform: translateX(200%);
+#agregarProducto{
+    color: #63E6BE;
 }
 
-#grupo__precio{
-    transform: translateX(25%);
+#agregarProducto:hover{
+    color: #45be99;
 }
 
-#grupo__cantidad{
-    transform: translateX(50%);
+#agregarProducto:hover:active{
+    color: #2b9473;
 }
 
-#addProducto{
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-color: #d88c2255;
-    background-color: #10dca6;
-    padding: 10px 20px;
-    margin: 0 auto;
-    display: block;
+#listarProductos{
+    color: #ffffff;
 }
 
-#centrarInput{
-    background-color: #0000005a;
-    text-align: center;
-    width: 400px;
-    margin-left: 20%;
-    border-radius: 10px;
-    border-style: groove;
-    border-color: #d88d22;
+#listarProductos:hover{
+    color: #dddddd;
 }
 
-#centrarInput p{
-    margin-top: 5%;
+#listarProductos:hover:active{
+    color: #bdbdbd;
 }
-#centrarInput span{
-    color: #fdfdfd;
-    font-size: 32px;
-    font-weight: bold;
-    font-style: italic;
-    margin-right: 6px;
-}
-
-#precioTotal{
-    width: 150px;
-    background-color: #ffffff;
-    font-size: 24px;
-    font-weight: bold;
-    font-style: italic;
-    text-align: center;
-    color: #d88d22;
-    border-color: #d88d22;
-    border-radius: 10px;
-}
-
-[id^="id_itemproducto_set"][id$="precioActual"]:hover{
-    cursor: default;
-}
-
-#centrarInput p, #precioTotal{
-    cursor: default;
-}
-
 
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
-    #formset-container{
-        transform: translateX(-1px);
-    }
     h1{
         transform: translate(35%, 0px);    
     }
-    .form-container {
-        grid-template-columns: 1fr; /* Cambia a una sola columna */
-        transform: none; /* Elimina la traslación en resoluciones pequeñas */
-    }
+
 
     .form-container .form-background:nth-child(3) {
         grid-column: span 1; /* Hace que ocupe solo una columna */
@@ -191,15 +133,6 @@ h1{
     /*tamaño de los íconos*/
     .form-background .formulario__validacion-estado {
         font-size: 12px;
-    }
-}
-
-@media (max-width: 619px){
-    #id_itemproducto_set-0-cantidad{
-        transform: translateY(-25px);
-    }
-    #centrarInput{
-        transform: translateX(-20%);
     }
 }
 
