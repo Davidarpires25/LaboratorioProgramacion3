@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Prefetch
 from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto
+from apps.productos.models import Producto
 # Create your views here.
 def registroVentas(request):
     if request.method == "POST":
@@ -67,12 +68,19 @@ def detalleVenta(request, id):
     )
     return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
 
+def devolverCantidadStock(lst_venta_productos):
+    for producto_venta in lst_venta_productos:
+        idProducto = producto_venta['producto_id']
+        cantidadVendida = producto_venta['cantidad']
+        producto = get_object_or_404(Producto, id = idProducto)
+        producto.cantidad += cantidadVendida
+        producto.save()
 
 def anularVenta(request, id):
     if request.method == 'POST':
         venta = get_object_or_404(Venta, id=id)
-        productosAsociados = ItemProducto.objects.filter(venta_id=3).select_related('producto').values('producto__id', 'producto__cantidad')
-        print(productosAsociados)
+        productosAsociados = ItemProducto.objects.filter(venta_id=id).values('producto_id', 'cantidad')
+        devolverCantidadStock(productosAsociados)
         venta.estado = False
         venta.save()
         # messages.success(request, "La venta ha sido anulada exitosamente.")
