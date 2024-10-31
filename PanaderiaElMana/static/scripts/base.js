@@ -86,6 +86,7 @@ document.addEventListener("click", function (e) {
       }
     }
   }
+
   if(e.target === document.getElementById("logoMana")){
     window.location.href = "/";
   }

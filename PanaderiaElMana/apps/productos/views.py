@@ -53,6 +53,7 @@ def editarProductos(request, pk):
                 messages.error(request, 'El producto ya existe')
                 return render(request, 'productos/editar-productos.html', {'form': form, 'producto': producto, 'productos':productos})
             producto = form.save()
+            messages.success(request, "El producto ha sido modificado exitosamente.")
             print('Datos recibidos:', request.POST)
             return redirect('productos:gestionarProductos')
         
