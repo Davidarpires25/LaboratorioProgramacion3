@@ -44,7 +44,16 @@ input[id=numeroPedido]{
 
 .formulario__grupo-input {
 	position: relative;
+	
 }
+#grupo__conformidad{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	
+	align-items: center;
+
+}
+
 
 .formulario__input {
 	width: 100%;
