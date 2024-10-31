@@ -37,14 +37,6 @@ def informeVentas(request):
             # print(f'Número de formularios: {len(formset.save())}')  # Para ver cuántos formularios están en el formset
 
 def detalleVenta(request, id):
-    # venta_productos = (
-    #     Venta.objects
-    #     .filter(id=id)
-    #     .prefetch_related(
-    #         Prefetch("itemproducto_set", queryset=ItemProducto.objects.select_related("producto")),
-    #         Prefetch("itemmayorista_set", queryset=itemMayorista.objects.select_related("mayorista_cuit"))
-    #     )
-    # )
     venta_productos = (
         Venta.objects
         .filter(id=id)  # Filtra solo la venta específica
@@ -62,7 +54,7 @@ def detalleVenta(request, id):
             "tipo_comprobante", 
             "forma_pago", 
             # Campos de ItemProducto
-            "itemproducto__id", 
+            "itemproducto__producto_id", 
             "itemproducto__producto__descripcion", 
             "itemproducto__precioActual", 
             "itemproducto__cantidad", 
@@ -73,14 +65,14 @@ def detalleVenta(request, id):
             "itemmayorista__mayorista_cuit__razon_social"
         )
     )
-    print(venta_productos)
     return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
 
 
 def anularVenta(request, id):
-    venta= get_object_or_404(Venta, id=id)
-    
     if request.method == 'POST':
+        venta = get_object_or_404(Venta, id=id)
+        productosAsociados = ItemProducto.objects.filter(venta_id=3).select_related('producto').values('producto__id', 'producto__cantidad')
+        print(productosAsociados)
         venta.estado = False
         venta.save()
         # messages.success(request, "La venta ha sido anulada exitosamente.")

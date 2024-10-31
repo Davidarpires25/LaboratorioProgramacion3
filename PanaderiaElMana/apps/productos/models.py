@@ -7,7 +7,7 @@ class Producto(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
     precio= models.FloatField()
-    cantidad= models.FloatField()
+    cantidad= models.PositiveIntegerField()
     estado=models.BooleanField(default=True)
     categoria = models.CharField(max_length=15)
 
