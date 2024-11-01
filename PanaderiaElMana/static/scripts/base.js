@@ -2,7 +2,7 @@ const hamBurger = document.querySelector(".toggle-btn");
 const $sidebar = document.getElementById("sidebar");
 
 async function productosBajaCantidad(){
-  let respuesta = await fetch("http://localhost:8000/productos/baja_cantidad");
+  let respuesta = await fetch("http://127.0.0.1:8000/productos/baja_cantidad");
   let jsonProductos = await respuesta.json();
   const $sidebarItemNotificacion = document.getElementById("notificacion");
   const $iconoCampana = document.getElementById("iconoNotificacion");
