@@ -3,7 +3,6 @@ const $main= document.querySelector('#main')
 const $formulario = d.getElementById("formulario");
 const $divMayorista = d.getElementById("divMayorista")
 const $inputMayorista = $divMayorista.childNodes[3].childNodes[1];
-let valido = false;
 
 function configuracionInicialMayorista(){
     $inputMayorista.required = false;
@@ -12,9 +11,12 @@ function configuracionInicialMayorista(){
 function ajusteMayorista(){
     if($formulario.tipo_venta.value === "MAYORISTA"){
         $divMayorista.classList.remove("desactivado");
+        $divMayorista.childNodes[3].childNodes[1].required = true;
+        $formulario.tipo_venta.required = true;
     }
     else{
         $divMayorista.classList.add("desactivado")
+        $divMayorista.childNodes[3].childNodes[1].required = false;
     }
 }
 
@@ -42,6 +44,16 @@ function validarTeclas(key){
     return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
 }
 
+function validarCantidades(){
+    $spanCantidades = d.querySelectorAll("#spanCantidadInvalida")
+    for(let span of $spanCantidades){
+        if(span.dataset.valido === "false"){
+            return false;
+        }
+    }
+    return true;
+}
+
 d.addEventListener("change", function(e){
     if(e.target === $formulario.tipo_venta){
         ajusteMayorista();
@@ -53,8 +65,7 @@ d.addEventListener("change", function(e){
 
 d.addEventListener("submit", function(e){
     e.preventDefault();
-    alert("VENTA REALIZADA CON EXITO")
-    $formulario.submit();
+    if(validarCantidades()) $formulario.submit();
 });
 
 

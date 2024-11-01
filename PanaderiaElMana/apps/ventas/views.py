@@ -1,6 +1,7 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Prefetch
+from django.urls import reverse
 from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto
 from apps.productos.models import Producto
@@ -26,11 +27,17 @@ def registroVentas(request):
                     formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
                     if formset.is_valid():
                         formset.save()
+                        messages.success(request, "La venta se ha realizado exitosamente.")
                     else:
                         raise ValueError("Error en formset")
                     return redirect(f'http://{request.get_host()}/ventas/')
             except Exception as e:
-                print("Error al guardar la transacción:", e)
+                if "id_producto" in str(e):
+                    mensaje_error = "CANTIDAD INVALIDA! LA VENTA NO SE PUDO REALIZAR"
+                else:
+                    mensaje_error = "Ocurrió un error al guardar los datos."
+                messages.error(request, mensaje_error)
+                return redirect(reverse('ventas:registro_ventas'))
     form = ventasForm()
     formset = ItemProductoFormSet()
     return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})    

@@ -2,7 +2,6 @@
 const $botonAgregarProducto = d.getElementById("addProducto");
 const $grupoProducto = ".form-background.grupoProducto";
 
-
 // function validarProducto(nombre){
 //     return nombre != "";
 // }
@@ -32,7 +31,7 @@ const $grupoProducto = ".form-background.grupoProducto";
 //     return true;
 // }
 
-function validarCantidad(c){
+function validarCantidad(c, span){
     let restricciones = [
         {
             restriccion: c === "",
@@ -47,9 +46,10 @@ function validarCantidad(c){
             informacion: "Solo se permiten caracteres numericos"
         }
     ]
-    for(let prueba of restricciones){
-        if(prueba.restriccion){
-            alert(prueba.informacion);
+    for(let restriccion_ of restricciones){
+        if(restriccion_.restriccion){
+            span.innerText = restriccion_.informacion
+            span.dataset.valido = false;
             return false;
         }
     }
@@ -95,6 +95,10 @@ function agregarFormularioProducto(){
             // Limpiar los valores del formulario clonado
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => input.value = '1');
+            template.querySelectorAll('#spanCantidadInvalida').forEach((span) => {
+                span.dataset.valido = true;
+                span.innerText = ""
+            });
             template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
     
             $formsetContainer.appendChild(template);
@@ -112,7 +116,21 @@ function agregarFormularioProducto(){
                 actualizarTotal();
             }
             else{
-                alert("DEBE EXISTIR POR LO MENOS 1 FORMULARIO DE PRODUCTO")
+                const $spanProducto = d.getElementById("spanProductoForm");
+                $spanProducto.innerText = "DEBE EXISTIR POR LO MENOS 1 FORMULARIO DE PRODUCTO";
+                let esRojo = true;
+                let intervalo = setInterval(function(){
+                    if (esRojo) {
+                        $spanProducto.style.color = 'rgb(255, 0, 0)';
+                    } else {
+                        $spanProducto.style.color = 'rgb(180, 0, 0)';
+                    }
+                    esRojo = !esRojo;
+                }, 250)
+                setTimeout(function(){
+                    clearInterval(intervalo)
+                    $spanProducto.innerText = ""
+                }, 3000);
             }
         }
     })
@@ -161,6 +179,9 @@ function generadorNroComprobante(){
 function valorCampoCantidad(){
     const $campoCantidad = d.getElementById('id_itemproducto_set-0-cantidad');  
     $campoCantidad.value = 1 
+    $campoCantidad.min = 1;
+    const $spanCantidad = $campoCantidad.nextElementSibling.nextElementSibling;
+    $spanCantidad.dataset.valido = true;
 }
 
 d.addEventListener("DOMContentLoaded", function(e){
@@ -183,10 +204,14 @@ d.addEventListener("change", function(e){
         actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
-        validarCantidad(e.target.value)
         let precioProducto = e.target.parentNode.parentNode.parentNode.querySelector("input[type='number']").value;
         const $subtotal = e.target.nextElementSibling;
         $subtotal.value = precioProducto * (e.target.value || 1);
+        const $spanCantidad = $subtotal.nextElementSibling.nextElementSibling
+        if(validarCantidad(e.target.value, $spanCantidad)){
+            $spanCantidad.innerText = "";
+            $spanCantidad.dataset.valido = true;
+        }
         actualizarTotal()
     }
 });

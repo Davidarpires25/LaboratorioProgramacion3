@@ -27,11 +27,6 @@ class Venta(models.Model):
     observaciones= models.TextField(max_length=200)                        
     estado=models.BooleanField(default=True)
 
-    TIPO_VENTA_CHOICES = [
-        ('MINORISTA', 'Minorista'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
-        ('MAYORISTA', 'Mayorista')
-        
-    ]
     TIPO_COMPROBANTE_CHOICES = [
         ('RECIBO', 'Recibo'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('FACTURA', 'Factura'),
@@ -45,7 +40,7 @@ class Venta(models.Model):
         ('OTRO', 'Otro')
         
     ]
-    tipo_venta = models.CharField(max_length=15, choices=TIPO_VENTA_CHOICES)
+    tipo_venta = models.CharField(max_length=15)
     tipo_comprobante = models.CharField(max_length=15, choices=TIPO_COMPROBANTE_CHOICES)
     forma_pago = models.CharField(max_length=15, choices=FORMA_PAGO_CHOICES)
     

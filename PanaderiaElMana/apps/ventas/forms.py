@@ -24,16 +24,20 @@ class ventasForm(forms.ModelForm):
             'placeholder': 'Opcional'
         })
     )
+    TIPO_VENTA_CHOICES = [
+        ('MINORISTA', 'Minorista'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
+        ('MAYORISTA', 'Mayorista')  
+    ]
+    tipo_venta = forms.ChoiceField(choices=TIPO_VENTA_CHOICES,
+                widget=forms.Select(attrs={
+                'class': 'formulario__input',
+                'id': 'tipo_venta',
+                'name': 'tipo_venta'}))
     class Meta:
         model = Venta
         fields = ['mayorista', 'tipo_venta', 'FechaVenta', 'tipo_comprobante', 'numeroComprobante', 'forma_pago', 'observaciones', 'precioTotal']   
 
         widgets = {
-            'tipo_venta': forms.Select(attrs={
-                'class': 'formulario__input',
-                'id': 'tipo_venta',
-                'name': 'tipo_venta'
-            }),
             'FechaVenta': DateInput(attrs={
                 'type': 'date',
                 'class': 'formulario__input',
