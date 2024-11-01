@@ -118,7 +118,12 @@ div .action-button{
 }
 
 
+.action-item-list{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 
+}
 
 .table-buttons{
     cursor: pointer;

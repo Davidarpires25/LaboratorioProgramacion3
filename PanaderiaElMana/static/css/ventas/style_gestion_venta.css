@@ -140,7 +140,12 @@ h1{
     cursor: default;
 }
 
-
+#main{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     #formset-container{
