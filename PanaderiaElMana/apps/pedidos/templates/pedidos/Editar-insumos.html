@@ -86,7 +86,7 @@
                                     </a>
                                 <form action="" id="formulario_eliminar" class="needs-validation formulario" method="post">
                                     {% csrf_token %}
-                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt" style="color: #ffffff;"></i></button>
                                 </form>
                             </td>       
                         </tr>
