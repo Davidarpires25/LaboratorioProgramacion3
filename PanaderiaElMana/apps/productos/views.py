@@ -8,7 +8,7 @@ from django.db.models import Q
 
 
 def productosCantidadBaja(request):
-    productos = Producto.objects.filter(cantidad__lt=10).values('id', 'descripcion', 'cantidad')
+    productos = Producto.objects.filter(cantidad__lt=10, estado=True).values('id', 'descripcion', 'cantidad')
     return JsonResponse(list(productos), safe=False)
 
 def gestionarProductos(request):

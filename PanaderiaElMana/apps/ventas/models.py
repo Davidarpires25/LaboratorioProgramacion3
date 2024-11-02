@@ -10,7 +10,7 @@ class Mayorista(models.Model):
     direccion= models.TextField(max_length=50)
     telefono= models.CharField(max_length=20)
     email= models.CharField(max_length=50)
-    estado=models.BooleanField(default=False)
+    estado=models.BooleanField(default=True)
     CONDICION_VENTA_CHOICES = [
         ('CONTADO', 'Contado'),  # Primer valor es el que se guarda en la BD, el segundo es el que se muestra
         ('CREDITO', 'Credito'),  

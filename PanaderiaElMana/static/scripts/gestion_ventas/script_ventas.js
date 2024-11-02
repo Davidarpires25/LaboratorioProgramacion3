@@ -3,7 +3,6 @@ const $main= document.querySelector('#main')
 const $formulario = d.getElementById("formulario");
 const $divMayorista = d.getElementById("divMayorista")
 const $inputMayorista = $divMayorista.childNodes[3].childNodes[1];
-
 function configuracionInicialMayorista(){
     $inputMayorista.required = false;
     $divMayorista.classList.add("desactivado")
@@ -38,11 +37,6 @@ function controlFecha(){
     $fechaVenta.setAttribute("max",fechaActual);
 };
 
-
-
-function validarTeclas(key){
-    return !((key >= 48 && key <= 59) || key === 8 || key === 13 || (key >= 96 && key <= 105));
-}
 
 function validarCantidades(){
     $spanCantidades = d.querySelectorAll("#spanCantidadInvalida")

@@ -65,29 +65,17 @@ h1{
     display: none;
 }
 
-#agregarProducto{
-    color: #63E6BE;
+
+input:not(#correo):invalid{
+    border-color: red;
+    border-radius: 5px;
 }
 
-#agregarProducto:hover{
-    color: #45be99;
+input:not(#correo):valid{
+    border-color: rgb(4, 255, 4);
+    border-radius: 5px;
 }
 
-#agregarProducto:hover:active{
-    color: #2b9473;
-}
-
-#listarProductos{
-    color: #ffffff;
-}
-
-#listarProductos:hover{
-    color: #dddddd;
-}
-
-#listarProductos:hover:active{
-    color: #bdbdbd;
-}
 
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {

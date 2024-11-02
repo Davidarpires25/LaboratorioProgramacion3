@@ -16,7 +16,8 @@
 {% block content %}
 <body>
     <main id="main">
-		<form action="" class="formulario" id="formulario">
+		<form method="POST" class="formulario" id="formulario">
+            {% csrf_token %}
             <div class="card-header navbar-dark ">
                 <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Registro mayorista</h1>
             </div>
@@ -26,7 +27,7 @@
                     <div class="formulario__grupo" id="grupo__numeroPedido">
                         <label for="numeroPedido" class="formulario__label">Razon social</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="razonSocial" id="">
+                            <input type="text" class="formulario__input" name="razonSocial" id="razonSocial" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -35,10 +36,9 @@
                     <div class="formulario__grupo" id="grupo__cuit">
                         <label for="cuit" class="formulario__label">Cuit:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="cuit" >
+                            <input type="text" class="formulario__input" name="cuit" id="cuit" pattern="\d{11}" required maxlength="11">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="formulario__input-error">Cuit incorrecto.</p>
                     </div>
     
     
@@ -46,7 +46,7 @@
                     <div class="formulario__grupo">
                         <label for="direccion" class="formulario__label">Direccion:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" name="direccion" class="formulario__input">
+                            <input type="text" name="direccion" class="formulario__input" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese una direccion.</p>
@@ -55,7 +55,7 @@
                     <div class="formulario__grupo">
                         <label for="telefono" class="formulario__label">Telefono:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" name="telefono" class="formulario__input">
+                            <input type="text" name="telefono" class="formulario__input" pattern="^\d+$"  required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese un telefono.</p>
@@ -65,31 +65,22 @@
                     <div class="formulario__grupo">
                         <label for="correo" class="formulario__label">Email de contacto:</label>
                         <div class="formulario__grupo-input">
-                            <input type="email" name="correo" class="formulario__input">
+                            <input type="email" name="correo" class="formulario__input" id="correo">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="formulario__input-error">Ingrese un correo.</p>
                     </div>
 
                     <!-- Grupo: condicion de venta -->
                     <div class="formulario__grupo">
                         <label for="condicionVenta" class="formulario__label">Condicion de venta:</label>
                         <div class="formulario__grupo-input">
-                            <select name="condicionVenta" class="formulario__input">
+                            <select name="condicionVenta" class="formulario__input" required>
                                 <option value="" hidden>SELECCIONE</option>
-                                <option value="contado">Contado</option>
-                                <option value="credito">Credito</option>
+                                <option value="CONTADO">Contado</option>
+                                <option value="CREDITO">Credito</option>
                             </select>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
-                        <p class="formulario__input-error">Ingrese un correo.</p>
-                    </div>
-
-                    <div class="formulario__mensaje" id="formulario__mensaje">
-                        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
-                    </div>
-                    <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
-                        <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
                     </div>
                 </div>	
             </div>
@@ -110,6 +101,7 @@
     {% block js %}
     <!-- <script src="{% static 'scripts/gestion_ventas/script_ventas.js' %}"></script>
     <script src="{% static 'scripts/gestion_ventas/script_ventas_productos.js' %}"></script> -->
+    <script src="{% static 'scripts/gestion_ventas/script_mayoristas.js' %}"></script>
     {% endblock %}   
 </body>
 </html>

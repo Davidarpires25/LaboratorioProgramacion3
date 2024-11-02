@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Prefetch
 from django.urls import reverse
 from .forms import ventasForm, ItemProductoFormSet
-from .models import itemMayorista, Venta, ItemProducto
+from .models import itemMayorista, Venta, ItemProducto, Mayorista
 from apps.productos.models import Producto
 from django.db import transaction
 
@@ -108,5 +108,21 @@ def anularVenta(request, id):
 
 
 def registroMayoristas(request):
+    if request.method == 'POST':
+        razonSocial = request.POST.get("razonSocial")
+        cuit = request.POST.get("cuit")
+        direccion = request.POST.get("direccion")
+        telefono = request.POST.get("telefono")
+        correo = request.POST.get("correo")
+        condicionVenta = request.POST.get("condicionVenta")
+        nuevoMayorista = Mayorista(
+            cuit = cuit,
+            razon_social = razonSocial,
+            direccion = direccion,
+            telefono = telefono,
+            email = correo,
+            condicion_venta = condicionVenta
+        )
+        nuevoMayorista.save()
     return render(request, 'ventas/Registro_mayoristas.html')
 

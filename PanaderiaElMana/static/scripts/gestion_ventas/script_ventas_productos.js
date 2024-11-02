@@ -1,35 +1,9 @@
 
 const $botonAgregarProducto = d.getElementById("addProducto");
 const $grupoProducto = ".form-background.grupoProducto";
+const lstOptions = d.getElementById("selectProducto").options;
+const lstProductos = [];
 
-// function validarProducto(nombre){
-//     return nombre != "";
-// }
-
-// function validarPrecio(p){
-//     let restricciones = [
-//         {
-//             restriccion: p === "",
-//             informacion: "El precio está vacio"
-//         },
-//         {
-//             restriccion: !(/^[0-9]+(\.[0-9]+)?$/
-//             .test(p)),
-//             informacion: "Solo se permiten caracteres numericos"
-//         },
-//         {
-//             restriccion: parseFloat(p) <= 0,
-//             informacion: "Valor invalido de precio"
-//         }
-//     ]
-//     for(let prueba of restricciones){
-//         if(prueba.restriccion){
-//             alert(prueba.informacion);
-//             return false;
-//         }
-//     }
-//     return true;
-// }
 
 function validarCantidad(c, span){
     let restricciones = [
@@ -99,7 +73,7 @@ function agregarFormularioProducto(){
                 span.dataset.valido = true;
                 span.innerText = ""
             });
-            template.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+            let selectNuevo = template.querySelector('select');
     
             $formsetContainer.appendChild(template);
             updateFormIndexes();
@@ -184,6 +158,7 @@ function valorCampoCantidad(){
     $spanCantidad.dataset.valido = true;
 }
 
+
 d.addEventListener("DOMContentLoaded", function(e){
     campoSoloLectura();
     agregarFormularioProducto();
@@ -193,7 +168,7 @@ d.addEventListener("DOMContentLoaded", function(e){
 });
 
 d.addEventListener("change", function(e){
-    if(e.target.matches("#producto")){
+    if(e.target.matches("#selectProducto")){
         let productoTexto = e.target.options[e.target.selectedIndex].text;
         let precioProducto = filtrarPrecio(productoTexto);
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
