@@ -126,3 +126,8 @@ def registroMayoristas(request):
         nuevoMayorista.save()
     return render(request, 'ventas/Registro_mayoristas.html')
 
+
+def informeMayoristas(request):
+    mayoristas = Mayorista.objects.all()
+    print(mayoristas)
+    return render(request, "ventas/Lista_mayoristas.html", {'mayoristas':mayoristas})

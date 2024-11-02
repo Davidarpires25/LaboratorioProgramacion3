@@ -58,7 +58,7 @@
 <body>
     {% block content %}
     <main id="main">
-        <div class="card-header navbar-dark" style="display: flex">
+        <!-- <div class="card-header navbar-dark" style="display: flex">
             <h1 class="h3 mb-0 formulario__label"style="color: #ffffff"></h1>
             {% if messages %}
                 <ul class="messages">
@@ -113,48 +113,43 @@
                     <label for="buscarTabla" class="formulario__label"></label>
                   
                         <button type="button" class="table-buttons-list" id="buscarTabla" onclick="buscarVenta()">Buscar</button>
-                    
                 </div>
-            </div>
+            </div> -->
             <table style="width: max-content;">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Numero de comprobante</th>
-                        <th>Fecha</th>
-                        <th>Observaciones</th>
-                        <th>Tipo de venta</th>
-                        <th>Tipo de comprobante</th>
-                        <th>Forma de pago</th>
-                        <th>Total</th>
+                        <th>Cuit</th>
+                        <th>Razon Social</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Condicion de venta</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
-                    {% for venta in ventas %}
+                    {% for mayorista in mayoristas %}
                     <tr>
-                        <td>{{ venta.id }}</td>
-                        <td>{{ venta.numeroComprobante }}</td>
-                        <td>{{ venta.FechaVenta }}</td>
-                        <td>{{ venta.observaciones }}</td>
-                        <td>{{ venta.tipo_venta }}</td>
-                        <td>{{ venta.tipo_comprobante }}</td>
-                        <td>{{ venta.forma_pago }}</td>
-                        <td>{{ venta.precioTotal }}</td>
-                        {% if venta.estado %}
-                        <td style="color: green;"><b>EXITOSA</b></td>
+                        <td>{{ mayorista.cuit }}</td>
+                        <td>{{ mayorista.razon_social }}</td>
+                        <td>{{ mayorista.direccion }}</td>
+                        <td>{{ mayorista.telefono }}</td>
+                        <td>{{ mayorista.email }}</td>
+                        <td>{{ mayorista.condicion_venta }}</td>
+                        {% if mayorista.estado %}
+                        <td style="color: green;"><b>ACTIVO</b></td>
                         {% else %}
-                        <td style="color: red;"><b>ANULADA</b></td>
+                        <td style="color: red;"><b>INACTIVO</b></td>
                         {% endif %}
                         <td class="action-item-list">
                             <button type="button" class="action-button edit-button" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}">
                                 <i class="fa-regular fa-file-lines" style="color: #ffffff;" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}"></i>
                             </button>
-                            {% if venta.estado %}
+                            {% if mayorista.estado %}
                             <form action="" id="formulario_anular" class="needs-validation formulario" method="post">
                                 {% csrf_token %}
-                                <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'ventas:anular_venta' venta.id %}`)">
+                                <button type="button" class="action-button delete-button" onclick="confirmCancel(`{}`)">
                                     <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>
                                 </button>
                             </form>
@@ -174,8 +169,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -183,7 +176,7 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'scripts/script_tabla.js' %}"></script>
-    <script src="{% static 'scripts/gestion_ventas/script_tabla_ventas.js' %}"></script>
+    <script src="{% static 'scripts/gestion_ventas/script_tabla_mayoristas.js' %}"></script>
     {% endblock %}
 </body>
 

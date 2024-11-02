@@ -17,8 +17,6 @@ class Mayorista(models.Model):
     ]
     condicion_venta= models.CharField(max_length=15, choices=CONDICION_VENTA_CHOICES)
     
-    def __str__(self):
-        return self.razon_social
 
 class Venta(models.Model):
     numeroComprobante= models.CharField(max_length=15)
