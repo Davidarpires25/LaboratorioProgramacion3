@@ -84,3 +84,4 @@ def eliminarProductos(request, pk):
     else:
         messages.error(request, "La cancelación no se pudo completar.")
         return redirect('productos:gestionarProductos')
+

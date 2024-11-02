@@ -51,6 +51,13 @@
                                 {{ insumo_form.cantidad}}
                             </div>
                         </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cant_producto" class="formulario__label">Cantidad Minima</label>
+                            <div class="formulario__grupo-input">
+                                {{insumo_form.cantidad_minima}}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -68,6 +75,7 @@
                         <tr>
                             <th>Descripción</th>
                             <th>Cantidad</th>
+                            <th>Cantidad Minima</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -76,6 +84,7 @@
                         <tr>
                             <td>{{ insumo.descripcion }}</td>
                             <td>{{ insumo.cantidad|floatformat:0 }}</td>
+                            <td>{{ insumo.cantidad_minima|floatformat:0 }}</td>
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'pedidos:editar_insumos' insumo.id %}" style="color: white;">
                                 <i class="fas fa-edit" style="color: white;"></i></button>
@@ -91,6 +100,7 @@
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

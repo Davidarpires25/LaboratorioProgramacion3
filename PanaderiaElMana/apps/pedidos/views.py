@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Insumo,Pedido,ItemInsumo,RecepcionPedidos
-from .forms import PedidoForm, ItemInsumoFormSet,RecepcionForm, InsumoForm
+from .forms import PedidoForm, ItemInsumoFormSet,RecepcionForm, InsumoForm,RestarInsumoFormSet
 from django.urls import reverse
 from django.db.models import Q
 
@@ -205,3 +205,30 @@ def eliminarInsumos(request, pk):
     else:
         messages.error(request, "La eliminación no se pudo completar.")
         return redirect('pedidos:gestionarInsumos') 
+
+
+def restarInsumos(request):
+    insumos= Insumo.objects.filter(estado=True)
+    if request.method == 'POST':
+        formset = RestarInsumoFormSet(request.POST)
+
+        if formset.is_valid():
+           for form in formset:
+                insumo = form.cleaned_data.get('insumo')
+                cantidad_restar = form.cleaned_data.get('cantidad_restar')
+                insumo.cantidad -= cantidad_restar
+                insumo.save()
+                form.save()
+        
+        messages.success(request, 'pedido creado exitosamente.')
+        return redirect('pedidos:restar_insumos')
+                
+    else:
+        formset = RestarInsumoFormSet()
+
+    return render(request, 'pedidos/Restar-insumos.html', {
+    
+        'formset': formset,
+        'insumos':insumos
+    })
+ 

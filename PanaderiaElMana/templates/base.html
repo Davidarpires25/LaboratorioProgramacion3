@@ -37,17 +37,20 @@
                     </a>
                     <ul class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="{% url 'pedidos:gestionarInsumos' %}" class="sidebar-link">Registrar Insumo</a>
+                            <a href="{% url 'pedidos:gestionarInsumos' %}" class="sidebar-link">Insumos</a>
                         </li>
                         
                         <li class="sidebar-item">
-                            <a href="{% url 'productos:gestionarProductos' %}" class="sidebar-link">Registrar Producto</a>
+                            <a href="{% url 'productos:gestionarProductos' %}" class="sidebar-link">Productos</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{% url 'pedidos:registro_pedidos' %}" class="sidebar-link">Registrar Pedido</a>
+                            <a href="{% url 'pedidos:registro_pedidos' %}" class="sidebar-link">Pedido</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="{% url 'pedidos:lista_pedidos' %}"  class="sidebar-link">Lista de Pedidos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{% url 'pedidos:restar_insumos' %}"  class="sidebar-link">Restar Insumos</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Productos elaborados</a>

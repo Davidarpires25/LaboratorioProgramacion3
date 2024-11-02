@@ -21,6 +21,7 @@ class Insumo(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
     cantidad= models.FloatField()
+    cantidad_minima= models.FloatField()
     estado=models.BooleanField(default=True)
 
     def __str__(self):
@@ -58,3 +59,8 @@ class RecepcionPedidos(models.Model):
     precio_total= models.FloatField(default=0)   
     pedido= models.ForeignKey(Pedido,on_delete=models.CASCADE)
     
+
+class RestarInsumos(models.Model):
+    insumo= models.ForeignKey(Insumo, on_delete=models.CASCADE)
+    unidad_medida= models.CharField(max_length=10,blank=True)
+    cantidad_restar= models.FloatField()

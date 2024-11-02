@@ -12,4 +12,5 @@ urlpatterns = [
     path('insumos', views.gestionarInsumos, name='gestionarInsumos'),
     path('insumos/editar/<int:pk>', views.editarInsumos, name='editar_insumos'),
     path('insumos/eliminar/<int:pk>', views.eliminarInsumos, name='eliminar_insumos'),
+    path('insumos/restar/', views.restarInsumos, name='restar_insumos'),
 ]
