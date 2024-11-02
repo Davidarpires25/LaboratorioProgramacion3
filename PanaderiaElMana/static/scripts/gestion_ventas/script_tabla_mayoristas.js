@@ -1,3 +1,13 @@
+
+
+document.addEventListener("click", function(e){
+    if(e.target.matches(".edit-button") || e.target.matches(".edit-button i")){
+        let cuitMayorista = e.target.dataset.cuit;
+        window.location.href = cuitMayorista
+    }
+})
+
+
 function confirmCancel(enlace) {
     Swal.fire({
         title: '¿Dar de baja al mayorista?',

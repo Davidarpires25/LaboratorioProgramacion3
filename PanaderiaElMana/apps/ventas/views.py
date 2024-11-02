@@ -131,3 +131,27 @@ def informeMayoristas(request):
     mayoristas = Mayorista.objects.all()
     print(mayoristas)
     return render(request, "ventas/Lista_mayoristas.html", {'mayoristas':mayoristas})
+
+
+
+def modificarMayorista(request, cuit):
+    mayorista = get_object_or_404(Mayorista, cuit = cuit)
+    if request.method == 'POST':
+        print("aaaaaaaaaaaaaaaaaaaaa")
+        mayorista.razon_social = request.POST.get("razonSocial")
+        mayorista.cuit = request.POST.get("cuit")
+        mayorista.direccion = request.POST.get("direccion")
+        mayorista.telefono = request.POST.get("telefono")
+        mayorista.email = request.POST.get("correo")
+        mayorista.condicion_venta = request.POST.get("condicionVenta")
+        mayorista.save()
+        return redirect('ventas:informe_mayoristas')
+    return render(request, "ventas/Modificar_mayorista.html", {'mayorista':mayorista})
+
+
+def darDeBajaMayorista(request, cuit):
+    if request.method == 'POST':
+        mayorista = get_object_or_404(Mayorista, cuit = cuit)
+        mayorista.estado = False
+        mayorista.save()
+        return redirect('ventas:informe_mayoristas')
