@@ -71,7 +71,7 @@ div .action-button{
     background-color: #b92c31;
 }
 .save-button{
-    background-color: #0e0e0e;
+    background-color: #f1f1f1;
 }
 
 .total-row td {
@@ -132,7 +132,7 @@ div .action-button{
 	line-height: 20px;
 	max-width: 200px;
 	width: auto;
-	color: black;
+	color: white;
 	border: none;
 	border-radius: 8px;
 	transition: .1s ease all;
@@ -152,14 +152,9 @@ div .action-button{
     gap: 20px;
     
 }
-.table-input-container-insumos{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    
-}
 
 #add-form {
     margin-top: 20px;
     margin-left: 250px;
+     /* Espacio superior específico para el botón */
 }

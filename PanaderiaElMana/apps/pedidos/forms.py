@@ -1,6 +1,6 @@
 from django import forms
-from .models import Pedido,ItemInsumo,Insumo,Proveedor,RecepcionPedidos
-from django.forms import inlineformset_factory, DateInput
+from .models import Pedido,ItemInsumo,Insumo,Proveedor,RecepcionPedidos, RestarInsumos
+from django.forms import inlineformset_factory, DateInput, formset_factory,modelformset_factory
 import datetime
 
 
@@ -124,7 +124,7 @@ class InsumoForm(forms.ModelForm):
     class Meta:
 
         model = Insumo
-        fields = ['descripcion', 'cantidad']
+        fields = ['descripcion', 'cantidad','cantidad_minima']
 
         widgets = {
 
@@ -136,14 +136,57 @@ class InsumoForm(forms.ModelForm):
             'cantidad': forms.NumberInput(attrs={
                 'class': 'formulario__input', 
                 'id': 'cantidad_insumo',
+            }),
+             'cantidad_minima': forms.NumberInput(attrs={
+                'class': 'formulario__input', 
+                'id': 'cantidad_insumo',
             })
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            if not isinstance(field.widget, forms.CheckboxInput):
-                field.widget.attrs['class'] = 'form-control'
-            else:
-                field.widget.attrs['class'] = 'form-check-input'
 
+class RestarInsumoForm(forms.ModelForm):
+    insumo = forms.ModelChoiceField(
+        queryset=Insumo.objects.filter(estado=True),
+        empty_label="Seleccione",  # Filtra solo los insumos activos
+        widget=forms.Select(attrs={
+            'class': 'formulario__input',
+          
+        }),
+ 
+    )
+    UNIDAD_CHOICE = [("", "Seleccione"),
+                     ("Kilogramos","Kg"),
+                     ("Gramos","g"),
+                     ("Litros","L"),
+                     ("Mililitros","ml"),
+                     ("Unidades","u")
+                    ]
+    
+    unidad_medida=forms.ChoiceField(
+                choices=UNIDAD_CHOICE,
+                widget=forms.Select(attrs={
+                    'class': 'formulario__input'
+                }))
+    
+    class Meta:
+        model = RestarInsumos
+        fields = ['insumo','unidad_medida','cantidad_restar']
+        widgets = {
+            'cantidad_restar': forms.NumberInput(attrs={
+                'class': 'formulario__input', 
+                
+            }),
+            
+           
+        }
+        
+
+
+RestarInsumoFormSet = formset_factory(RestarInsumoForm, extra=1, can_delete=True)
+
+#RestarInsumoFormSet = modelformset_factory(
+#    RestarInsumos,  # El modelo para el que se crea el formset
+ #   form=RestarInsumoForm, # El formulario que se usará para cada instancia
+ #   extra=1,  # número de formularios vacíos adicionales
+ #   can_delete=True  # permite eliminar formularios
+#)

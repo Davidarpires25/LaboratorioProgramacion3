@@ -22,14 +22,15 @@
     <body>
 
         <main id="main">
+            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
             <form id="formulario" class="needs-validation formulario" method="post">
             {% csrf_token %}
                 <div class="card-header navbar-dark" style="display: flex">
                     <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Insumo</h1>
                     {% if messages %}
-                        <ul class="messages">
+                        <ul class="messages ">
                             {% for message in messages %}
-                                <li class="{{ message.tags }} mensajes">{{ message }}</li>
+                                <li class="formulario__grupo-correcto formulario__mensaje">{{ message }}</li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -37,7 +38,7 @@
 
                 <div class="form-container">
                     <div class="form-background">
-
+                       
                         <div class="formulario__grupo" id="grupo__descripcion">
                             <label for="desc_producto" class="formulario__label">Descripción del insumo</label>
                             <div class="formulario__grupo-input">
@@ -51,6 +52,13 @@
                                 {{ insumo_form.cantidad}}
                             </div>
                         </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cant_producto" class="formulario__label">Cantidad Minima</label>
+                            <div class="formulario__grupo-input">
+                                {{insumo_form.cantidad_minima}}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -59,7 +67,7 @@
                     </button>
                 </div>
             </form>
-
+            {% endif %}
             <div class="table-container" id="tableContainer">
                 <div class="table-title">Lista de Insumos</div>
 
@@ -68,7 +76,10 @@
                         <tr>
                             <th>Descripción</th>
                             <th>Cantidad</th>
+                            <th>Cantidad Minima</th>
+                            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
                             <th>Acciones</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody class="tbody">
@@ -76,15 +87,18 @@
                         <tr>
                             <td>{{ insumo.descripcion }}</td>
                             <td>{{ insumo.cantidad|floatformat:0 }}</td>
+                            <td>{{ insumo.cantidad_minima|floatformat:0 }}</td>
+                            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'pedidos:editar_insumos' insumo.id %}" style="color: white;">
                                 <i class="fas fa-edit" style="color: white;"></i></button>
                                 </a>
                                 <form action="" id="formulario_eliminar" class="needs-validation formulario" method="post">
                                     {% csrf_token %}
-                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt" style="color: #ffffff;"></i></button>
                                 </form>
-                            </td>       
+                            </td>
+                            {% endif %}       
                         </tr>
                         {% endfor %}
                         
@@ -94,6 +108,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
+                            <td></td>
+                            {% endif %}
                         </tr>
                     </tfoot> 
                 </table>

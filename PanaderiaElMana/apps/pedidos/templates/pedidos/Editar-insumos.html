@@ -49,7 +49,16 @@
                         <div class="formulario__grupo" id="grupo__precioProducto">
                             <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
                             <div class="formulario__grupo-input">
-                                {{ form.cantidad}}
+                                {{ form.cantidad }}
+                                {% for error in form.cantidad.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.cantidad_minima }}
                                 {% for error in form.cantidad.errors %}
                                     <div class="error"><p>Ingresa una cantidad válida</p></div>
                                 {% endfor %}
@@ -72,6 +81,7 @@
                         <tr>
                             <th>Descripción</th>
                             <th>Cantidad</th>
+                            <th>Cantidad minima</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -80,13 +90,14 @@
                         <tr>
                             <td>{{ insumo.descripcion }}</td>
                             <td>{{ insumo.cantidad|floatformat:0 }}</td>
+                            <td>{{ insumo.cantidad_minima|floatformat:0 }}</td>
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'pedidos:editar_insumos' insumo.id %}" style="color: white;">
                                     <i class="fas fa-edit" style="color: white;"></i></button>
                                     </a>
                                 <form action="" id="formulario_eliminar" class="needs-validation formulario" method="post">
                                     {% csrf_token %}
-                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt" style="color: #ffffff;"></i></button>
                                 </form>
                             </td>       
                         </tr>
@@ -95,6 +106,7 @@
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

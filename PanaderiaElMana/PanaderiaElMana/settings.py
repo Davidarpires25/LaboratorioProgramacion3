@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.pedidos',
     'apps.productos',
     'apps.ventas',
+    'apps.usuarios',
 ]
 
 MIDDLEWARE = [
@@ -127,9 +128,12 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-
+AUTH_USER_MODEL='usuarios.Usuario'
 
 MEDIA_URL= '/media/'
+
+LOGIN_URL='/login'
+
 
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 # Default primary key field type

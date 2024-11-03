@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="wrapper">
+        {% if user.is_authenticated %}
         <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button" id="btnExpand">
@@ -28,6 +29,7 @@
             <div class="sidebar-logo">
                 <img src="{% static 'img/logoPanaderia.png' %}" alt="" width="150" height="150" id="logoMana">
             </div>
+            
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" 
@@ -36,35 +38,59 @@
                         <span>Stock</span>
                     </a>
                     <ul class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo or perms.pedidos.view_insumo%}
                         <li class="sidebar-item">
                             <a href="{% url 'pedidos:gestionarInsumos' %}" class="sidebar-link">Insumos</a>
                         </li>
+                        {% endif %}
+                        {% if perms.productos.add_producto or perms.productos.view_producto %}
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Productos elaborados</a>
+                            <a href="{% url 'productos:gestionarProductos' %}" class="sidebar-link">Productos</a>
                         </li>
+                        {% endif %}
+                        {% if perms.pedidos.add_pedido %}
                         <li class="sidebar-item">
-                            <a href="/pedidos" class="sidebar-link">Pedidos</a>
+                            <a href="{% url 'pedidos:registro_pedidos' %}" class="sidebar-link">Pedido</a>
                         </li>
+                        {% endif %}
+                        {% if perms.pedidos.change_pedido and perms.pedidos.delete_pedido or perms.pedidos.view_pedido%}
                         <li class="sidebar-item">
                             <a href="{% url 'pedidos:lista_pedidos' %}"  class="sidebar-link">Lista de Pedidos</a>
                         </li>
+                        {% endif%}
+                        {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
+                        <li class="sidebar-item">
+                            <a href="{% url 'pedidos:restar_insumos' %}"  class="sidebar-link">Restar Insumos</a>
+                        </li>
+                        {% endif %}
+
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Productos elaborados</a>
+                        </li>
                     </ul>
+                   
+                    
+                    
                 </li>
 
-                
+                {% if perms.ventas.add_venta %}
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" 
                         aria-expanded="false" aria-controls="producto" data-collapsed = "true">
                         <i class="lni lni-cart"></i>
-                        <span>Productos</span>
+                        <span>Ventas</span>
                     </a>
+      
+
                     <ul id="producto" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+
                         <li class="sidebar-item">
-                            <a href="/ventas" class="sidebar-link">Ventas</a>
+                            <a href="{% url 'ventas:registro_ventas' %}" class="sidebar-link">Registrar venta</a>
                         </li>
                        
                     </ul>
                 </li>
+                {% endif %}
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" 
                         aria-expanded="false" aria-controls="informe" data-collapsed = "true">
@@ -72,21 +98,29 @@
                         <span>Informes</span>
                     </a>
                     <ul id="informe" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        {% if perms.ventas.add_venta or perms.ventas.view_venta %}
                         <li class="sidebar-item">
-                            <a href="/ventas/informe" class="sidebar-link">Listado de Ventas</a>
+                            <a href="{% url 'ventas:informe_ventas' %}" class="sidebar-link">Listado de Ventas</a>
                         </li>
+                        {% endif %}
+                        {% if perms.productos.view_producto %}
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Listado de productos vendidos</a>
                         </li>
+                        {% endif %}
+                        {% if perms.pedidos.view_insumo %}
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Materia prima faltante</a>
                         </li>
+                        {% endif %}
+                        {% if perms.pedidos.view_recepcionpedidos %}
                         <li class="sidebar-item">
                             <a href="{% url 'pedidos:listaRecepcion' %}" class="sidebar-link">Recepcion de pedidos</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="/ventas/informe/mayoristas" class="sidebar-link">Listado de Mayoristas</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="sidebar-item">
@@ -96,13 +130,21 @@
                         <span>Administración</span>
                     </a>
                     <ul id="administracion" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        
+                        
                         <li class="sidebar-item">
+                            {% if user.is_superuser %}
                             <a href="#" class="sidebar-link">Panel de administrador</a>
-                            <a href="/ventas/crearMayorista" class="sidebar-link">Crear mayorista</a>
+                            {% endif %}
+                            {% if perms.ventas.add_mayorista %}
+                            <a href="{% url 'ventas:registro_mayoristas' %}" class="sidebar-link">Registrar mayorista</a>
+                            {% endif %}
+
                         </li>
                        
                     </ul>
                 </li>
+              
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" 
                         aria-expanded="false" aria-controls="notificacion" data-collapsed = "true">
@@ -115,19 +157,29 @@
                 </li>               
             </ul>
             <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
+                <a href="#" class="sidebar-link"> 
+                    <span>Usuario: {{ user.username }}</span>
+                   
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <a href="{% url 'usuarios:logout' %}" class="sidebar-link"> 
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>
             </div>
         </aside>
         <div class="main p-3">
-            <div >
+            <div>
                 {% block content %}
                 {% endblock %}            
             </div>
         </div>
+        {% else %}
+        {% endif %}
+        
     </div>
+    
     <footer class="py-1 mt-8 fixed-bottom">
         <div class="card-footer container text-center">
             <p class=" mb-0">&copy; 2024 Panadería El Mana. Todos los derechos reservados.</p>

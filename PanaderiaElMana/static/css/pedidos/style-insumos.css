@@ -84,7 +84,7 @@ button[class="btn-modificar"][type="button"]:active{
 	border: none;
 	border-radius: 8px;
 	transition: .1s ease all;
-    margin-right: 100px;
+    margin-top: 10px;
     
 }
 
@@ -94,6 +94,7 @@ button[class="btn-modificar"][type="button"]:active{
     width: 100%;
     justify-content: center;
 }
+
 
 .hidden-fields-container{
     display: none;
