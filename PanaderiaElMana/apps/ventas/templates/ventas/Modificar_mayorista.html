@@ -15,11 +15,11 @@
 </head>
 {% block content %}
 <body>
-    <main id="main">
+    <main id="main" style="margin-top: 6rem;">
 		<form method="POST" class="formulario" id="formulario">
             {% csrf_token %}
             <div class="card-header navbar-dark ">
-                <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Registro mayorista</h1>
+                <h1 class="h3 mb-0 formulario__label"style="color: #ffffff">Modificar mayorista</h1>
             </div>
             <div class="form-container">
                 <div class="form-background">
@@ -27,7 +27,7 @@
                     <div class="formulario__grupo" id="grupo__numeroPedido">
                         <label for="numeroPedido" class="formulario__label">Razon social</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="razonSocial" id="razonSocial" required>
+                            <input type="text" class="formulario__input" name="razonSocial" id="razonSocial" value="{{ mayorista.razon_social }}" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="formulario__grupo" id="grupo__cuit">
                         <label for="cuit" class="formulario__label">Cuit:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="cuit" id="cuit" pattern="\d{11}" required maxlength="11">
+                            <input type="text" class="formulario__input" name="cuit" id="cuit" pattern="\d{11}" value="{{ mayorista.cuit }}" readonly required maxlength="11">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="formulario__grupo">
                         <label for="direccion" class="formulario__label">Direccion:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" name="direccion" class="formulario__input" required>
+                            <input type="text" name="direccion" class="formulario__input" value="{{ mayorista.direccion }}" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese una direccion.</p>
@@ -55,7 +55,7 @@
                     <div class="formulario__grupo">
                         <label for="telefono" class="formulario__label">Telefono:</label>
                         <div class="formulario__grupo-input">
-                            <input type="text" name="telefono" class="formulario__input" pattern="^\d+$"  required>
+                            <input type="text" name="telefono" class="formulario__input" pattern="^\d+$" value="{{ mayorista.telefono }}" required>
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">Ingrese un telefono.</p>
@@ -65,7 +65,7 @@
                     <div class="formulario__grupo">
                         <label for="correo" class="formulario__label">Email de contacto:</label>
                         <div class="formulario__grupo-input">
-                            <input type="email" name="correo" class="formulario__input" id="correo">
+                            <input type="email" name="correo" class="formulario__input" id="correo" value="{{ mayorista.email }}">
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                     </div>
@@ -74,7 +74,8 @@
                     <div class="formulario__grupo">
                         <label for="condicionVenta" class="formulario__label">Condicion de venta:</label>
                         <div class="formulario__grupo-input">
-                            <select name="condicionVenta" class="formulario__input" required>
+                            <input type="hidden" id="cvHidden" value="{{ mayorista.condicion_venta }}">
+                            <select name="condicionVenta" class="formulario__input" id="condicionVenta" required>
                                 <option value="" hidden>SELECCIONE</option>
                                 <option value="CONTADO">Contado</option>
                                 <option value="CREDITO">Credito</option>
@@ -101,6 +102,11 @@
     {% block js %}
     <!-- <script src="{% static 'scripts/gestion_ventas/script_ventas.js' %}"></script>
     <script src="{% static 'scripts/gestion_ventas/script_ventas_productos.js' %}"></script> -->
+    <script>
+        const $condicionVenta = document.getElementById("cvHidden").value;
+        const $selectCV = document.getElementById("condicionVenta");
+        $selectCV.value = $condicionVenta;
+    </script>
     <script src="{% static 'scripts/gestion_ventas/script_mayoristas.js' %}"></script>
     {% endblock %}   
 </body>

@@ -146,6 +146,46 @@ h1{
     width: 100%;
     justify-content: center;
 }
+
+.mensajes{
+    color: red;
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: rgba(61, 47, 47, 0.4);
+}
+
+.success{
+    color: rgb(47, 255, 54);
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: rgba(61, 47, 47, 0.4);
+}
+
+.spanValidacion{
+    font-weight: bold;
+    color: rgb(255, 0, 0);
+    font-style: italic;
+}
+
+#spanProductoForm{
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 14px;
+    padding-left: 10px;
+    background-color: #0000008d;
+    border-radius: 5px;
+}
+
+#spanCantMaxima{
+    font-weight: bold;
+    font-size: 16px;
+    font-style: italic;
+    color: #ffffff;
+}
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     #formset-container{
