@@ -68,13 +68,15 @@ function agregarFormularioProducto(){
     
             // Limpiar los valores del formulario clonado
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
-            template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => input.value = '1');
+            template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => {
+                input.value = '1'
+                input.dataset.cantMax = ""
+            });
             template.querySelectorAll('#spanCantidadInvalida').forEach((span) => {
                 span.dataset.valido = true;
                 span.innerText = ""
             });
-            let selectNuevo = template.querySelector('select');
-    
+            template.querySelector("#spanCantMaxima").innerText = ""
             $formsetContainer.appendChild(template);
             updateFormIndexes();
         }
@@ -115,6 +117,11 @@ function agregarFormularioProducto(){
 function filtrarPrecio(texto){
     return parseFloat(texto.match(/\b\d+(\.\d+)?\b/)[0]);
 }
+
+function filtrarCantidad(texto){
+    return parseInt(texto.match(/\(cant:(\d+)\)/)[1])
+}
+
 
 function actualizarTotal(){
     const $precioTotal = d.getElementById("precioTotal");
@@ -171,11 +178,16 @@ d.addEventListener("change", function(e){
     if(e.target.matches("#selectProducto")){
         let productoTexto = e.target.options[e.target.selectedIndex].text;
         let precioProducto = filtrarPrecio(productoTexto);
+        let cantidadProducto = filtrarCantidad(productoTexto);
+        console.log(cantidadProducto)
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
         let campoCantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']");
         campoPrecio.value = precioProducto;
         const $subtotal = campoCantidad.nextElementSibling;
         $subtotal.value = precioProducto * (campoCantidad.value || 1);
+        let spanCantMax = $subtotal.nextElementSibling
+        spanCantMax.innerText = `Max = ${cantidadProducto}`
+        campoCantidad.dataset.cantMax = cantidadProducto;
         actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){

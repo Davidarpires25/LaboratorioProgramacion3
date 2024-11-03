@@ -179,6 +179,13 @@ h1{
     background-color: #0000008d;
     border-radius: 5px;
 }
+
+#spanCantMaxima{
+    font-weight: bold;
+    font-size: 24px;
+    font-style: italic;
+    color: #ffffff;
+}
 /* Media query para resoluciones más pequeñas */
 @media (max-width: 1306px) {
     #formset-container{
