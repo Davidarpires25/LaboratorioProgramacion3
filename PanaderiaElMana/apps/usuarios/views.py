@@ -33,5 +33,6 @@ def logout_view(request):
     return render(request, "usuarios/login.html", {"msj": "Deslogueado"})
 
 
+@login_required
 def homeGestion(request):
     return render(request, "usuarios/base-home.html")
