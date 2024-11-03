@@ -137,7 +137,6 @@ def informeMayoristas(request):
 def modificarMayorista(request, cuit):
     mayorista = get_object_or_404(Mayorista, cuit = cuit)
     if request.method == 'POST':
-        print("aaaaaaaaaaaaaaaaaaaaa")
         mayorista.razon_social = request.POST.get("razonSocial")
         mayorista.cuit = request.POST.get("cuit")
         mayorista.direccion = request.POST.get("direccion")
@@ -155,3 +154,7 @@ def darDeBajaMayorista(request, cuit):
         mayorista.estado = False
         mayorista.save()
         return redirect('ventas:informe_mayoristas')
+    
+def detallesMayorista(request, cuit):
+    mayorista = get_object_or_404(Mayorista, cuit=cuit)
+    return render(request, "ventas/Detalles_mayorista.html", {'mayorista':mayorista})
