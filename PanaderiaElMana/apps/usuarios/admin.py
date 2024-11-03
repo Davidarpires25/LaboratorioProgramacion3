@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import UsuarioForm
-from .models import Usuario,Empleado
+from .models import Usuario
 
 # Register your models here.
 
@@ -16,7 +16,7 @@ class UsuarioAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Información Personal', {'fields': ('first_name', 'last_name', 'email')}),
+        ('Información Personal', {'fields': ('first_name', 'last_name', 'email','direccion','telefono','fecha_nacimiento','fecha_ingreso')}),
         ('Campos Personalizados', {'fields': ('cuit', 'perfil_usuario')}),
         ('Permisos', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Fechas Importantes', {'fields': ('last_login', 'date_joined')}),
@@ -24,7 +24,7 @@ class UsuarioAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'cuit', 'perfil_usuario', 'password1', 'password2'),
+            'fields': ('username', 'email', 'cuit','direccion','telefono','fecha_nacimiento','fecha_ingreso', 'perfil_usuario', 'password1', 'password2'),
         }),
     )
 
@@ -32,7 +32,3 @@ class UsuarioAdmin(UserAdmin):
     search_fields = ('username', 'email', 'cuit')
     ordering = ('username',)
 
-@admin.register(Empleado)
-class EmpleadoAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'cuit', 'fecha_de_ingreso')
-    search_fields = ('usuario__username', 'cuit')

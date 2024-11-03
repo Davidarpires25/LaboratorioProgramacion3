@@ -5,7 +5,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Usuario(AbstractUser):
-    cuit= models.CharField(max_length=11)
+    cuit = models.CharField(max_length=11, unique=True)
+    direccion = models.CharField(max_length=255,blank=True)
+    telefono = models.CharField(max_length=20,blank=True)
+    fecha_nacimiento = models.DateField(blank=True,null=True)
+    fecha_ingreso = models.DateField(blank=True,null=True)
     PERFILES_USUARIO = [
     ('Administrador', 'Administrador'),
     ('Vendedor', 'Vendedor'),
@@ -14,16 +18,3 @@ class Usuario(AbstractUser):
     ]
     perfil_usuario = models.CharField(max_length=50, choices=PERFILES_USUARIO)
 
-
-
-class Empleado(models.Model):
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=20)
-    cuit = models.CharField(max_length=11, unique=True)
-    fecha_de_nacimiento = models.DateField()
-    fecha_de_ingreso = models.DateField()
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return self.nombre_completo
