@@ -124,7 +124,7 @@ function filtrarPrecio(texto){
 }
 
 function filtrarCantidad(texto){
-    return parseInt(texto.match(/\(cant:(\d+)\)/)[1])
+    return parseFloat(texto.match(/\(cant:(\d+(\.\d+)?)\)/)[1])
 }
 
 
@@ -184,8 +184,9 @@ d.addEventListener("change", function(e){
     if(e.target.matches("#selectProducto")){
         let productoTexto = e.target.options[e.target.selectedIndex].text;
         let precioProducto = filtrarPrecio(productoTexto);
+        console.log(productoTexto)
         let cantidadProducto = filtrarCantidad(productoTexto);
-        console.log(cantidadProducto)
+        console.log(filtrarCantidad(productoTexto))
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
         let campoCantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']");
         campoPrecio.value = precioProducto;
