@@ -97,7 +97,7 @@ def cancelarPedido(request, pk):
     
 
 @login_required
-@permission_required('pedidos.view_recepcionpedido', raise_exception=True)
+@permission_required('pedidos.view_recepcionpedidos', raise_exception=True)
 def listaRecepcion(request):
     pedidos=Pedido.objects.all().order_by('-id')
     return render (request, 'pedidos/Lista-recepcion.html',{
@@ -106,7 +106,7 @@ def listaRecepcion(request):
 
 
 @login_required
-@permission_required('pedidos.add_recepcionpedido', raise_exception=True)
+@permission_required('pedidos.view_recepcionpedidos', raise_exception=True)
 def recepcionarPedidos(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     formpedido = PedidoForm(request.POST, request.FILES, instance=pedido)
@@ -222,6 +222,7 @@ def eliminarInsumos(request, pk):
     else:
         messages.error(request, "La eliminación no se pudo completar.")
         return redirect('pedidos:gestionarInsumos') 
+
 
 @login_required
 @permission_required('pedidos.change_insumo', raise_exception=True)
