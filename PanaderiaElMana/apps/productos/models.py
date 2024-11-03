@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 
@@ -6,8 +7,10 @@ from django.db import models
 class Producto(models.Model):
 
     descripcion= models.TextField(max_length=100,null=True)
-    precio= models.FloatField()
-    cantidad= models.PositiveIntegerField()
+    precio= models.FloatField(validators=[MinValueValidator(0)])
+    cantidad= models.FloatField(validators=[MinValueValidator(0)])
+    cantidad_minima= models.FloatField(validators=[MinValueValidator(0)])
+    unidad_medida= models.CharField(max_length=10)
     estado=models.BooleanField(default=True)
     categoria = models.CharField(max_length=15)
 
