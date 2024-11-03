@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required,permission_required
 
 # Create your views here.
 
-
+@login_required
+@permission_required('pedidos.view_pedido', raise_exception=True)
 def pedidos(request):
     pedidos=Pedido.objects.all().order_by('-id')
     return render (request, 'pedidos/Lista-pedidos.html',{
