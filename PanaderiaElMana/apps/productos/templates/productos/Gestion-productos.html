@@ -20,8 +20,9 @@
     </head>
     {% block content %}
     <body>
-
+        
         <main id="main">
+            {% if perms.productos.add_producto %}
             <form id="formulario" class="needs-validation formulario" method="post">
             {% csrf_token %}
                 <div class="card-header navbar-dark" style="display: flex">
@@ -73,6 +74,7 @@
                     </button>
                 </div>
             </form>
+            {% endif %} 
 
             <div class="table-container" id="tableContainer" >
                 <div class="table-title">Lista de Productos</div>
@@ -83,7 +85,9 @@
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>Categoria</th>
+                            {% if perms.productos.add_producto %}
                             <th>Acciones</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody class="tbody">
@@ -93,6 +97,7 @@
                             <td>{{ producto.precio|floatformat:0 }}</td>
                             <td>{{ producto.cantidad|floatformat:0 }}</td>
                             <td>{{ producto.categoria }}</td>
+                            {% if perms.productos.add_producto %}
                             <td class="action-item-list">
                                 <button type="button" class="action-button edit-button"><a href="{% url 'productos:editar_productos' producto.id %}" style="color: white;">
                                 <i class="fas fa-edit" style="color: white;"></i></button>
@@ -101,7 +106,8 @@
                                     {% csrf_token %}
                                     <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'productos:eliminar_productos' producto.id %}`)"><i class="fas fa-trash-alt" style="color: #ffffff;"></i></button>
                                 </form>
-                            </td>       
+                            </td>   
+                            {% endif %}    
                         </tr>
                         {% endfor %}
                         
@@ -112,7 +118,10 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            {% if perms.productos.add_producto %}
                             <td></td>
+                            {% endif %}    
+
                         </tr>
                     </tfoot> 
                 </table>

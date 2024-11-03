@@ -5,6 +5,8 @@ from .models import Insumo,Pedido,ItemInsumo,RecepcionPedidos
 from .forms import PedidoForm, ItemInsumoFormSet,RecepcionForm, InsumoForm,RestarInsumoFormSet
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required,permission_required
+
 
 
 # Create your views here.
@@ -16,7 +18,8 @@ def pedidos(request):
         'pedidos':pedidos
     })
 
-
+@login_required
+@permission_required('pedidos.add_pedido', raise_exception=True)
 def registroPedidos(request):
 
     insumos= Insumo.objects.filter(estado=True)
@@ -48,6 +51,9 @@ def registroPedidos(request):
     })
 
 
+
+@login_required
+@permission_required('pedidos.view_pedido', raise_exception=True)
 def editarPedidos(request, pk):
     insumos= Insumo.objects.filter(estado=True)
     pedido = get_object_or_404(Pedido, pk=pk)
@@ -72,6 +78,8 @@ def editarPedidos(request, pk):
     })
 
 
+@login_required
+@permission_required('pedidos.delete_pedido', raise_exception=True)
 def cancelarPedido(request, pk):
     print("Cancelando pedido con ID:", pk)  # Agrega esta línea
     pedido = get_object_or_404(Pedido, pk=pk)
@@ -87,6 +95,8 @@ def cancelarPedido(request, pk):
         return redirect('pedidos:lista_pedidos')
     
 
+@login_required
+@permission_required('pedidos.view_recepcionpedido', raise_exception=True)
 def listaRecepcion(request):
     pedidos=Pedido.objects.all().order_by('-id')
     return render (request, 'pedidos/Lista-recepcion.html',{
@@ -94,7 +104,8 @@ def listaRecepcion(request):
     })
 
 
-
+@login_required
+@permission_required('pedidos.add_recepcionpedido', raise_exception=True)
 def recepcionarPedidos(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     formpedido = PedidoForm(request.POST, request.FILES, instance=pedido)
@@ -131,7 +142,8 @@ def recepcionarPedidos(request, pk):
         'pedido':pedido
     })
 
-
+@login_required
+@permission_required('pedidos.view_insumo', raise_exception=True)
 def gestionarInsumos(request):
     nuevo_insumo = None
     insumos = Insumo.objects.filter(estado=True)
@@ -157,6 +169,8 @@ def gestionarInsumos(request):
         insumo_form = InsumoForm()
     return render(request, 'pedidos/Gestion-insumos.html', {'insumo_form': insumo_form,'insumos':insumos})
 
+@login_required
+@permission_required('pedidos.change_insumo', raise_exception=True)
 def editarInsumos(request, pk):
     insumos= Insumo.objects.filter(estado=True)
     insumo = get_object_or_404(Insumo, pk=pk)
@@ -192,6 +206,8 @@ def editarInsumos(request, pk):
         'insumos': insumos
     })
 
+@login_required
+@permission_required('pedidos.delete_insumo', raise_exception=True)
 def eliminarInsumos(request, pk):
     insumo = get_object_or_404(Insumo, pk=pk)
     
@@ -206,7 +222,8 @@ def eliminarInsumos(request, pk):
         messages.error(request, "La eliminación no se pudo completar.")
         return redirect('pedidos:gestionarInsumos') 
 
-
+@login_required
+@permission_required('pedidos.change_insumo', raise_exception=True)
 def restarInsumos(request):
     insumos= Insumo.objects.filter(estado=True)
     if request.method == 'POST':

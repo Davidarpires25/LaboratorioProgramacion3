@@ -132,10 +132,12 @@
                 </div>
                 <div class="col text-end"> 
                     <div class="div_anular_venta">
+                    {% if perms.ventas.delete_venta %}
                     <form action="" id="formulario_anular" class="needs-validation formulario" method="post">
                         {% csrf_token %}
                         <button id="btn_anularVenta" type="button" onclick="confirmCancel(`{% url 'ventas:anular_venta' venta_productos.0.id %}`)"><i class="fa-solid fa-trash fa-sm" style="color: #ffffff;" id="iconoBasura"></i>Anular venta</button>
                     </form>
+                    {% endif %}
                     </div>
                 </div>
                 {% endif %}

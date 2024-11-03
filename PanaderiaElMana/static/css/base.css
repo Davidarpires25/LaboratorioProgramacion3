@@ -24,6 +24,9 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+
+
+
 .wrapper {
     display: flex;
     width: auto;
@@ -190,4 +193,9 @@ a.sidebar-link.collapsed.has-dropdown.oculto::after{
 
 #logoMana{
     cursor: pointer;
+}
+
+footer{
+  
+    margin: 0px 350px 0px 350px;
 }

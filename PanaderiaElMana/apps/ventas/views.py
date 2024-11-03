@@ -5,8 +5,12 @@ from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto
 from apps.productos.models import Producto
 from django.db import transaction
-
+from django.contrib.auth.decorators import login_required,permission_required
 # Create your views here.
+
+
+@login_required
+@permission_required('ventas.add_venta', raise_exception=True)
 def registroVentas(request):
     if request.method == "POST":
         form = ventasForm(request.POST, request.FILES) 
@@ -35,6 +39,10 @@ def registroVentas(request):
     formset = ItemProductoFormSet()
     return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})    
 
+
+
+@login_required
+@permission_required('ventas.view_venta', raise_exception=True)
 def informeVentas(request):
     ventas = Venta.objects.all().order_by('-id')
     return render (request, 'ventas/Lista_ventas.html',{
@@ -45,6 +53,9 @@ def informeVentas(request):
             # print(formset.errors) 
             # print(f'Número de formularios: {len(formset.save())}')  # Para ver cuántos formularios están en el formset
 
+
+@login_required
+@permission_required('ventas.view_venta', raise_exception=True)
 def detalleVenta(request, id):
     venta_productos = (
         Venta.objects
@@ -77,6 +88,8 @@ def detalleVenta(request, id):
     )
     return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
 
+
+@login_required
 def devolverCantidadStock(lst_venta_productos):
     for producto_venta in lst_venta_productos:
         idProducto = producto_venta['producto_id']
@@ -85,6 +98,9 @@ def devolverCantidadStock(lst_venta_productos):
         producto.cantidad += cantidadVendida
         producto.save()
 
+
+@login_required
+@permission_required('ventas.delete_venta', raise_exception=True)
 def anularVenta(request, id):
     if request.method == 'POST':
         venta = get_object_or_404(Venta, id=id)
@@ -100,6 +116,8 @@ def anularVenta(request, id):
         return redirect('ventas:informe_ventas')
 
 
+@login_required
+@permission_required('ventas.add_mayorista', raise_exception=True)
 def registroMayoristas(request):
     return render(request, 'ventas/Registro_mayoristas.html')
 

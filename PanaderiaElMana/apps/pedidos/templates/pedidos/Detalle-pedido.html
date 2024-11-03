@@ -19,6 +19,7 @@
 <body>
     {% block content %}
     <main id="main">  
+        {% if perms.pedidos.change_pedido %}
         <form action="" class="formulario" id="formulario" method="post">
             {% csrf_token %}
             <div class="card-header navbar-dark">
@@ -84,6 +85,7 @@
                 <button type="submit" class="formulario__btn"><i class="bi bi-send me-2"></i>Guardar Pedido</button>
             </div>
         </form>
+        {% endif %}
        
         <div class="table-container" id="tableContainer">
             <div class="table-input-container">

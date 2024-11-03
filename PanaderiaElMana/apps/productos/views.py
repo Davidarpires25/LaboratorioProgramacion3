@@ -5,12 +5,18 @@ from django.urls import reverse
 from .forms import ProductoForm
 from .models import Producto
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required,permission_required
 
 
+@login_required
 def productosCantidadBaja(request):
     productos = Producto.objects.filter(cantidad__lt=10).values('id', 'descripcion', 'cantidad')
     return JsonResponse(list(productos), safe=False)
 
+
+
+@login_required
+@permission_required('productos.view_producto', raise_exception=True)
 def gestionarProductos(request):
     nuevo_producto = None
     productos = Producto.objects.filter(estado=True)
@@ -36,6 +42,9 @@ def gestionarProductos(request):
         producto_form = ProductoForm()
     return render(request, 'productos/Gestion-productos.html', {'producto_form': producto_form,'productos':productos})
 
+
+@login_required
+@permission_required('productos.change_producto', raise_exception=True)
 def editarProductos(request, pk):
     productos= Producto.objects.filter(estado=True)
     producto = get_object_or_404(Producto, pk=pk)
@@ -71,6 +80,9 @@ def editarProductos(request, pk):
         'productos': productos
     })
 
+
+@login_required
+@permission_required('productos.delete_producto', raise_exception=True)
 def eliminarProductos(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     

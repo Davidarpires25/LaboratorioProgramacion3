@@ -24,15 +24,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Procesos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Informes</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Gestion
@@ -42,9 +33,7 @@
                           <li><a class="dropdown-item" href="{% url 'productos:gestionarProductos' %}">Gestion Productos</a></li>
                           <li><a class="dropdown-item" href="{% url 'pedidos:registro_pedidos' %}">Gestion Pedidos</a></li>
                         </ul>                      
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -91,7 +80,10 @@
 
         <section class="tarjeta-mostrar text-center mb-5">
             <h2 class="h3 mb-4">Explora Nuestro Sistema</h2>
-            <button class="btn btn-primary btn-lg" type="submit">Comenzar Ahora</button>
+            <a href="{% url 'usuarios:login' %}">
+                <button class="btn btn-primary btn-lg" type="submit" >Comenzar Ahora</button>
+            </a>
+            
         </section>
     </main>
 

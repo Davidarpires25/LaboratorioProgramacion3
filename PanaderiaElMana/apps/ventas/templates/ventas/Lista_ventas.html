@@ -131,6 +131,7 @@
                             <button type="button" class="action-button edit-button" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}">
                                 <i class="fa-regular fa-file-lines" style="color: #ffffff;" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}"></i>
                             </button>
+                            {% if perms.ventas.delete_venta %}
                             {% if venta.estado %}
                             <form action="" id="formulario_anular" class="needs-validation formulario" method="post">
                                 {% csrf_token %}
@@ -138,6 +139,7 @@
                                     <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>
                                 </button>
                             </form>
+                            {% endif %}
                             {% endif %}
                         </td>
                     </tr>
