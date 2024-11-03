@@ -5,7 +5,7 @@ const lstOptions = d.getElementById("selectProducto").options;
 const lstProductos = [];
 
 
-function validarCantidad(c, span){
+function validarCantidad(c, span, cantidadMaxima){
     let restricciones = [
         {
             restriccion: c === "",
@@ -19,10 +19,10 @@ function validarCantidad(c, span){
             restriccion: !(/^[0-9]+$/.test(c)),
             informacion: "Solo se permiten caracteres numericos"
         },
-        // {
-        //     restriccion: parseInt(c) >= cantidadMaxima,
-        //     informacion: "No hay suficiente stock para esta cantidad"
-        // }
+        {
+            restriccion: parseInt(c) > cantidadMaxima,
+            informacion: "No hay suficiente stock para esta cantidad"
+        }
     ]
     for(let restriccion_ of restricciones){
         if(restriccion_.restriccion){
@@ -75,7 +75,7 @@ function agregarFormularioProducto(){
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => {
                 input.value = '1'
-                // input.removeAttribute("max");
+                input.removeAttribute("max");
             });
             template.querySelectorAll('#spanCantidadInvalida').forEach((span) => {
                 span.dataset.valido = true;
@@ -194,6 +194,11 @@ d.addEventListener("change", function(e){
         let spanCantMax = $subtotal.nextElementSibling
         spanCantMax.innerText = `Max = ${cantidadProducto}`
         campoCantidad.max = cantidadProducto;
+        let $spanCantError = spanCantMax.nextElementSibling.nextElementSibling;
+        if(validarCantidad(campoCantidad.value, $spanCantError, campoCantidad.max)){
+            $spanCantError.innerText = "";
+            $spanCantError.dataset.valido = true;
+        }        
         actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
@@ -201,7 +206,7 @@ d.addEventListener("change", function(e){
         const $subtotal = e.target.nextElementSibling;
         $subtotal.value = precioProducto * (e.target.value || 1);
         const $spanCantidad = $subtotal.nextElementSibling.nextElementSibling.nextElementSibling
-        if(validarCantidad(e.target.value, $spanCantidad)){
+        if(validarCantidad(e.target.value, $spanCantidad, e.target.max)){
             $spanCantidad.innerText = "";
             $spanCantidad.dataset.valido = true;
         }
