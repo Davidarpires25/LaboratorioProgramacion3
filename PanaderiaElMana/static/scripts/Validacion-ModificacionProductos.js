@@ -1,4 +1,6 @@
 document.getElementById('categoria_producto').options[0].hidden = true;
+document.getElementById('unidad_medida').options[0].hidden = true;
+
 
 const boton_editar = document.getElementById('boton_editar')
 boton_editar.addEventListener('click',validar)

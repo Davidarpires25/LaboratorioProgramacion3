@@ -50,6 +50,9 @@
                             <label for="categoria_panificacion" class="formulario__label">Categoria de producto</label>
                             <div class="formulario__grupo-input">
                                 {{producto_form.categoria}}
+                                {% for error in producto_form.categoria.errors %}
+                                    <div class="error"><p>Ingresa una categoría válida</p></div>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -57,6 +60,9 @@
                             <label for="costo_producto" class="formulario__label">Precio del producto</label>
                             <div class="formulario__grupo-input">
                                 {{ producto_form.precio}}
+                                {% for error in producto_form.precio.errors %}
+                                    <div class="error"><p>Ingresa un precio válido</p></div>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -64,8 +70,32 @@
                             <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
                             <div class="formulario__grupo-input">
                                 {{ producto_form.cantidad}}
+                                {% for error in producto_form.cantidad.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
                             </div>
                         </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cantidad_minima_producto" class="formulario__label">Cantidad minima</label>
+                            <div class="formulario__grupo-input">
+                                {{ producto_form.cantidad_minima}}
+                                {% for error in producto_form.cantidad_minima.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="unidad_medida" class="formulario__label">Unidad de medida</label>
+                            <div class="formulario__grupo-input">
+                                {{ producto_form.unidad_medida}}
+                                {% for error in producto_form.unidad_medida.errors %}
+                                    <div class="error"><p>Ingresa una unidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -84,6 +114,7 @@
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
+                            <th>U. Medida</th>
                             <th>Categoria</th>
                             {% if perms.productos.add_producto %}
                             <th>Acciones</th>
@@ -95,7 +126,8 @@
                         <tr>
                             <td>{{ producto.descripcion }}</td>
                             <td>{{ producto.precio|floatformat:0 }}</td>
-                            <td>{{ producto.cantidad|floatformat:0 }}</td>
+                            <td>{{ producto.cantidad }}</td>
+                            <td>{{ producto.unidad_medida }}</td>
                             <td>{{ producto.categoria }}</td>
                             {% if perms.productos.add_producto %}
                             <td class="action-item-list">
@@ -114,6 +146,7 @@
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

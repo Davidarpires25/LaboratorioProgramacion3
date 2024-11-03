@@ -77,6 +77,27 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cantidad_minima_producto" class="formulario__label">Cantidad minima</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.cantidad_minima}}
+                                {% for error in form.cantidad_minima.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="unidad_medida" class="formulario__label">Unidad de medida</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.unidad_medida}}
+                                {% for error in form.unidad_medida.errors %}
+                                    <div class="error"><p>Ingresa una unidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -95,6 +116,7 @@
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
+                            <th>U. Medida</th>
                             <th>Categoria</th>
                             <th>Acciones</th>
                         </tr>
@@ -104,7 +126,8 @@
                         <tr>
                             <td>{{ producto.descripcion }}</td>
                             <td>{{ producto.precio|floatformat:0 }}</td>
-                            <td>{{ producto.cantidad|floatformat:0 }}</td>
+                            <td>{{ producto.cantidad }}</td>
+                            <td>{{ producto.unidad_medida }}</td>
                             <td>{{ producto.categoria }}</td>
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'productos:editar_productos' producto.id %}" style="color: white;">
@@ -121,6 +144,7 @@
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
