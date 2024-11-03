@@ -22,6 +22,7 @@
     <body>
 
         <main id="main">
+            {% if perms.productos.add_producto and perms.productos.change_producto and perms.productos.delete_producto %}
             <form id="formulario" class="needs-validation formulario" method="post">
             {% csrf_token %}
                 <div class="card-header navbar-dark" style="display: flex">
@@ -130,7 +131,7 @@
                     </tfoot> 
                 </table>
             </div>
-            
+            {% endif %}
 
         </main>
 

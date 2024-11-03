@@ -19,7 +19,7 @@
 <body>
     {% block content %}
     <main id="main">
-        
+        {% if perms.pedidos.add_pedido %}
 		<form action="" class="formulario" id="formulario" method="post">
             {% csrf_token %}
 
@@ -175,7 +175,7 @@
     
         </div>
      
-       
+        {% endif %}
 	</main>
     {% endblock %}
     {% block js %}<script src="{% static 'scripts/gestion_pedidos/Registro-gestion-pedidos.js'%}"></script>{% endblock %}

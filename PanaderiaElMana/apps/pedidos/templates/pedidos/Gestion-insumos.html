@@ -22,7 +22,7 @@
     <body>
 
         <main id="main">
-            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
+            {% if perms.pedidos.add_insumo %}
             <form id="formulario" class="needs-validation formulario" method="post">
             {% csrf_token %}
                 <div class="card-header navbar-dark" style="display: flex">

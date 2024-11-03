@@ -20,6 +20,7 @@
     <body>
 
         <main id="main">
+            {% if perms.pedidos.change_insumo %}
             <div class="table-container" id="tableContainer" >
                 <div class="table-input-container-insumos" id="tabla" >
                         <div class="formulario__grupo" id="grupo__insumo_tabla">
@@ -125,7 +126,7 @@
                 </form>
                 
             </div>
-           
+            {% endif %}
 
         </main>
 

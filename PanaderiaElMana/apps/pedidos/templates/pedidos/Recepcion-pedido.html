@@ -18,9 +18,9 @@
 <body>
     {% block content %}
     <main id="main">
+        {% if perms.pedidos.change_recepcionpedidos and perms.pedidos.add_recepcionpedidos %}
         <form action="" class="formulario" id="formulario" method="POST" >
             {% csrf_token %}
-            
             <div  class="form-background">
                 <div class="formulario__grupo" id="grupo__numeroPedido">
                     <label for="numeroPedido" class="formulario__label">Nro de pedido</label>
@@ -106,6 +106,7 @@
             </table>
             
         </div>
+        {% endif %}
     </main>
     {% endblock %}
     {% block js %}
