@@ -18,12 +18,17 @@ function validarCantidad(c, span){
         {
             restriccion: !(/^[0-9]+$/.test(c)),
             informacion: "Solo se permiten caracteres numericos"
-        }
+        },
+        // {
+        //     restriccion: parseInt(c) >= cantidadMaxima,
+        //     informacion: "No hay suficiente stock para esta cantidad"
+        // }
     ]
     for(let restriccion_ of restricciones){
         if(restriccion_.restriccion){
             span.innerText = restriccion_.informacion
             span.dataset.valido = false;
+            console.log(span)
             return false;
         }
     }
@@ -70,7 +75,7 @@ function agregarFormularioProducto(){
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => {
                 input.value = '1'
-                input.dataset.cantMax = ""
+                // input.removeAttribute("max");
             });
             template.querySelectorAll('#spanCantidadInvalida').forEach((span) => {
                 span.dataset.valido = true;
@@ -161,8 +166,9 @@ function valorCampoCantidad(){
     const $campoCantidad = d.getElementById('id_itemproducto_set-0-cantidad');  
     $campoCantidad.value = 1 
     $campoCantidad.min = 1;
-    const $spanCantidad = $campoCantidad.nextElementSibling.nextElementSibling;
+    const $spanCantidad = $campoCantidad.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling;
     $spanCantidad.dataset.valido = true;
+    console.log($spanCantidad)
 }
 
 
@@ -187,14 +193,14 @@ d.addEventListener("change", function(e){
         $subtotal.value = precioProducto * (campoCantidad.value || 1);
         let spanCantMax = $subtotal.nextElementSibling
         spanCantMax.innerText = `Max = ${cantidadProducto}`
-        campoCantidad.dataset.cantMax = cantidadProducto;
+        campoCantidad.max = cantidadProducto;
         actualizarTotal()
     }
     if(e.target.matches('[id^="id_itemproducto_set"][id$="cantidad"]')){
         let precioProducto = e.target.parentNode.parentNode.parentNode.querySelector("input[type='number']").value;
         const $subtotal = e.target.nextElementSibling;
         $subtotal.value = precioProducto * (e.target.value || 1);
-        const $spanCantidad = $subtotal.nextElementSibling.nextElementSibling
+        const $spanCantidad = $subtotal.nextElementSibling.nextElementSibling.nextElementSibling
         if(validarCantidad(e.target.value, $spanCantidad)){
             $spanCantidad.innerText = "";
             $spanCantidad.dataset.valido = true;
