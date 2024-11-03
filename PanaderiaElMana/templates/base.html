@@ -131,11 +131,12 @@
                     </a>
                     <ul id="administracion" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         
-                        
                         <li class="sidebar-item">
                             {% if user.is_superuser %}
-                            <a href="#" class="sidebar-link">Panel de administrador</a>
+                            <a href="/admin/" class="sidebar-link">Panel de administrador</a>
                             {% endif %}
+                        </li>
+                        <li class="sidebar-item">
                             {% if perms.ventas.add_mayorista %}
                             <a href="{% url 'ventas:registro_mayoristas' %}" class="sidebar-link">Registrar mayorista</a>
                             {% endif %}
