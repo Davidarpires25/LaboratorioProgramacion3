@@ -1,8 +1,9 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Prefetch
+from django.urls import reverse
 from .forms import ventasForm, ItemProductoFormSet
-from .models import itemMayorista, Venta, ItemProducto
+from .models import itemMayorista, Venta, ItemProducto, Mayorista
 from apps.productos.models import Producto
 from django.db import transaction
 from django.contrib.auth.decorators import login_required,permission_required
@@ -30,11 +31,17 @@ def registroVentas(request):
                     formset = ItemProductoFormSet(request.POST, instance=ventaNueva)
                     if formset.is_valid():
                         formset.save()
+                        messages.success(request, "La venta se ha realizado exitosamente.")
                     else:
                         raise ValueError("Error en formset")
                     return redirect(f'http://{request.get_host()}/ventas/')
             except Exception as e:
-                print("Error al guardar la transacción:", e)
+                if "id_producto" in str(e):
+                    mensaje_error = "CANTIDAD INVALIDA! LA VENTA NO SE PUDO REALIZAR"
+                else:
+                    mensaje_error = "Ocurrió un error al guardar los datos."
+                messages.error(request, mensaje_error)
+                return redirect(reverse('ventas:registro_ventas'))
     form = ventasForm()
     formset = ItemProductoFormSet()
     return render(request, 'ventas/Registro_gestion_ventas.html', {'formVenta':form, 'formset':formset})    
@@ -119,5 +126,53 @@ def anularVenta(request, id):
 @login_required
 @permission_required('ventas.add_mayorista', raise_exception=True)
 def registroMayoristas(request):
+    if request.method == 'POST':
+        razonSocial = request.POST.get("razonSocial")
+        cuit = request.POST.get("cuit")
+        direccion = request.POST.get("direccion")
+        telefono = request.POST.get("telefono")
+        correo = request.POST.get("correo")
+        condicionVenta = request.POST.get("condicionVenta")
+        nuevoMayorista = Mayorista(
+            cuit = cuit,
+            razon_social = razonSocial,
+            direccion = direccion,
+            telefono = telefono,
+            email = correo,
+            condicion_venta = condicionVenta
+        )
+        nuevoMayorista.save()
     return render(request, 'ventas/Registro_mayoristas.html')
 
+
+def informeMayoristas(request):
+    mayoristas = Mayorista.objects.all()
+    print(mayoristas)
+    return render(request, "ventas/Lista_mayoristas.html", {'mayoristas':mayoristas})
+
+
+
+def modificarMayorista(request, cuit):
+    mayorista = get_object_or_404(Mayorista, cuit = cuit)
+    if request.method == 'POST':
+        mayorista.razon_social = request.POST.get("razonSocial")
+        mayorista.cuit = request.POST.get("cuit")
+        mayorista.direccion = request.POST.get("direccion")
+        mayorista.telefono = request.POST.get("telefono")
+        mayorista.email = request.POST.get("correo")
+        mayorista.condicion_venta = request.POST.get("condicionVenta")
+        mayorista.save()
+        return redirect('ventas:informe_mayoristas')
+    return render(request, "ventas/Modificar_mayorista.html", {'mayorista':mayorista})
+
+
+def darDeBajaMayorista(request, cuit):
+    if request.method == 'POST':
+        mayorista = get_object_or_404(Mayorista, cuit = cuit)
+        mayorista.estado = False
+        mayorista.save()
+        return redirect('ventas:informe_mayoristas')
+    
+def detallesMayorista(request, cuit):
+    mayorista = get_object_or_404(Mayorista, cuit=cuit)
+    return render(request, "ventas/Detalles_mayorista.html", {'mayorista':mayorista})

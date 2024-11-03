@@ -67,7 +67,7 @@
                             <p><b>CUIT:</b> {{ venta_productos.0.itemmayorista__mayorista_cuit__cuit }}</p>
                         </div>
                         <div class="col text-center"> 
-                            <a href="#" class="btn-mayorista">Ver mas detalles</a>
+                            <a href="#" class="btn-mayorista" id="btnMay" data-cuit = {{venta_productos.0.itemmayorista__mayorista_cuit__cuit}}>Ver mas detalles</a>
                         </div>
                         <div class="col text-end"> 
                             <p><b>RAZON SOCIAL:</b> {{ venta_productos.0.itemmayorista__mayorista_cuit__razon_social }}</p>
@@ -148,6 +148,12 @@
     {% block js %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/scripts/gestion_ventas/script_detalles.js"></script>
+    <script>
+        const $btnMayorista = document.getElementById("btnMay");
+        $btnMayorista.addEventListener("click", function(e){
+            window.location.href = `mayoristas/detalles/${$btnMayorista.dataset.cuit}`;
+        })
+    </script>
     {% endblock %}
 </body>
 </html>
