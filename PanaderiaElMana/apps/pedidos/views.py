@@ -4,8 +4,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import Insumo,Pedido,ItemInsumo,RecepcionPedidos
 from .forms import PedidoForm, ItemInsumoFormSet,RecepcionForm, InsumoForm,RestarInsumoFormSet
 from django.urls import reverse
-from django.db.models import Q
+from django.db.models import Q,F
 from django.contrib.auth.decorators import login_required,permission_required
+from django.db.models.functions import Abs
 
 
 
@@ -255,3 +256,17 @@ def restarInsumos(request):
         'insumos':insumos
     })
  
+def informeInsumos(request):
+    productos = Insumo.objects.filter(estado=True)
+
+    # Ordenar por cantidad disponible (cantidad - cantidad_minima)
+    orden = request.GET.get('orden')
+    if orden == 'asc':
+        productos = productos.order_by(Abs(F('cantidad') - F('cantidad_minima')))
+    elif orden == 'desc':
+        productos = productos.order_by(Abs(F('cantidad') - F('cantidad_minima'))).reverse()
+
+    return render(request, 'pedidos/informe-insumos.html', {
+        'productos': productos,
+        'orden': orden
+    })

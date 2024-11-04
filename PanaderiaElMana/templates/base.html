@@ -110,7 +110,7 @@
                         
                         {% if perms.pedidos.view_insumo %}
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Materia prima faltante</a>
+                            <a href="{% url 'pedidos:informe_insumos' %}" class="sidebar-link">Materia prima faltante</a>
                         </li>
                         {% endif %}
 
