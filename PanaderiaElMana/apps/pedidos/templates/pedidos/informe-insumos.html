@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Informe de Productos</title>
+        <title>Informe de Insumos</title>
         {% extends 'base.html' %}
         {% load static %}
         {% block css %}
@@ -21,50 +21,36 @@
     <body>
         <main id="main">
 
-            <!-- Filtros por categoría -->
-            <form id="formulario" class="needs-validation formulario" method="GET">
-                <label for="categoria" class="formulario__label">Filtrar por Categoría:</label>
-                <select name="categoria" id="categoria" class="formulario__input">
-                    <option value="">Todas</option>
-                    <option value="PAN" {% if categoria_seleccionada == "PAN" %}selected{% endif %}>Panificación</option>
-                    <option value="PAS" {% if categoria_seleccionada == "PAS" %}selected{% endif %}>Pastelería</option>
-                    <!-- Agrega más categorías según tu necesidad -->
-                </select>
-
-                <!-- Botones para ordenar por cantidad -->
-                <button type="submit" name="orden" value="asc" class="formulario__btn">Ordenar por menor cantidad restante</button>
-                <button type="submit" name="orden" value="desc" class="formulario__btn">Ordenar por mayor cantidad restante</button>
-            </form>
-
-            <div class="table-container" id="tableContainer" >
-                <div class="table-title">Lista de productos</div>
-                <table id="tabla-productos">
+            <div class="table-container" id="tableContainer">
+                <div style="display: flex;flex-direction: row;">
+                    <div class="table-title" style="display: inline;padding-top: 65px;">Lista de insumos</div>
+                    <form id="formulario" class="needs-validation formulario" method="GET" style="margin: 0;padding-bottom: 5px;">
+                        <!-- Botones para ordenar por cantidad -->
+                        <button type="submit" name="orden" value="asc" class="formulario__btn">Ordenar por menor cantidad restante</button>
+                        <button type="submit" name="orden" value="desc" class="formulario__btn">Ordenar por mayor cantidad restante</button>
+                    </form>
+                </div>
+                <table id="tabla-productos" style="margin: 0;padding: 0;">
                     <thead>
                         <tr>
                             <th>Descripción</th>
-                            <th>Precio</th>
                             <th>Cantidad disponible</th>
                             <th>Cantidad minima</th>
                             <th>Unidad de Medida</th>
-                            <th>Categoría</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for producto in productos %}
                         <tr>
                             <td>{{ producto.descripcion }}</td>
-                            <td>{{ producto.precio }}</td>
                             <td>{{ producto.cantidad }}</td>
                             <td>{{ producto.cantidad_minima }}</td>
                             <td>{{ producto.unidad_medida }}</td>
-                            <td>{{ producto.categoria }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
-                            <td></td>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -84,12 +70,6 @@
         <script>document.addEventListener('click',function(e){
                 console.log(e.target)
             })
-            const selectElement = document.getElementById('categoria');
-
-            selectElement.addEventListener('change', () => {
-                document.getElementById('formulario').submit()
-        
-            });
         </script>
         {% endblock %}
     </body>

@@ -13,4 +13,5 @@ urlpatterns = [
     path('insumos/editar/<int:pk>', views.editarInsumos, name='editar_insumos'),
     path('insumos/eliminar/<int:pk>', views.eliminarInsumos, name='eliminar_insumos'),
     path('insumos/restar/', views.restarInsumos, name='restar_insumos'),
+    path('informe', views.informeInsumos, name='informe_insumos'),
 ]
