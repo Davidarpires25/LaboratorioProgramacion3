@@ -94,11 +94,17 @@
                     
                 </table>
                 {% if messages %}
-                <div class="formulario__mensaje formulario__mensaje-activo" id="formulario__mensaje">
                     {% for message in messages %}
-                        <p class="{{ message.tags }}  "><i class="fas fa-exclamation-triangle"></i><b>Error:</b>{{ message }}</p>
+                        {% if "error" in message.tags %}
+                            <div class="formulario__mensaje formulario__mensaje-activo" id="formulario__mensaje">
+                                <p class="{{ message.tags }}"><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> {{ message }}</p>
+                            </div>
+                        {% elif "success" in message.tags %}
+                            <div class="formulario__mensaje-exito formulario__mensaje-exito-activo" id="formulario__mensaje-exito">
+                                <p class="{{ message.tags }}"><i class="fas fa-check-circle"></i> <b>Éxito:</b> {{ message }}</p>
+                            </div>
+                        {% endif %}
                     {% endfor %}
-                </div>
                 {% endif %}
 
                 <form  class="needs-validation " id="formulario_insumo_restar" method="POST">

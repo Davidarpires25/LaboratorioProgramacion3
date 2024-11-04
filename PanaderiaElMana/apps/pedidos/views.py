@@ -243,7 +243,7 @@ def restarInsumos(request):
                     insumo.save()
                     form.save()
         
-        messages.success(request, 'pedido creado exitosamente.')
+        messages.success(request, 'Cantidad retirada exitosamente.')
         return redirect('pedidos:restar_insumos')
                 
     else:

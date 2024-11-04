@@ -95,10 +95,24 @@
                                 {% endfor %}
                             </div>
                         </div>
-
+                        
                     </div>
+                    {% if messages %}
+                    {% for message in messages %}
+                            {% if "error" in message.tags %}
+                                <div class="formulario__mensaje formulario__mensaje-activo" id="formulario__mensaje">
+                                    <p class="{{ message.tags }}"><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> {{ message }}</p>
+                                </div>
+                            {% elif "success" in message.tags %}
+                                <div class="formulario__mensaje-exito formulario__mensaje-exito-activo" id="formulario__mensaje-exito">
+                                    <p class="{{ message.tags }}"><i class="fas fa-exclamation-triangle"></i> <b>Éxito:</b> {{ message }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
+                
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
                     <button type="submit" name="Agregar" id="boton_agregar" class="formulario__btn"><i class="bi bi-send me-2"></i>Agregar</button>
                     </button>
