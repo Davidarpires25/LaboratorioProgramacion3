@@ -223,7 +223,7 @@ def generar_informe_pdf(request):
     ventas = Venta.objects.filter(itemusuario__isnull=False).select_related(
         'itemusuario__usuario'
     ).annotate(
-        username=F('itemusuario__usuario__username')
+        username=F('itemusuario__usuario__first_name')
     ).values(
         'id', 'numeroComprobante', 'FechaVenta', 'precioTotal',
         'observaciones', 'tipo_venta', 'tipo_comprobante', 'forma_pago', 'estado', 'username'
@@ -240,7 +240,7 @@ def generar_informe_pdf(request):
     pdf.cell(50, 10, "Observaciones", 1)
     pdf.cell(30, 10, "Tipo de Venta", 1)
     pdf.cell(20, 10, "Estado", 1)
-    pdf.cell(30, 10, "Usuario", 1)  # Nueva columna para el nombre de usuario
+    pdf.cell(30, 10, "Vendedor", 1)  # Nueva columna para el nombre de usuario
     pdf.ln()
 
     # Agregar filas con datos de cada venta
