@@ -125,7 +125,9 @@
                         <th>Email</th>
                         <th>Condicion de venta</th>
                         <th>Estado</th>
+                        {% if perms.ventas.change_mayorista %}
                         <th>Acción</th>
+                        {%endif%}
                     </tr>
                 </thead>
                 <tbody class="tbody">
@@ -142,6 +144,7 @@
                         {% else %}
                         <td style="color: red;"><b>INACTIVO</b></td>
                         {% endif %}
+                        {% if perms.ventas.change_mayorista %}
                         <td class="action-item-list">
                             <button type="button" class="action-button edit-button" data-cuit="{{ mayorista.cuit }}">
                                 <i class="fa-regular fa-file-lines" style="color: #ffffff;" data-cuit="{{ mayorista.cuit }}"></i>
@@ -157,6 +160,7 @@
                             {% endif %}
                             {% endif %}
                         </td>
+                        {% endif %}
                     </tr>
                     
                     {% endfor %}
@@ -170,7 +174,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        {% if perms.ventas.change_mayorista %}
                         <td></td>
+                        {% endif %}
                     </tr>
                 </tfoot>
             </table>

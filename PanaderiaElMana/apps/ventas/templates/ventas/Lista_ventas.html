@@ -104,8 +104,8 @@
                     <div class="formulario__grupo-input">
                         <select name="tipoVenta_b" id="tipoVenta_b" class="formulario__input_list">
                             <option value="todas">Todas</option>
-                            <option value="minorista">Minorita</option>
-                            <option value="mayorista">Mayorista</option>
+                            <option value="MINORISTA">Mayorista</option>
+                            <option value="MAYORISTA">Minorista</option>
                         </select>
                     </div>             
                 </div>
@@ -114,8 +114,8 @@
                     <div class="formulario__grupo-input">
                         <select name="estadoVenta_b" id="estadoVenta_b" class="formulario__input_list">
                             <option value="todas">Todas</option>
-                            <option value="exitosa" style="color: green; font-weight: bold;">Exitosa</option>
-                            <option value="anulada" style="color: red; font-weight: bold;">Anulada</option>
+                            <option value="anulada" style="color: green; font-weight: bold;">Exitosa</option>
+                            <option value="exitosa" style="color: red; font-weight: bold;">Anulada</option>
                         </select>            
                     </div>             
                 </div>
@@ -203,7 +203,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{% static 'scripts/script_tabla.js' %}"></script>
     <script src="{% static 'scripts/gestion_ventas/script_tabla_ventas.js' %}"></script>
     {% endblock %}
 </body>
