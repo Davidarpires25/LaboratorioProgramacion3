@@ -12,19 +12,6 @@ function validar(e){
     formulario.submit();
 }
 
-document.addEventListener('DOMContentLoaded',function(){
-
-    const precio = document.getElementById('precio_producto')
-    const cantidad = document.getElementById('cantidad_producto')
-
-    const precioEntero = parseInt(precio.value);
-    const cantidadEntero = parseInt(cantidad.value);
-
-    document.getElementById('precio_producto').value = precioEntero;
-    document.getElementById('cantidad_producto').value = cantidadEntero;
-
-})
-
 function confirmCancel(enlace) {
     Swal.fire({
         title: '¿Estás seguro?',

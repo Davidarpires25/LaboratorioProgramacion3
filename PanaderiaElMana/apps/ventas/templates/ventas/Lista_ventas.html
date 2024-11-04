@@ -127,6 +127,7 @@
                         <th>Tipo de comprobante</th>
                         <th>Forma de pago</th>
                         <th>Total</th>
+                        <th>Vendedor</th>
                         <th>Estado</th>
                         <th>Acción</th>
                     </tr>
@@ -142,6 +143,7 @@
                         <td>{{ venta.tipo_comprobante }}</td>
                         <td>{{ venta.forma_pago }}</td>
                         <td>{{ venta.precioTotal }}</td>
+                        <td>{{ venta.username }}</td>
                         {% if venta.estado %}
                         <td style="color: green;"><b>EXITOSA</b></td>
                         {% else %}
@@ -168,6 +170,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="total-row" id="foot-tr">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

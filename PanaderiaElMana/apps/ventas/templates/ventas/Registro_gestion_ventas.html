@@ -19,6 +19,7 @@
     <main id="main">
 		<form method="POST" class="formulario" id="formulario">
             {% csrf_token %}
+            <input type="hidden" name="id_usuario" value="{{ id_usuario }}">
             <div class="card-header navbar-dark ">
                 {% if messages %}
                 <ul class="messages">
@@ -152,7 +153,7 @@
 
                             <p class="formulario__input-error">Ingrese solamente numeros.</p>
                         </div>
-                        <button class="btn btn-danger" id="btnEliminarProducto">Eliminar Producto</button>  
+                        <button class="btn btn-danger ocultar" id="btnEliminarProducto">Eliminar Producto</button>  
                         {{ form.DELETE }}                      
                     </div>
                     

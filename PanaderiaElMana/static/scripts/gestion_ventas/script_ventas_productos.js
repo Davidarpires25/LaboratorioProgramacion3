@@ -70,7 +70,7 @@ function agregarFormularioProducto(){
         if(e.target === $botonAgregarProducto){
             e.preventDefault();
             const template = $formsetContainer.children[0].cloneNode(true);
-    
+            console.log($formsetContainer.children)
             // Limpiar los valores del formulario clonado
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => {
@@ -81,7 +81,10 @@ function agregarFormularioProducto(){
                 span.dataset.valido = true;
                 span.innerText = ""
             });
-            template.querySelector("#spanCantMaxima").innerText = ""
+            template.querySelectorAll('#spanCantMaxima').forEach((span) => {
+                span.innerText = ""
+            });
+            template.querySelectorAll("#btnEliminarProducto").forEach((button) => button.classList.remove("ocultar"))
             $formsetContainer.appendChild(template);
             updateFormIndexes();
         }
@@ -124,7 +127,7 @@ function filtrarPrecio(texto){
 }
 
 function filtrarCantidad(texto){
-    return parseInt(texto.match(/\(cant:(\d+)\)/)[1])
+    return parseFloat(texto.match(/\(cant:(\d+(\.\d+)?)\)/)[1])
 }
 
 
@@ -154,6 +157,7 @@ function ocultarDelete(){
 
 function controlFormsProducto(){
     const $gruposProductos = d.querySelectorAll(".grupoProducto")
+    console.log($gruposProductos)
     return $gruposProductos.length > 1;
 }
 
@@ -184,8 +188,9 @@ d.addEventListener("change", function(e){
     if(e.target.matches("#selectProducto")){
         let productoTexto = e.target.options[e.target.selectedIndex].text;
         let precioProducto = filtrarPrecio(productoTexto);
+        console.log(productoTexto)
         let cantidadProducto = filtrarCantidad(productoTexto);
-        console.log(cantidadProducto)
+        console.log(filtrarCantidad(productoTexto))
         let campoPrecio = e.target.parentNode.parentNode.parentNode.nextElementSibling.querySelector("input[type='number']");
         let campoCantidad = e.target.parentNode.parentNode.parentNode.nextElementSibling.nextElementSibling.querySelector("input[type='number']");
         campoPrecio.value = precioProducto;
