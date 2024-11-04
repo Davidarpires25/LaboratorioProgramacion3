@@ -8,7 +8,8 @@ from apps.productos.models import Producto
 from django.db import transaction
 from django.contrib.auth.decorators import login_required,permission_required
 # Create your views here.
-
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 @login_required
 @permission_required('ventas.add_venta', raise_exception=True)
@@ -193,3 +194,75 @@ def darDeBajaMayorista(request, cuit):
 def detallesMayorista(request, cuit):
     mayorista = get_object_or_404(Mayorista, cuit=cuit)
     return render(request, "ventas/Detalles_mayorista.html", {'mayorista':mayorista})
+
+
+from django.http import HttpResponse
+from fpdf import FPDF
+from io import BytesIO
+from .models import Venta  # Asegúrate de importar tu modelo Venta
+
+class PDF(FPDF):
+    def __init__(self):
+        super().__init__()
+        self.set_auto_page_break(auto=True, margin=15)
+        self.add_page('L')
+    def header(self):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, "Informe de Ventas - Panadería El Maná", 0, 1, "C")
+        self.ln(10)
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font("Arial", "I", 8)
+        self.cell(0, 10, f"Página {self.page_no()}", 0, 0, "C")
+
+@login_required
+@permission_required('ventas.view_venta', raise_exception=True)
+def generar_informe_pdf(request):
+    # Filtra las ventas que tienen itemusuario asociado
+    ventas = Venta.objects.filter(itemusuario__isnull=False).select_related(
+        'itemusuario__usuario'
+    ).annotate(
+        username=F('itemusuario__usuario__first_name')
+    ).values(
+        'id', 'numeroComprobante', 'FechaVenta', 'precioTotal',
+        'observaciones', 'tipo_venta', 'tipo_comprobante', 'forma_pago', 'estado', 'username'
+    )
+
+    # Crear instancia del PDF
+    pdf = PDF()
+    pdf.set_font("Arial", "B", 10)
+
+    # Agregar encabezados de la tabla
+    pdf.cell(20, 10, "ID", 1)
+    pdf.cell(40, 10, "N° Comprobante", 1)
+    pdf.cell(30, 10, "Fecha", 1)
+    pdf.cell(50, 10, "Observaciones", 1)
+    pdf.cell(30, 10, "Tipo de Venta", 1)
+    pdf.cell(20, 10, "Estado", 1)
+    pdf.cell(30, 10, "Vendedor", 1)  # Nueva columna para el nombre de usuario
+    pdf.ln()
+
+    # Agregar filas con datos de cada venta
+    pdf.set_font("Arial", "", 10)
+    for venta in ventas:
+        pdf.cell(20, 10, str(venta['id']), 1)
+        pdf.cell(40, 10, venta['numeroComprobante'], 1)
+        pdf.cell(30, 10, venta['FechaVenta'].strftime("%Y-%m-%d"), 1)
+        pdf.cell(50, 10, venta['observaciones'][:30], 1)  # Limita a 30 caracteres
+        pdf.cell(30, 10, venta['tipo_venta'], 1)
+        estado = "EXITOSA" if venta['estado'] else "ANULADA"
+        pdf.cell(20, 10, estado, 1)
+        pdf.cell(30, 10, venta['username'], 1)  # Agregar el nombre de usuario
+        pdf.ln()
+
+    # Guardar el PDF en un objeto BytesIO
+    pdf_output = BytesIO()
+    pdf.output(pdf_output)  # Escribe el PDF en el flujo de BytesIO
+    pdf_output.seek(0)  # Asegúrate de colocar el cursor al inicio
+
+    # Preparar la respuesta HTTP
+    response = HttpResponse(pdf_output, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="informe_ventas.pdf"'
+    
+    return response

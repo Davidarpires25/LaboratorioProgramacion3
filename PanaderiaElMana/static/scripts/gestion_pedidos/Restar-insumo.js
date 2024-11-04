@@ -60,23 +60,12 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         e.preventDefault();
        
 	    if(camposPedidos.cantidad_tabla){
-            document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
-            document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
-            setTimeout(() => {
-                document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-            }, 7000);
-
-            document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-                icono.classList.remove('formulario__grupo-correcto');
-            });
+            
             generarCamposOcultos();
             e.target.submit();
            
         }
        
-        else {
-            document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
-            }
             
        
     });

@@ -166,9 +166,8 @@ class RestarInsumoForm(forms.ModelForm):
  
     )
     UNIDAD_CHOICE = [("", "Seleccione"),
-                     ("Kilogramos","Kg"),
+                     ("Kilogramos","Kilogramos"),
                      ("Unidades","Unidades"),
-                     
                     ]
     
     unidad_medida=forms.ChoiceField(
