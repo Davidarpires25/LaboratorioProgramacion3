@@ -65,9 +65,6 @@
                         </li>
                         {% endif %}
 
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Productos elaborados</a>
-                        </li>
                     </ul>
                    
                     
@@ -104,24 +101,17 @@
                             <a href="{% url 'ventas:informe_ventas' %}" class="sidebar-link">Listado de Ventas</a>
                         </li>
                         {% endif %}
-                        {% if perms.productos.view_producto %}
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Listado de productos vendidos</a>
-                        </li>
-                        {% endif %}
-                        {% if perms.pedidos.view_insumo %}
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Materia prima faltante</a>
-                        </li>
-                        {% endif %}
                         {% if perms.pedidos.view_recepcionpedidos %}
                         <li class="sidebar-item">
                             <a href="{% url 'pedidos:listaRecepcion' %}" class="sidebar-link">Recepcion de pedidos</a>
                         </li>
+                        {% endif %}
+                        {% if perms.ventas.view_mayorista %}
                         <li class="sidebar-item">
                             <a href="/ventas/informe/mayoristas" class="sidebar-link">Listado de Mayoristas</a>
                         </li>
                         {% endif %}
+                        
                     </ul>
                 </li>
                 <li class="sidebar-item">

@@ -147,12 +147,14 @@
                                 <i class="fa-regular fa-file-lines" style="color: #ffffff;" data-cuit="{{ mayorista.cuit }}"></i>
                             </button>
                             {% if mayorista.estado %}
+                            {% if perms.ventas.delete_mayorista %}
                             <form action="" id="formulario_anular" class="needs-validation formulario" method="post">
                                 {% csrf_token %}
                                 <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'ventas:baja_mayorista' mayorista.cuit %}`)">
                                     <i class="fa-solid fa-trash fa-sm" style="color: #ffffff;"></i>
                                 </button>
                             </form>
+                            {% endif %}
                             {% endif %}
                         </td>
                     </tr>
