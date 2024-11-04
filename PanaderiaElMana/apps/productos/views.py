@@ -6,11 +6,12 @@ from .forms import ProductoForm
 from .models import Producto
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required,permission_required
+from django.db.models import F
 
 
 @login_required
 def productosCantidadBaja(request):
-    productos = Producto.objects.filter(cantidad__lt=10, estado=True).values('id', 'descripcion', 'cantidad')
+    productos = Producto.objects.filter(cantidad__lte=F('cantidad_minima'), estado=True).values('id', 'cantidad_minima','descripcion', 'cantidad')
     return JsonResponse(list(productos), safe=False)
 
 
