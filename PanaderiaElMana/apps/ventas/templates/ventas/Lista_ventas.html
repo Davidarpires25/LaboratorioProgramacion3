@@ -50,6 +50,17 @@
             gap: 5px;
 
         }
+        @media print {
+        /* Orientación horizontal */
+        @page {
+            size: tabloid landscape; /* Tamaño tabloid y orientación horizontal */
+            margin: 0; /* Ajustar márgenes según lo necesites */
+        }
+        body {
+            font-size: 12pt; /* Cambiar tamaño de fuente */
+            /* Otros estilos para impresión */
+        }
+}
 
     </style>
     {% endblock %}
@@ -70,7 +81,7 @@
         </div>
         <div class="table-container" id="tabla" style="text-align: center;">
             <div class="table-title">Lista de Ventas</div>
-            <div class="table-input-container-list">
+            <div class="table-input-container-list no-informe">
                 <div class="formulario__grupo" id="grupo__searchInputID">
                     <label for="searchInputID" class="formulario__label">Comprobante</label>
                     <div class="formulario__grupo-input">
@@ -129,7 +140,7 @@
                         <th>Total</th>
                         <th>Vendedor</th>
                         <th>Estado</th>
-                        <th>Acción</th>
+                        <th class="no-informe">Acción</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
@@ -149,7 +160,7 @@
                         {% else %}
                         <td style="color: red;"><b>ANULADA</b></td>
                         {% endif %}
-                        <td class="action-item-list">
+                        <td class="action-item-list no-informe">
                             <button type="button" class="action-button edit-button" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}">
                                 <i class="fa-regular fa-file-lines" style="color: #ffffff;" data-id="{{ venta.id }}" data-comprobante="{{ venta.numeroComprobante }}"></i>
                             </button>
@@ -180,12 +191,18 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td class="no-informe"></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </main>
+    <div style="text-align: center; margin-top: 10%;">
+        <a href="{% url 'ventas:informe_ventas_pdf' %}" class="btn btn-warning">Descargar Informe PDF</a>
+        <!-- <input type="button" value="GENERAR INFORME" id="btnGenerarInforme" class="btn btn-warning"> -->
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'scripts/script_tabla.js' %}"></script>
     <script src="{% static 'scripts/gestion_ventas/script_tabla_ventas.js' %}"></script>
