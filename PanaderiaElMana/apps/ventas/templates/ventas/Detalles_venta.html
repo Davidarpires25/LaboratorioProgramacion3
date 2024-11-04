@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="{% static 'css/ventas/detallesVenta.css' %}">
     <link rel="stylesheet" href="{% static 'css/ventas/tabla2.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        .fondo-seccion {
+            background-color: #0000005c;
+            padding: 20px;
+            border-radius: 5px;
+            color: rgb(255, 255, 255);
+        }
+    </style>
     {% endblock css %}
 
 </head>
@@ -39,88 +47,125 @@
           </nav>
           <br>
         <main class="p-4"> 
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col text-start"> 
-                        <p><b>Tipo de venta:</b></p>
-                        <p>{{ venta_productos.0.tipo_venta }}</p>
-                    </div>
-                    <div class="col text-center">
-                        <p><b>Tipo de comprobante:</b></p>
-                        <p>{{ venta_productos.0.tipo_comprobante }}</p>
-                    </div>
-                    <div class="col text-end"> 
-                        <p><b>Forma de pago:</b></p> 
-                        <p>{{ venta_productos.0.forma_pago }}</p>
+            <div class="fondo-seccion">
+                <div class="container">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col text-start"> 
+                            <p><b>Tipo de venta:</b></p>
+                            <p>{{ venta_productos.0.tipo_venta }}</p>
+                        </div>
+                        <div class="col text-center">
+                            <p><b>Tipo de comprobante:</b></p>
+                            <p>{{ venta_productos.0.tipo_comprobante }}</p>
+                        </div>
+                        <div class="col text-end"> 
+                            <p><b>Forma de pago:</b></p> 
+                            <p>{{ venta_productos.0.forma_pago }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
            
            
             {% if venta_productos.0.tipo_venta == 'MAYORISTA' %}
-                <hr>
-                <p style="text-align: center;">DATOS DEL MAYORISTA:</p>
+                <hr><br><hr>
                 
-
-                    <div class="row d-flex justify-content-between">
-                        <div class="col text-start"> 
-                            <p><b>CUIT:</b> {{ venta_productos.0.itemmayorista__mayorista_cuit__cuit }}</p>
-                        </div>
-                        <div class="col text-center"> 
-                            <a href="#" class="btn-mayorista" id="btnMay" data-cuit = {{venta_productos.0.itemmayorista__mayorista_cuit__cuit}}>Ver mas detalles</a>
-                        </div>
-                        <div class="col text-end"> 
-                            <p><b>RAZON SOCIAL:</b> {{ venta_productos.0.itemmayorista__mayorista_cuit__razon_social }}</p>
+                <div class="fondo-seccion">
+                    <p style="text-align: center;"><b>DATOS DEL MAYORISTA</b></p>
+                    <div class="container">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col text-start"> 
+                                <p><b>CUIT:</b></p>
+                                <p>{{ venta_productos.0.itemmayorista__mayorista_cuit__cuit }}</p>
+                            </div>
+                            <div class="col text-center"> 
+                                <a href="#" class="btn-mayorista" id="btnMay" data-cuit="{{ venta_productos.0.itemmayorista__mayorista_cuit__cuit }}">Ver más detalles</a>
+                            </div>
+                            <div class="col text-end"> 
+                                <p><b>RAZON SOCIAL:</b></p>
+                                <p>{{ venta_productos.0.itemmayorista__mayorista_cuit__razon_social }}</p>
+                            </div>
                         </div>
                     </div>
+                </div>
                 <hr>
             {% endif %}
             <br>
             <hr>
-            <div class="tituloTabla">
-                <b>Productos:</b>
-            </div>
-            <div class="tablaProductos">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>ID Producto</th>
-                            <th>Producto</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ventap in venta_productos %}
+
+            <div class="fondo-seccion">
+                <div class="tituloTabla">
+                    <b>Productos:</b>
+                </div>
+            
+                <div class="tablaProductos">
+                    <table border="1">
+                        <thead>
                             <tr>
-                                <td>{{ ventap.itemproducto__producto_id }}</td>
-                                <td>{{ ventap.itemproducto__producto__descripcion }}</td>
-                                <td>{{ ventap.itemproducto__producto__categoria }}</td>
-                                <td>{{ ventap.itemproducto__precioActual }}</td>
-                                <td>{{ ventap.itemproducto__cantidad }}</td>
-                                <td>{{ ventap.itemproducto__subtotal }}</td>
+                                <th>ID Producto</th>
+                                <th>Producto</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                    <tfoot class="total-row" id="foot-tr">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><b>TOTAL: </b></td>
-                        <td><b>{{ venta_productos.0.precioTotal }}</b></td>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for ventap in venta_productos %}
+                                <tr>
+                                    <td>{{ ventap.itemproducto__producto_id }}</td>
+                                    <td>{{ ventap.itemproducto__producto__descripcion }}</td>
+                                    <td>{{ ventap.itemproducto__producto__categoria }}</td>
+                                    <td>{{ ventap.itemproducto__precioActual }}</td>
+                                    <td>{{ ventap.itemproducto__cantidad }}</td>
+                                    <td>{{ ventap.itemproducto__subtotal }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="total-row" id="foot-tr">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>TOTAL: </b></td>
+                            <td><b>{{ venta_productos.0.precioTotal }}</b></td>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
+            <hr>
             <br>
             <hr>
-            <div class="observaciones">
-                <p><b>Observaciones:</b></p>
-                <textarea readonly>{{ venta_productos.0.observaciones }}</textarea>
+            <div class="fondo-seccion">
+                <div class="observaciones">
+                    <p><b>Observaciones:</b></p>
+                    <textarea readonly>{{ venta_productos.0.observaciones }}</textarea>
+                </div>
             </div>
             <hr>
+            <br>
+            <hr>
+            <div class="fondo-seccion">
+            <div class="container">
+            <div class="row d-flex justify-content-between">
+                <p style="text-align: center;"><b>Datos del vendedor</b></p>
+                <div class="col text-start">
+                    <p><b>Username:</b></p>
+                    <p>{{venta_productos.0.itemusuario__usuario__username}}</p>
+                </div>
+                <div class="col text-center"> 
+                    <p><b>Cuit:</b></p>
+                    <p>{{venta_productos.0.itemusuario__usuario__cuit}}</p>
+                </div>
+                <div class="col text-end"> 
+                    <p><b>Email: </b></p>
+                    <p>{{venta_productos.0.itemusuario__usuario__email}}</p>
+                </div>
+            </div>
+            </div>
+            </div>
+            <hr><br>          
             <div class="row d-flex justify-content-between">
                 {% if not venta_productos.0.estado %}
                 <div class="col text-start"> 

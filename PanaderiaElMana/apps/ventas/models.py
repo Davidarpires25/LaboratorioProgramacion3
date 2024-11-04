@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from apps.productos.models import Producto
-
+from apps.usuarios.models import Usuario
 # Create your models here.
 
 class Mayorista(models.Model):
@@ -59,3 +59,7 @@ class itemMayorista(models.Model):
     venta=models.ForeignKey(Venta, on_delete=models.CASCADE)
     mayorista_cuit=models.ForeignKey(Mayorista, on_delete=models.CASCADE)
   
+
+class itemUsuario(models.Model):
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
