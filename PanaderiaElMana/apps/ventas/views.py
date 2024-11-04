@@ -64,7 +64,7 @@ def informeVentas(request):
     ).values(
         'id', 'numeroComprobante', 'FechaVenta', 'precioTotal',
         'observaciones', 'tipo_venta', 'tipo_comprobante', 'forma_pago', 'estado', 'username'
-    )
+    ).order_by('-id') 
     return render (request, 'ventas/Lista_ventas.html',{
         'ventas': ventas
     })   
