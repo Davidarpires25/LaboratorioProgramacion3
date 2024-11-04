@@ -236,8 +236,12 @@ def restarInsumos(request):
                 insumo = form.cleaned_data.get('insumo')
                 cantidad_restar = form.cleaned_data.get('cantidad_restar')
                 insumo.cantidad -= cantidad_restar
-                insumo.save()
-                form.save()
+                if insumo.cantidad<0:
+                    messages.error(request, "La cantidad retirada no debe ser mayor a la cantidad disponible.")
+                    return redirect('pedidos:restar_insumos')
+                else:
+                    insumo.save()
+                    form.save()
         
         messages.success(request, 'pedido creado exitosamente.')
         return redirect('pedidos:restar_insumos')

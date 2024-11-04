@@ -39,8 +39,7 @@
                         <div class="formulario__grupo" id="grupo__unidad_tabla">
                             <label for="unidad_tabla" class="formulario__label">Unidad</label>
                             <div class="formulario__grupo-input">
-                                <select class="formulario__input" id="unidad_tabla" name="unidad_tabla" required>
-                                           
+                                <select class="formulario__input" id="unidad_tabla" name="unidad_tabla" required>                                  
                                 </select>                            
                             </div>
                             <p class="formulario__input-error">seleccione una unidad de medida.</p>
@@ -94,8 +93,24 @@
                     
                     
                 </table>
+                {% if messages %}
+                <div class="formulario__mensaje formulario__mensaje-activo" id="formulario__mensaje">
+                    {% for message in messages %}
+                        <p class="{{ message.tags }}  "><i class="fas fa-exclamation-triangle"></i><b>Error:</b>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
                 <form  class="needs-validation " id="formulario_insumo_restar" method="POST">
                     {% csrf_token %}
+                    <div>
+                        <div class="formulario__mensaje" id="formulario__mensaje">
+                            <p><i class="fas fa-exclamation-triangle"></i> <b> Error: </b> {{ message }}</p>
+                        </div>
+                        <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+                            <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
+                        </div>
+                    </div>
                     <div>
                         <button type="submit" name="boton_restar_insumo" id="boton_restar_insumo" class="btn-modificar" >
                         <i class="fa-solid fa-pen-to-square fa-sm me-2" ></i>Restar insumos
@@ -109,14 +124,6 @@
                         {{form}}
                         </div>
                         {% endfor %}
-                    </div>
-                    <div>
-                        <div class="formulario__mensaje" id="formulario__mensaje">
-                            <p><i class="fas fa-exclamation-triangle"></i><b>Error:</b>Rellena el formulario correctamente. </p>
-                        </div>
-                        <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
-                            <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
-                        </div>
                     </div>
                 </form>
                 
