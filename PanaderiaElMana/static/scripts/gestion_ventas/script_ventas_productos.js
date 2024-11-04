@@ -70,7 +70,7 @@ function agregarFormularioProducto(){
         if(e.target === $botonAgregarProducto){
             e.preventDefault();
             const template = $formsetContainer.children[0].cloneNode(true);
-    
+            console.log($formsetContainer.children)
             // Limpiar los valores del formulario clonado
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="precioActual"]').forEach(input => input.value = '');
             template.querySelectorAll('[id^="id_itemproducto_set"][id$="cantidad"]').forEach(input => {
@@ -81,7 +81,9 @@ function agregarFormularioProducto(){
                 span.dataset.valido = true;
                 span.innerText = ""
             });
-            template.querySelector("#spanCantMaxima").innerText = ""
+            template.querySelectorAll('#spanCantMaxima').forEach((span) => {
+                span.innerText = ""
+            });
             $formsetContainer.appendChild(template);
             updateFormIndexes();
         }

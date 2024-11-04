@@ -19,6 +19,7 @@
     <main id="main">
 		<form method="POST" class="formulario" id="formulario">
             {% csrf_token %}
+            <input type="hidden" name="id_usuario" value="{{ id_usuario }}">
             <div class="card-header navbar-dark ">
                 {% if messages %}
                 <ul class="messages">
