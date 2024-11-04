@@ -84,6 +84,7 @@ function agregarFormularioProducto(){
             template.querySelectorAll('#spanCantMaxima').forEach((span) => {
                 span.innerText = ""
             });
+            template.querySelectorAll("#btnEliminarProducto").forEach((button) => button.classList.remove("ocultar"))
             $formsetContainer.appendChild(template);
             updateFormIndexes();
         }
@@ -156,6 +157,7 @@ function ocultarDelete(){
 
 function controlFormsProducto(){
     const $gruposProductos = d.querySelectorAll(".grupoProducto")
+    console.log($gruposProductos)
     return $gruposProductos.length > 1;
 }
 

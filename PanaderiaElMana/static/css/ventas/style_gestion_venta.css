@@ -76,6 +76,10 @@ h1{
     display: none;
 }
 
+.ocultar{
+    visibility: hidden;
+}
+
 #btnEliminarProducto{
     padding: 1px;
     transform: translateX(200%);
