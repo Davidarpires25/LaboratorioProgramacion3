@@ -49,7 +49,7 @@ class PedidoForm(forms.ModelForm):
 class ItemInsumoForm(forms.ModelForm):
     insumo = forms.ModelChoiceField(
         queryset=Insumo.objects.filter(estado=True),
-        empty_label="Seleccione",  # Filtra solo los insumos activos
+        empty_label="Seleccione",  
         widget=forms.Select(attrs={
             'class': 'formulario__input',
           
@@ -57,18 +57,18 @@ class ItemInsumoForm(forms.ModelForm):
  
     )
     UNIDAD_CHOICE = [("", "Seleccione"),
-                     ("Kilogramos","Kg"),
-                     ("Gramos","g"),
-                     ("Litros","L"),
-                     ("Mililitros","ml"),
-                     ("Unidades","u")
+                     ("Kilogramos","Kilogramos"),
+                     ("Gramos","Gramos"),
+                     ("Litros","Litros"),
+                     ("Mililitros","Mililitros"),
+                     ("Unidades","Unidades")
                     ]
     
     unidad_medida=forms.ChoiceField(
                 choices=UNIDAD_CHOICE,
                 widget=forms.Select(attrs={
                     'class': 'formulario__input'
-                }))
+    }))
     
     class Meta:
         model = ItemInsumo
@@ -120,11 +120,21 @@ ItemInsumoFormSet = inlineformset_factory(
 
 
 class InsumoForm(forms.ModelForm):
-
+    UNIDAD_CHOICE = [("", "Seleccione"),
+                     ("Kilogramos","Kilogramos"),
+                     ("Unidades","Unidades"),
+                    ]
+    
+    unidad_medida=forms.ChoiceField(
+        choices=UNIDAD_CHOICE,
+        widget=forms.Select(attrs={
+        'class': 'formulario__input'
+    }))
+    
     class Meta:
 
         model = Insumo
-        fields = ['descripcion', 'cantidad','cantidad_minima']
+        fields = ['descripcion', 'cantidad','cantidad_minima','unidad_medida']
 
         widgets = {
 
@@ -139,8 +149,9 @@ class InsumoForm(forms.ModelForm):
             }),
              'cantidad_minima': forms.NumberInput(attrs={
                 'class': 'formulario__input', 
-                'id': 'cantidad_insumo',
+                'id': 'cantidad_minima_insumo',
             })
+            
         }
 
 
@@ -156,10 +167,8 @@ class RestarInsumoForm(forms.ModelForm):
     )
     UNIDAD_CHOICE = [("", "Seleccione"),
                      ("Kilogramos","Kg"),
-                     ("Gramos","g"),
-                     ("Litros","L"),
-                     ("Mililitros","ml"),
-                     ("Unidades","u")
+                     ("Unidades","Unidades"),
+                     
                     ]
     
     unidad_medida=forms.ChoiceField(

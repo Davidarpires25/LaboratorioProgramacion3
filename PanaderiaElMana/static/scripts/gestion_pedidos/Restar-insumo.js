@@ -23,7 +23,14 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const $formulario= document.querySelector('#formulario_insumo_restar')
     const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
+    const $unidadInsumoSelect = document.getElementById("insumo_tabla");
 
+
+
+    $unidadInsumoSelect.addEventListener("change",(e)=>{
+        agregarOption(e.target);
+
+    })
 
 
 
@@ -80,6 +87,22 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 });
 
 
+function agregarOption(insumoSelect) {
+    console.log('hola')
+    const $SelectUnidad = document.querySelector("#unidad_tabla");
+    while ($SelectUnidad.firstChild) {
+        $SelectUnidad.removeChild($SelectUnidad.firstChild);
+    }
+    const selectedOption = insumoSelect.options[insumoSelect.selectedIndex];
+    const unidadMedida = selectedOption.dataset.unidadmedida;
+
+    if (unidadMedida) {
+        const option = document.createElement("option");
+        option.value = unidadMedida;
+        option.textContent = unidadMedida;
+        $SelectUnidad.appendChild(option);
+    }
+}
 
 
 
@@ -237,7 +260,6 @@ function habilitarEdicion(button) {
     }
     cantidadCell.innerHTML = `<input type="number" class="tabla__input" id="cantidad_editar" value="${cantidadActual}">`;
 
-    // Cambiar el botón "Modificar" a "Guardar"
     button.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" fill="white" class="bi bi-floppy-fill" viewBox="0 0 16 16">
         <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
@@ -246,9 +268,28 @@ function habilitarEdicion(button) {
     button.classList.remove("edit-button");
     button.classList.add("save-button");
     
+    insumoSelect.addEventListener("change", () => {
+        actualizarUnidadSelect(insumoSelect, unidadSelect);
+    });
     button.onclick = function() {
         guardarEdicion(button);
     };
+}
+
+function actualizarUnidadSelect(insumoSelect, unidadSelect) {
+    while (unidadSelect.firstChild) {
+        unidadSelect.removeChild(unidadSelect.firstChild);
+    }
+
+    const selectedOption = insumoSelect.options[insumoSelect.selectedIndex];
+    const unidadMedida = selectedOption.dataset.unidadmedida;
+
+    if (unidadMedida) {
+        const option = document.createElement("option");
+        option.value = unidadMedida;
+        option.textContent = unidadMedida;
+        unidadSelect.appendChild(option);
+    }
 }
 
 function guardarEdicion(button) {

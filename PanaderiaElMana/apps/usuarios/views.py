@@ -27,10 +27,12 @@ def login_view(request):
             return render(request, "usuarios/login.html", {"msj": "Credenciales incorrectas"}) 
     return render(request, "usuarios/login.html")
 
+
+
 @login_required
 def logout_view(request):
     logout(request)
-    return render(request, "usuarios/login.html", {"msj": "Deslogueado"})
+    return redirect("usuarios:login")
 
 
 @login_required

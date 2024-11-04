@@ -29,7 +29,7 @@
                                 <select class="formulario__input" id="insumo_tabla" name="insumo_tabla" required>
                                     <option value>Seleccione</option>
                                     {% for insumo in insumos %}
-                                        <option value="{{ insumo.id }}" data-cantidad="{{ insumo.cantidad }}" >{{ insumo.descripcion }}</option>
+                                        <option value="{{ insumo.id }}" data-cantidad="{{ insumo.cantidad }}" data-unidadmedida="{{ insumo.unidad_medida }}">{{ insumo.descripcion }}</option>
                                     {% endfor %}
                                 </select>
                                 
@@ -40,12 +40,7 @@
                             <label for="unidad_tabla" class="formulario__label">Unidad</label>
                             <div class="formulario__grupo-input">
                                 <select class="formulario__input" id="unidad_tabla" name="unidad_tabla" required>
-                                    <option value="" selected="">Seleccione</option>
-                                    <option value="Kilogramos">Kg</option>
-                                    <option value="Gramos">g</option>
-                                    <option value="Litros">L</option>
-                                    <option value="Mililitros">ml</option>
-                                    <option value="Unidades">u</option>          
+                                           
                                 </select>                            
                             </div>
                             <p class="formulario__input-error">seleccione una unidad de medida.</p>

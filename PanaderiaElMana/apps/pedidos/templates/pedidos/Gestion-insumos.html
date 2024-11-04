@@ -43,23 +43,45 @@
                             <label for="desc_producto" class="formulario__label">Descripción del insumo</label>
                             <div class="formulario__grupo-input">
                                 {{ insumo_form.descripcion}}
+                                <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
+                            <p class="formulario__input-error">Ingrese una descripcion correcta.</p>
+
                         </div>
 
-                        <div class="formulario__grupo" id="grupo__precioProducto">
-                            <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
+                        <div class="formulario__grupo" id="grupo__cantidad">
+                            <label for="cantidad" class="formulario__label">Cantidad disponible</label>
                             <div class="formulario__grupo-input">
                                 {{ insumo_form.cantidad}}
+                                <i class="formulario__validacion-estado fas fa-times-circle"></i>
                             </div>
+                            <p class="formulario__input-error">Ingrese una cantidad valida.</p>
                         </div>
-
-                        <div class="formulario__grupo" id="grupo__precioProducto">
-                            <label for="cant_producto" class="formulario__label">Cantidad Minima</label>
+                        <div class="formulario__grupo" id="grupo__cantidad_minima">
+                            <label for="cantidad_minima" class="formulario__label">Cantidad Minima</label>
                             <div class="formulario__grupo-input">
                                 {{insumo_form.cantidad_minima}}
+                                <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formulario__input-error">Ingrese una cantidad minima valida.</p>
+
+                        </div>
+                        <div class="formulario__grupo" id="grupo__unidadMedida">
+                            <label for="unidadMedida" class="formulario__label">Unidad de medida</label>
+                            <div class="formulario__grupo-input">
+                                {{ insumo_form.unidad_medida }}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="formulario__mensaje" id="formulario__mensaje">
+                                <p><i class="fas fa-exclamation-triangle"></i><b>Error:</b>Rellena el formulario correctamente. </p>
+                            </div>
+                            <div class="formulario__mensaje-exito" id="formulario__mensaje-exito">
+                                <p><i class="fas fa-exclamation-triangle"></i> Formulario enviado exitosamente!</p>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
 
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
@@ -77,6 +99,7 @@
                             <th>Descripción</th>
                             <th>Cantidad</th>
                             <th>Cantidad Minima</th>
+                            <th>Unidad Medida</th>
                             {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
                             <th>Acciones</th>
                             {% endif %}
@@ -88,6 +111,7 @@
                             <td>{{ insumo.descripcion }}</td>
                             <td>{{ insumo.cantidad|floatformat:0 }}</td>
                             <td>{{ insumo.cantidad_minima|floatformat:0 }}</td>
+                            <td>{{ insumo.unidad_medida }}</td>
                             {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'pedidos:editar_insumos' insumo.id %}" style="color: white;">
@@ -105,6 +129,7 @@
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

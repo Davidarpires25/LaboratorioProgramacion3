@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const $main= document.querySelector('#main')
     const addButton = document.getElementById('add-form');
     const formsetContainer = document.getElementById('formset-container');
+    const $unidadInsumoSelect = document.getElementById("insumo_tabla");
+
+
+
+    $unidadInsumoSelect.addEventListener("change",(e)=>{
+        agregarOption(e.target);
+
+    })
 
 
 
@@ -101,6 +109,21 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
 
 
+function agregarOption(insumoSelect) {
+    const $SelectUnidad = document.querySelector("#unidad_tabla");
+    while ($SelectUnidad.firstChild) {
+        $SelectUnidad.removeChild($SelectUnidad.firstChild);
+    }
+    const selectedOption = insumoSelect.options[insumoSelect.selectedIndex];
+    const unidadMedida = selectedOption.dataset.unidadmedida;
+
+    if (unidadMedida) {
+        const option = document.createElement("option");
+        option.value = unidadMedida;
+        option.textContent = unidadMedida;
+        $SelectUnidad.appendChild(option);
+    }
+}
 
 
 function validarCampo(expresion, input, campo){
@@ -258,11 +281,33 @@ function habilitarEdicion(button) {
         </svg> `;
     button.classList.remove("edit-button");
     button.classList.add("save-button");
-
+    
+    actualizarUnidadSelect(insumoSelect, unidadSelect)
+    insumoSelect.addEventListener("change", () => {
+        actualizarUnidadSelect(insumoSelect, unidadSelect);
+    });
+    
     button.onclick = function() {
         guardarEdicion(button);
     };
 }
+
+function actualizarUnidadSelect(insumoSelect, unidadSelect) {
+    while (unidadSelect.firstChild) {
+        unidadSelect.removeChild(unidadSelect.firstChild);
+    }
+
+    const selectedOption = insumoSelect.options[insumoSelect.selectedIndex];
+    const unidadMedida = selectedOption.dataset.unidadmedida;
+
+    if (unidadMedida) {
+        const option = document.createElement("option");
+        option.value = unidadMedida;
+        option.textContent = unidadMedida;
+        unidadSelect.appendChild(option);
+    }
+}
+
 
 function guardarEdicion(button) {
     const row = button.closest("tr");
