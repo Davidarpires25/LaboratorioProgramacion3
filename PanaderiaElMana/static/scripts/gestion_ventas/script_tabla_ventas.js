@@ -6,6 +6,21 @@ d.addEventListener("click", function(e){
         let idVenta = e.target.dataset.id;
         window.location.href = idVenta
     }
+    if(e.target === d.getElementById("btnGenerarInforme")){
+        const $elementosOcultar = d.querySelectorAll(".no-informe");
+        for(let elemento of $elementosOcultar){
+            elemento.classList.add("ocultar");
+        }
+        e.target.classList.add("ocultar");
+        setTimeout(function(){
+            for(let elemento of $elementosOcultar){
+                elemento.classList.remove("ocultar");
+            }
+            e.target.classList.remove("ocultar");
+        }, 1000);
+        
+        window.print()
+    }
 })
 
 function confirmCancel(enlace) {
@@ -26,3 +41,4 @@ function confirmCancel(enlace) {
         }
     });
 }
+
