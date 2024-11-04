@@ -256,6 +256,8 @@ def restarInsumos(request):
         'insumos':insumos
     })
  
+@login_required
+@permission_required('pedidos.view_insumo', raise_exception=True)
 def informeInsumos(request):
     productos = Insumo.objects.filter(estado=True)
 

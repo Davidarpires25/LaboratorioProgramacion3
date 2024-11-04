@@ -99,6 +99,8 @@ def eliminarProductos(request, pk):
         messages.error(request, "La cancelación no se pudo completar.")
         return redirect('productos:gestionarProductos')
 
+@login_required
+@permission_required('pedidos.view_producto', raise_exception=True)
 def informeProductos(request):
     productos = Producto.objects.filter(estado=True)
 
