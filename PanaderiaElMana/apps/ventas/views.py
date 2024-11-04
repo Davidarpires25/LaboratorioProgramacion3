@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
-from django.db.models import Prefetch
+from django.db.models import Prefetch, F
 from django.urls import reverse
 from .forms import ventasForm, ItemProductoFormSet
 from .models import itemMayorista, Venta, ItemProducto, Mayorista, itemUsuario
@@ -56,7 +56,14 @@ def registroVentas(request):
 @login_required
 @permission_required('ventas.view_venta', raise_exception=True)
 def informeVentas(request):
-    ventas = Venta.objects.all().order_by('-id')
+    ventas = Venta.objects.filter(itemusuario__isnull=False).select_related(
+        'itemusuario__usuario'
+    ).annotate(
+        username=F('itemusuario__usuario__username')
+    ).values(
+        'id', 'numeroComprobante', 'FechaVenta', 'precioTotal',
+        'observaciones', 'tipo_venta', 'tipo_comprobante', 'forma_pago', 'estado', 'username'
+    )
     return render (request, 'ventas/Lista_ventas.html',{
         'ventas': ventas
     })   
@@ -74,7 +81,8 @@ def detalleVenta(request, id):
         .filter(id=id)  # Filtra solo la venta específica
         .select_related("itemmayorista__mayorista_cuit")  # Para acceder a los datos del mayorista
         .prefetch_related(
-            Prefetch("itemproducto_set", queryset=ItemProducto.objects.select_related("producto"))
+            Prefetch("itemproducto_set", queryset=ItemProducto.objects.select_related("producto")),
+            Prefetch("itemusuario_set", queryset=itemUsuario.objects.select_related("usuario"))
         )
         .values(
             "id", 
@@ -95,7 +103,11 @@ def detalleVenta(request, id):
             "itemproducto__producto__categoria", 
             # Campos de Mayorista
             "itemmayorista__mayorista_cuit__cuit", 
-            "itemmayorista__mayorista_cuit__razon_social"
+            "itemmayorista__mayorista_cuit__razon_social",
+            # Campos de Usuario asociado
+            "itemusuario__usuario__cuit", 
+            "itemusuario__usuario__username", 
+            "itemusuario__usuario__email"
         )
     )
     return render(request, 'ventas/Detalles_venta.html', {'venta_productos':venta_productos})
