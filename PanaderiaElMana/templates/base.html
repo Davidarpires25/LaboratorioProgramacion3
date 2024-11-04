@@ -106,7 +106,7 @@
                         {% endif %}
                         {% if perms.productos.view_producto %}
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Listado de productos vendidos</a>
+                            <a href="{% url 'productos:informe_productos' %}" class="sidebar-link">Listado de productos</a>
                         </li>
                         {% endif %}
                         {% if perms.pedidos.view_insumo %}

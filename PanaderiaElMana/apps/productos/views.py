@@ -7,6 +7,7 @@ from .models import Producto
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required,permission_required
 from django.db.models import F
+from django.db.models.functions import Abs
 
 
 @login_required
@@ -98,3 +99,23 @@ def eliminarProductos(request, pk):
         messages.error(request, "La cancelación no se pudo completar.")
         return redirect('productos:gestionarProductos')
 
+def informeProductos(request):
+    productos = Producto.objects.filter(estado=True)
+
+    # Filtrar por categoría (si se proporciona)
+    categoria = request.GET.get('categoria')
+    if categoria:
+        productos = productos.filter(categoria=categoria)
+
+    # Ordenar por cantidad disponible (cantidad - cantidad_minima)
+    orden = request.GET.get('orden')
+    if orden == 'asc':
+        productos = productos.order_by(Abs(F('cantidad') - F('cantidad_minima')))
+    elif orden == 'desc':
+        productos = productos.order_by(Abs(F('cantidad') - F('cantidad_minima'))).reverse()
+
+    return render(request, 'productos/Informe-productos.html', {
+        'productos': productos,
+        'categoria_seleccionada': categoria,
+        'orden': orden
+    })
