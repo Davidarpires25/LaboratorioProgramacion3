@@ -64,6 +64,15 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="formulario__grupo" id="grupo__precioProducto">
+                            <label for="cant_producto" class="formulario__label">Cantidad disponible</label>
+                            <div class="formulario__grupo-input">
+                                {{ form.unidad_medida }}
+                                {% for error in form.cantidad.errors %}
+                                    <div class="error"><p>Ingresa una cantidad válida</p></div>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -82,6 +91,7 @@
                             <th>Descripción</th>
                             <th>Cantidad</th>
                             <th>Cantidad minima</th>
+                            <th>Unidad Medida</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -91,6 +101,8 @@
                             <td>{{ insumo.descripcion }}</td>
                             <td>{{ insumo.cantidad|floatformat:0 }}</td>
                             <td>{{ insumo.cantidad_minima|floatformat:0 }}</td>
+                            <td>{{ insumo.unidad_medida }}</td>
+                            {% if perms.pedidos.add_insumo and perms.pedidos.change_insumo and perms.pedidos.delete_insumo %}
                             <td class="action-item-list">
                                 <button class="action-button edit-button"><a href="{% url 'pedidos:editar_insumos' insumo.id %}" style="color: white;">
                                     <i class="fas fa-edit" style="color: white;"></i></button>
@@ -99,13 +111,16 @@
                                     {% csrf_token %}
                                     <button type="button" class="action-button delete-button" onclick="confirmCancel(`{% url 'pedidos:eliminar_insumos' insumo.id %}`)"><i class="fas fa-trash-alt" style="color: #ffffff;"></i></button>
                                 </form>
-                            </td>       
+                            </td>
+                            {% endif %}       
+       
                         </tr>
                         {% endfor %}
                         
                     </tbody>
                     <tfoot>          
                         <tr class="total-row" id="foot-tr">
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
