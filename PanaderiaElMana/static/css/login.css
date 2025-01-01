@@ -9,6 +9,11 @@ body, html {
     height: 100%;
 }
 
+.login-container{
+    background-image: url("../img/log.jpg");
+    background-size: cover;
+}
+
 .container {
     display: flex;
     min-height: 100vh;
@@ -54,7 +59,7 @@ h1 {
 }
 
 .form-background {
-    background-color: rgba(240, 240, 240, 0.4);
+    background-color: rgba(240, 240, 240, 0.912);
     padding: 20px;
     border-radius: 8px;
     max-width: 450px;
